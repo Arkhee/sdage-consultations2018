@@ -70,7 +70,7 @@ label { display:block; padding:3px; }
 .detail_tables {  float:left; width:750px; padding:0px;  }
 #mainContent { margin-left:180px; }
 .mdtb_form_table { margin:0px; margin-bottom:10px; padding:0px; width:750px;  float:left; margin-top:5px;  }
-.mdtb_form_table { border:1px solid #666666; }
+.mdtb_form_table { border:1px solid #666666; width:100%; }
 .mdtb_form_table thead th { background-color:#EAEAEA; border-bottom:1px dashed #666666;}
 .mdtb_form_table tfoot tr td { background-color:#EAEAEA; border-top:1px dashed #666666;}
 .mdtb_form_table td, .mdtb_form_table th { padding:4px; text-align:left; }
