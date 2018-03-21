@@ -1,0 +1,7 @@
+AuthUserFile "/var/www/sie/sie-charte-2009/milieux-continentaux/eaux-souterraines/admin/local.procedures/private/.htpasswd"
+AuthGroupFile /dev/null
+AuthName "Accès Restreint"
+AuthType Basic
+<Limit GET POST>
+require valid-user
+</Limit>

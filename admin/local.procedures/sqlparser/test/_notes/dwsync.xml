@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="AllTests.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601060000" remote="129019751400000000" Dst="-1" />
+<file name="Environment_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601540000" remote="129019751400000000" Dst="-1" />
+<file name="FailTest.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601100000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_blowfish_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601000000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_escapeJsString_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601300000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_escapeMySqlWildcards_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601250000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_generateCommonUrl_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601400000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_get_real_size_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601640000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_isValid_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601600000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_pow_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601350000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_sanitize_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601440000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_STR_sub_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601160000" remote="129019751400000000" Dst="-1" />
+<file name="PMA_transformation_getOptions_test.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601210000" remote="129019751400000000" Dst="-1" />
+<file name="theme.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058601500000" remote="129019751400000000" Dst="-1" />
+<file name="AllTests.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="Environment_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="FailTest.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_blowfish_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_escapeJsString_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_escapeMySqlWildcards_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_generateCommonUrl_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_get_real_size_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_isValid_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_pow_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_sanitize_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_STR_sub_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="PMA_transformation_getOptions_test.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="theme.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+</dwsync>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="mdtb_activites.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393010000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_adherents.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393860000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_annees_cotisation.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393750000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_associations.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393610000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_banques.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393520000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_cotisations.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393560000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_entreprises.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393700000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_lexique_options.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392910000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_lexique_types.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393650000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_liste_tarifaire.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393790000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_mode_reglement.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392850000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_reglement_type.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392680000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_rel_adherents_activites.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392960000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_rel_adherents_associations.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059393070000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_rel_options_cotisants.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392730000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_statut_reglement.class.php" server="sd2682.sivit.org//sie/mdosout/" local="129005059392800000" remote="129019742400000000" Dst="-1" />
+<file name="mdtb_activites.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_adherents.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_annees_cotisation.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_associations.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_banques.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_cotisations.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_entreprises.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_lexique_options.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_lexique_types.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_liste_tarifaire.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_mode_reglement.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_reglement_type.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_rel_adherents_activites.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_rel_adherents_associations.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_rel_options_cotisants.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mdtb_statut_reglement.class.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+</dwsync>

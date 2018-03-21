@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="config.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059975750000" remote="129019744800000000" Dst="-1" />
+<file name="connector.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059973310000" remote="129019744800000000" Dst="-1" />
+<file name="fckcommands.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059975800000" remote="129019744800000000" Dst="-1" />
+<file name="fckconnector.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059974260000" remote="129019744800000000" Dst="-1" />
+<file name="fckoutput.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059975420000" remote="129019744800000000" Dst="-1" />
+<file name="fckutil.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059975370000" remote="129019744800000000" Dst="-1" />
+<file name="htaccess.txt" server="sd2682.sivit.org//sie/mdosout/" local="129005059975470000" remote="129019744800000000" Dst="-1" />
+<file name="upload.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059975520000" remote="129019744800000000" Dst="-1" />
+<file name="wsgi.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059973260000" remote="129019744800000000" Dst="-1" />
+<file name="zope.py" server="sd2682.sivit.org//sie/mdosout/" local="129005059973360000" remote="129019745400000000" Dst="-1" />
+<file name="config.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="connector.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="fckcommands.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="fckoutput.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="fckutil.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="fckconnector.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="upload.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="wsgi.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="htaccess.txt" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="zope.py" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+</dwsync>

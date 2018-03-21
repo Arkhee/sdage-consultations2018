@@ -1,0 +1,36 @@
+<?php 
+ $TheArrayModules=array(
+"tpl_ae_massesdeau"=>("ae_massesdeau"),
+"tpl_ae_ss_ut"=>("ae_ss_ut"),
+"tpl_rel_ssbv_ss_ut"=>("rel_ssbv_ss_ut"),
+	 /*
+"tpl_caracteristiques_me"=>("caracteristiques_me"),
+"tpl_code_comgeo_nom_comgeo"=>("code_comgeo_nom_comgeo"),
+"tpl_code_comgeo__nom_comgeo"=>("code_comgeo__nom_comgeo"),
+"tpl_code_mes_code_comgeo"=>("code_mes_code_comgeo"),
+"tpl_code_mes__code_comgeo"=>("code_mes__code_comgeo"),
+"tpl_couche_sig"=>("couche_sig"),
+"tpl_departements_me"=>("departements_me"),
+"tpl_entites_hydrogeologiques_me"=>("entites_hydrogeologiques_me"),
+"tpl_extraction_requete_carte"=>("extraction_requete_carte"),
+"tpl_extraction_requete_me_risques"=>("extraction_requete_me_risques"),
+"tpl_extraction__requete_me_risques"=>("extraction__requete_me_risques"),
+"tpl_grille_nabe"=>("grille_nabe"),
+"tpl_lexique_departements_rmc"=>("lexique_departements_rmc"),
+"tpl_lexique_lithologie"=>("lexique_lithologie"),
+"tpl_lexique_me_plan_eau"=>("lexique_me_plan_eau"),
+"tpl_lexique_me_sup_rmc"=>("lexique_me_sup_rmc"),
+"tpl_mdtb_groupes"=>("mdtb_groupes"),
+"tpl_mdtb_users"=>("mdtb_users"),
+"tpl_mdtb_users_rights"=>("mdtb_users_rights"),
+"tpl_me_plan_eau_sout"=>("me_plan_eau_sout"),
+"tpl_me_strategiques_aep"=>("me_strategiques_aep"),
+"tpl_me_sup_sout"=>("me_sup_sout"),
+"tpl_notice"=>("notice"),
+"tpl_occupation_sols"=>("occupation_sols"),
+"tpl_synthese_prelevement_mdo"=>("synthese_prelevement_mdo"),
+"tpl_tablecorrection"=>("tablecorrection"),
+	  * 
+	  */
+);
+ 

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="bdb.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742080000" remote="129019750200000000" Dst="-1" />
+<file name="berkeleydb.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742120000" remote="129019750200000000" Dst="-1" />
+<file name="binlog.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742260000" remote="129019750200000000" Dst="-1" />
+<file name="innobase.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742350000" remote="129019750200000000" Dst="-1" />
+<file name="innodb.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742220000" remote="129019750200000000" Dst="-1" />
+<file name="memory.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742170000" remote="129019750200000000" Dst="-1" />
+<file name="merge.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742410000" remote="129019750200000000" Dst="-1" />
+<file name="mrg_myisam.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058741980000" remote="129019750200000000" Dst="-1" />
+<file name="myisam.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742450000" remote="129019750200000000" Dst="-1" />
+<file name="ndbcluster.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742030000" remote="129019750200000000" Dst="-1" />
+<file name="pbxt.lib.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058742310000" remote="129019750200000000" Dst="-1" />
+<file name="bdb.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="berkeleydb.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="binlog.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="innobase.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="memory.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="merge.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="innodb.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="mrg_myisam.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="myisam.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="ndbcluster.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="pbxt.lib.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+</dwsync>

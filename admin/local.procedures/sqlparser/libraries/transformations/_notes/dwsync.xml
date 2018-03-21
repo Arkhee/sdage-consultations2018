@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="application_octetstream__download.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763990000" remote="129019750800000000" Dst="-1" />
+<file name="application_octetstream__hex.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058765030000" remote="129019750800000000" Dst="-1" />
+<file name="generator.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058763830000" remote="129019750800000000" Dst="-1" />
+<file name="global.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763780000" remote="129019750800000000" Dst="-1" />
+<file name="image_jpeg__inline.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058762870000" remote="129019750800000000" Dst="-1" />
+<file name="image_jpeg__link.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763950000" remote="129019750800000000" Dst="-1" />
+<file name="image_png__inline.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058762770000" remote="129019750800000000" Dst="-1" />
+<file name="README" server="sd2682.sivit.org//sie/mdosout/" local="129005058763730000" remote="129019750800000000" Dst="-1" />
+<file name="TEMPLATE" server="sd2682.sivit.org//sie/mdosout/" local="129005058764680000" remote="129019750800000000" Dst="-1" />
+<file name="template_generator.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058763520000" remote="129019750800000000" Dst="-1" />
+<file name="template_generator_mimetype.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058764040000" remote="129019750800000000" Dst="-1" />
+<file name="TEMPLATE_MIMETYPE" server="sd2682.sivit.org//sie/mdosout/" local="129005058763430000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__dateformat.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058764640000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__external.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058764080000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__formatted.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058764590000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__imagelink.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763380000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__link.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058762820000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__longToIpv4.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763470000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__sql.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058763330000" remote="129019750800000000" Dst="-1" />
+<file name="text_plain__substr.inc.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058764360000" remote="129019750800000000" Dst="-1" />
+<file name="application_octetstream__download.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="application_octetstream__hex.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="global.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="generator.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="image_jpeg__inline.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="image_png__inline.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="image_jpeg__link.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="README" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="TEMPLATE" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="template_generator.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="TEMPLATE_MIMETYPE" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="template_generator_mimetype.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__dateformat.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__imagelink.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__external.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__formatted.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__link.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__longToIpv4.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__sql.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+<file name="text_plain__substr.inc.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783200000000" Dst="1" />
+</dwsync>

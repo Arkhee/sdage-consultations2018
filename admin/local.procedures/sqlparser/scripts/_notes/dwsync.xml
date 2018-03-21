@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="check_lang.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058243610000" remote="129019751400000000" Dst="-1" />
+<file name="convertcfg.pl" server="sd2682.sivit.org//sie/mdosout/" local="129005058244090000" remote="129019751400000000" Dst="-1" />
+<file name="create-release.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058244140000" remote="129019751400000000" Dst="-1" />
+<file name="create_tables.sql" server="sd2682.sivit.org//sie/mdosout/" local="129005058244180000" remote="129019751400000000" Dst="-1" />
+<file name="decode_bug.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058243660000" remote="129019751400000000" Dst="-1" />
+<file name="find_unused_messages.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058243020000" remote="129019751400000000" Dst="-1" />
+<file name="lang-cleanup.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058242620000" remote="129019751400000000" Dst="-1" />
+<file name="remove_control_m.sh" server="sd2682.sivit.org//sie/mdosout/" local="129005058242710000" remote="129019751400000000" Dst="-1" />
+<file name="signon.php" server="sd2682.sivit.org//sie/mdosout/" local="129005058243510000" remote="129019751400000000" Dst="-1" />
+<file name="upgrade.pl" server="sd2682.sivit.org//sie/mdosout/" local="129005058242670000" remote="129019751400000000" Dst="-1" />
+<file name="upgrade_tables_mysql_4_1_2+.sql" server="sd2682.sivit.org//sie/mdosout/" local="129005058243560000" remote="129019751400000000" Dst="-1" />
+<file name="check_lang.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="convertcfg.pl" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="create-release.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="create_tables.sql" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="decode_bug.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="find_unused_messages.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="lang-cleanup.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="remove_control_m.sh" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="signon.php" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="upgrade.pl" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+<file name="upgrade_tables_mysql_4_1_2+.sql" server="ovh.rhone-mediterranee.eaufrance.fr//httpdocs/" local="130909777960000000" remote="131659783800000000" Dst="1" />
+</dwsync>
