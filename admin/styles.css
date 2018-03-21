@@ -67,7 +67,7 @@ label { display:block; padding:3px; }
     padding-left:10px;
 }
 
-.detail_tables {  float:left; width:750px; padding:0px;  }
+.detail_tables {  float:left; width:100%; padding:0px;  }
 #mainContent { margin-left:180px; }
 .mdtb_form_table { margin:0px; margin-bottom:10px; padding:0px; width:750px;  float:left; margin-top:5px;  }
 .mdtb_form_table { border:1px solid #666666; width:100%; margin-top:5px; }
@@ -77,7 +77,7 @@ label { display:block; padding:3px; }
 
 .mdtb_form_htmlfield { width:500px; height:300px; }
 .mdtb_form_fieldlabel, .mdtb_footer_row, .mdtb_header_row { background-color:#EAEAEA; width:150px; }
-.mdtb_form_fieldvalue { border:1px solid #FAFAFA; width:600px; }
+.mdtb_form_fieldvalue { border:1px solid #FAFAFA; /* width:600px;  */}
 .mdtb_form_textfield { width:80%; }
 .mdtb_header_current { font-style:italic;}
 
