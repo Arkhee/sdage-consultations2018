@@ -16,12 +16,14 @@ $db_host="localhost";
 $db_prefix="mdtb_";
 */
 // Localised date parameters
+if(!isset($TheDatePref)) $TheDatePref=new stdClass();
 $TheDatePref->SelFormat="dd/MM/yyyy";
 $TheDatePref->JSSelFormat="dd/mm/yy";
 $TheDatePref->DispFormat="d/m/Y";
 $TheDatePref->ScanFormat="%d/%d/%d";
 $TheDatePref->ScanOrder="dmy";
 $TheDatePref->FunctionCheck="chkISODate"; // chkISODate
+if(!isset($ThePrefs)) $ThePrefs=new stdClass();
 $ThePrefs->style_box="";
 $ThePrefs->lang="fr";
 $ThePrefs->encoding="UTF-8";

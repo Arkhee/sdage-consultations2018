@@ -73,9 +73,9 @@ class database {
 		$this->_table_prefix = $table_prefix;
 		
 		
-		mysql_query($this->_resource,"SET NAMES 'utf8'"); 
-		mysql_query($this->_resource,"SET CHARACTER SET utf8");  
-		mysql_query($this->_resource,"SET SESSION collation_connection = 'utf8_unicode_ci'"); 
+		mysql_query("SET NAMES 'utf8'",$this->_resource); 
+		mysql_query("SET CHARACTER SET utf8",$this->_resource);  
+		mysql_query("SET SESSION collation_connection = 'utf8_unicode_ci'",$this->_resource); 
 	}
 /**
 * Execute a database query and returns the result
