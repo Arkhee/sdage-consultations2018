@@ -1,12 +1,12 @@
-<p align="justify">Ce référentiel a été réalisé pour l'état des lieux du SDAGE 2016-2021.</p>
+<p align="justify">Ce rÃ©fÃ©rentiel a Ã©tÃ© rÃ©alisÃ© pour l'Ã©tat des lieux du SDAGE 2016-2021.</p>
 	<form id="formRecherche" name="formRecherche" method="post" action="{FORM_PAGE}">
 		<label>
 		<input type="text" name="txtRecherche" id="txtRecherche" style="width:300px;" />
 	    <input type="submit" name="cmdOk" value="Recherche" />
 	  </label>
-		<span onclick="jQuery('#rechercheavancee').toggle();" style="cursor:pointer;text-decoration: underline;"><i class="fas fa-plus-square"></i>Recherche avancée</span>
+		<span onclick="jQuery('#rechercheavancee').toggle();" style="cursor:pointer;text-decoration: underline;"><i class="fas fa-plus-square"></i>Recherche avancÃ©e</span>
 		<div id="rechercheavancee" style="display:none;">
-			Critères de recherche avancés
+			CritÃ¨res de recherche avancÃ©s
 		</div>
 	  <input type="hidden" name="section" id="section" value="search" />
   </form>

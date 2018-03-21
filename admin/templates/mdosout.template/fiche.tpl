@@ -1,10 +1,10 @@
 <script type="text/javascript">
 $(document).ready(function() {  $("#tabs").tabs(); } );
 </script>
-<h2>Fiche de caractérisation - Masse d'eau souterraine n°{code_me}</h2>
-<em><a href="fiches/{code_me}_fic.pdf" target="_blank">Télécharger la fiche au format PDF</a></em>&nbsp; - &nbsp;
-<a href="{FORM_PAGE}?section=search&txtRecherche={texte_recherche}">Retour à la recherche par critères</a>&nbsp; - &nbsp;
-<a href="../syntheses/db_mesout.php" style="display:none;">Retour à la recherche cartographique</a>
+<h2>Fiche de caractÃ©risation - Masse d'eau souterraine nÂ°{code_me}</h2>
+<em><a href="fiches/{code_me}_fic.pdf" target="_blank">TÃ©lÃ©charger la fiche au format PDF</a></em>&nbsp; - &nbsp;
+<a href="{FORM_PAGE}?section=search&txtRecherche={texte_recherche}">Retour Ã  la recherche par critÃ¨res</a>&nbsp; - &nbsp;
+<a href="../syntheses/db_mesout.php" style="display:none;">Retour Ã  la recherche cartographique</a>
 <br/><br/>
 <body>
 <h2 class="titreBleu">{libelle_me}</h2>
@@ -56,7 +56,7 @@ $(document).ready(function() {  $("#tabs").tabs(); } );
 					<br>
 				</li>
 				<li>
-				<strong>Départements et régions concernés :</strong>
+				<strong>DÃ©partements et rÃ©gions concernÃ©s :</strong>
 				<blockquote>
 				<table width="350" border="0" cellspacing="0" cellpadding="5" class="mdtb_form_table">
 							<tr>
@@ -114,7 +114,7 @@ $(document).ready(function() {  $("#tabs").tabs(); } );
 				</div>
 				</li>
 				<li>
-				<strong>Caractéristiques principales de la masse d'eau souterraine :</strong> 
+				<strong>CaractÃ©ristiques principales de la masse d'eau souterraine :</strong> 
 				{etat_hydraulique}</li>
 				<li><strong>Caract&eacute;ristique secondaires de la masse d'eau souterraines :</strong><br>
 				<blockquote><table width="400"  border="0" cellspacing="0" cellpadding="5" class="mdtb_form_table">
@@ -234,7 +234,7 @@ $(document).ready(function() {  $("#tabs").tabs(); } );
 				<th scope="col"><div align="center">Date / Zone</div></th>
 				<th scope="col"><div align="center">Urbaine</div></th>
 				<th scope="col"><div align="center">Agricole</div></th>
-				<th scope="col"><div align="center">Forestière</div></th>
+				<th scope="col"><div align="center">ForestiÃ¨re</div></th>
 				<th scope="col"><div align="center">Industrielle</div></th>
 				<th scope="col"><div align="center">Autre</div></th>
 			</tr>

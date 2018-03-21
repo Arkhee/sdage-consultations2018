@@ -18,17 +18,17 @@
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=code_me&ssorder=DESC&txtRecherche={texte_recherche}"><img border="0" src="images/desc.gif" /></a>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
-			Libellé
+			LibellÃ©
             <a href="{FORM_PAGE}?section=search&ssfield=libelle_me&ssorder=ASC&txtRecherche={texte_recherche}"><img border="0" src="images/asc.gif" /></a>&nbsp;
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=libelle_me&ssorder=DESC&txtRecherche={texte_recherche}"><img border="0" src="images/desc.gif" /></a>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
-            N° Dép.
+            NÂ° DÃ©p.
             <a href="{FORM_PAGE}?section=search&ssfield=n__departement&ssorder=ASC&txtRecherche={texte_recherche}"><img border="0" src="images/asc.gif" /></a>&nbsp;
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=n__departement&ssorder=DESC&txtRecherche={texte_recherche}"><img border="0" src="images/desc.gif" /></a>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
-            Région
+            RÃ©gion
             <a href="{FORM_PAGE}?section=search&ssfield=nom__region&ssorder=ASC&txtRecherche={texte_recherche}"><img border="0" src="images/asc.gif" /></a>&nbsp;
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=nom__region&ssorder=DESC&txtRecherche={texte_recherche}"><img border="0" src="images/desc.gif" /></a>
         </th>

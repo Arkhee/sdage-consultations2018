@@ -4,9 +4,9 @@ require_once(_APP_ROOT_DIR_."includes/init.inc.php");
 /*
  * diren_mdosout
  * Created on 30 oct. 2009
- * Copyright  ©  2009 Yannick Bétemps yannick@alternetic.com
+ * Copyright  Â©  2009 Yannick BÃ©temps yannick@alternetic.com
  * www.alternetic.com
- * Author : Yannick Bétemps
+ * Author : Yannick BÃ©temps
  *
  * File : index.php
  * Description :
