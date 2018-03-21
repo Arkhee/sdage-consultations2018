@@ -1,1 +1,6 @@
 *.bak
+/_notes
+/admin/_archive
+/admin/local.classes/_archive
+/admin/local.classes/_notes
+/admin/local.data/_notes
