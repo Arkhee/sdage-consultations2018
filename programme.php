@@ -12,7 +12,6 @@ require_once(_APP_ROOT_DIR_."includes/init.inc.php");
  * Description :
  *
  */
-
  
 $path_pre="admin/";
 require_once($path_pre."config.inc.php");
