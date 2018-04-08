@@ -13,6 +13,7 @@ require_once(_APP_ROOT_DIR_."includes/init.inc.php");
  *
  */
 
+ 
 $path_pre="admin/";
 require_once($path_pre."config.inc.php");
 //require_once($path_pre."local.classes/sdage_metier.class.php");
