@@ -129,4 +129,4 @@ label { display:block; padding:3px; }
 	margin:0px; 
 }
 .child_table .menu_item { float:left; margin:0px; padding:0px; }
-
+.import .table_menu { display:none;}

@@ -18,7 +18,7 @@ class mdtb_ae_massesdeau extends mdtb_table
 		//$this->add_field("faq_date","dateauto_creation","","","",$i,$i,$i++);
 		$this->add_field("code_me","text","","","",$i,$i,$i++);
 		$this->add_field("libelle_me","text","","","",$i,$i,$i++);
-		$this->add_field("code_ssbv","reference","rel_ssbv_ss_ut","code_ssbv","code_ssbv",$i,$i,$i++);
+		$this->add_field("code_ssbv","reference","ae_ssbv","code_ssbv","code_ssbv",$i,$i,$i++);
 		//$this->add_field("a_synonyme_id_a_synonyme","reference","a_synonyme","id_a_synonyme","id_a_synonyme",1,1,1);
 		$this->add_field("categorie_me","text","","","",$i,$i,$i++);
 		$this->add_field("statut_me","text","","","",$i,$i,$i++);

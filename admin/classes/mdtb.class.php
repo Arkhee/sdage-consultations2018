@@ -53,6 +53,13 @@ class mdtb_table extends mosDBTable
 	var $_user_group;
 	var $_prefs=null;
 
+	public static function InitObject($class)
+	{
+		global $database,$template_name,$path_abs;
+		return new $class($database,$template_name,basename(__FILE__),$path_abs,true);
+	}
+	
+	
 	function init_begin()
 	{
 		if(!isset($this->_defaultparams)) $this->_defaultparams=new stdClass();
@@ -73,7 +80,7 @@ class mdtb_table extends mosDBTable
 		$this->_template_sections=array("menu"=>"menu","form"=>"form","ajaxsearchlist"=>"ajaxsearchlist","list"=>"list","detail"=>"detail");
 	}
 
-	function mdtb_table(&$database,$template_name,$script_name,$curpath="",$data_access_only=false)
+	function __construct(&$database,$template_name,$script_name,$curpath="",$data_access_only=false)
 	{
 		if(!is_object($database))
 			die("Erreur critique");
@@ -1808,7 +1815,7 @@ class mdtb_table extends mosDBTable
  *
  */
 
-	function htmlGetCombo($theName,$theKey,$theVal,$theSQLSearch,$theCurValue="",$theSetDefText=true,$theDefText="",$theClass="",$theParams="")
+	public function htmlGetCombo($theName,$theKey,$theVal,$theSQLSearch,$theCurValue="",$theSetDefText=true,$theDefText="",$theClass="",$theParams="")
 	{
 		$myComboList=array();
 		$myFieldsList=$this->recGetFieldsList();
@@ -1827,6 +1834,38 @@ class mdtb_table extends mosDBTable
 			}
 			//echo "Liste des valeurs : ".Tools::Display($myComboList);
 			return mdtb_forms::combolist($theName,$myComboList,$theCurValue,$theClass,$theParams);
+		}
+		return false;
+	}
+	
+	public function htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array(),$theSetDefText=true,$theDefText="",$theClass="",$theParams="")
+	{
+		$myComboList=array();
+		$myFieldsList=$this->recGetFieldsList();
+		//echo "Liste des valeurs : ".Tools::Display($myComboList);
+		$arrVals=explode(",",$theVal);
+		if(in_array($theKey,$myFieldsList) /* && in_array($theVal,$myFieldsList) */)
+		{
+			if($theSetDefText)
+				$myComboList[]=array("id"=>"","value"=>$theDefText);
+			$this->recSQLSearch($theSQLSearch);
+			if($this->recFirst())
+			{
+				do
+				{
+					$lblValue="";
+					foreach($arrVals as $curVal)
+					{
+						if(in_array($curVal,$myFieldsList))
+						{
+							$lblValue.=($lblValue!=""?" - ":"").$this->recGetValue($curVal);
+						}
+					}
+					if($lblValue!="") $myComboList[]=array("id"=>$this->recGetValue($theKey),"value"=>$lblValue);
+				} while($this->recNext());
+			}
+			//echo "Liste des valeurs : ".Tools::Display($myComboList);
+			return mdtb_forms::combolistmultiple($theName,$myComboList,$theValues,$theClass,$theParams);
 		}
 		return false;
 	}
@@ -4588,6 +4627,20 @@ class mdtb_forms
 		$myCombo.= "</select>";
 		return $myCombo;
 	}
+	
+	
+	function combolistmultiple($theName,$theList,$theDefaults=array(),$theClass="")
+	{
+		$myCombo = "<select name=\"".$theName."[]\" id=\"".$theName."\" class=\"".$theClass."\" multiple >\n";
+		if(count($theList)>0)
+			foreach($theList as $curoption)
+			{
+				$myCombo.= "<option value=\"".$curoption["id"]."\" ".((in_array((string)$curoption["id"],$theDefaults)?"selected":""))." >".$curoption["value"]."</option>\n";
+			}
+		$myCombo.= "</select>";
+		return $myCombo;
+	}
+
 
 	function comboarray($theName,$theList,$theDefault="",$theClass="")
 	{

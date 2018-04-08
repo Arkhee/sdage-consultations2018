@@ -1,6 +1,6 @@
 <?php
 
-class mdosout_metier
+class sdage_metier
 {
 	var $params=array();
 	var $db;
@@ -9,7 +9,7 @@ class mdosout_metier
 	var $code_me="";
 	var $caracteristriques_me="";
 	var $template=null;
-	var $template_filenames=array("accueil"=>"accueil.tpl","searchresult"=>"searchresult.tpl","fiche"=>"fiche.tpl");
+	var $template_filenames=array("accueil"=>"accueil.tpl","searchresult"=>"searchresult.tpl","fiche"=>"fiche.tpl","detail-pressions" => "detail-pressions.tpl");
 	var $template_name="mdosout.template";
 	var $path_pre="";
 	var $formPage="";
@@ -17,7 +17,20 @@ class mdosout_metier
 	var $msg_info="";
 	var $search_result=array();
 
-    function mdosout_metier(&$database,&$path_pre,$thePage="index.php")
+	public static $importColonnes=array(
+		"code_me"=>"Code masse d'eau",
+		"libelle_pression" => "Pression",
+		"impact_2016"=>"Classe d'impact SDAGE 2016 (1;2;3) ",
+		"impact_valeur_forcee"=>"Valeur forcée impact SDAGE 2016 O/N",
+		"impact_2019"=>"Classe d'impact EdL2019 (1;2;3)",
+		"rnaoe_2021"=>"RNAOE 2021 (O/N)",
+		"pression_origine_2021"=>"Pression à l'origine du risque 2021 (O/N)",
+		"rnaoe_2027"=>"RNAOE 2027 (O/N)",
+		"pression_origine_2027"=>"Pression à l'origine du risque 2027 (O/N)"
+	);
+
+	
+    public function __construct(&$database,&$path_pre,$thePage="index.php")
     {
     	$this->path_pre=$path_pre;
     	$this->formPage=basename($thePage);
@@ -30,10 +43,14 @@ class mdosout_metier
 		//echo "Objet template : ".Tools::Display($this->template);
     }
 
-    function bind($theParams)
+	public static function importGetListeColonnes()
+	{
+		return self::$importColonnes;
+	}
+	
+    public function bind($theParams)
     {
-    	if(!is_array($theParams) || count($theParams)<=0)
-    		return false;
+    	if(!is_array($theParams) || count($theParams)<=0) return false;
     	foreach($theParams as $key=>$value)
     	{
     		$this->params[$key]=$value;
@@ -41,13 +58,19 @@ class mdosout_metier
     	return true;
     }
 
-    function handle()
+    public function handle()
     {
     	if(isset($this->params["section"]) && $this->params["section"]!="")
     		$this->section=$this->params["section"];
 
     	switch($this->section)
     	{
+			case "avis":
+				$this->handle_Avis();
+				break;
+    		case "import":
+    			$this->handle_Import();
+    			break;
     		case "search":
     			$this->handle_Search();
     			break;
@@ -60,7 +83,7 @@ class mdosout_metier
     	}
     }
 
-    function handle_ZoneDetail()
+    public function handle_ZoneDetail()
     {
     	if(!isset($this->params['zoneFile']) || !isset($this->params["zoneCode"]) || $this->params["zoneCode"]=="" || $this->params["zoneFile"]=="")
     	   $this->zoneDetail=false;
@@ -189,7 +212,7 @@ class mdosout_metier
     	}
     }
 
-    function handle_Fiche()
+    public function handle_Fiche()
     {
     	if(isset($this->params["txtRecherche"]) && $this->params["txtRecherche"]!="")
     		$this->texte_recherche= $this->params["txtRecherche"];
@@ -200,7 +223,7 @@ class mdosout_metier
 
     }
 
-    function chargeME($theCodeME)
+    public function chargeME($theCodeME)
     {
     	if(trim($theCodeME)=="")
     		return false;
@@ -305,62 +328,280 @@ class mdosout_metier
     	return $myData;
     }
 
-    function handle_Search()
-    {
-    	if(isset($this->params["txtRecherche"]) && $this->params["txtRecherche"]!="")
-    		$this->texte_recherche= $this->params["txtRecherche"];
+	public function listeMassesDeau()
+	{
+		$mdo=mdtb_table::InitObject("mdtb_ae_massesdeau");
+		$mdo->recSQLSearch("1");
+		$arrMdo=array();
+		if($mdo->recFirst())
+		{
+			do
+			{
+				$arrMdo[$mdo->recGetValue("id_massedeau")]=$mdo->recGetRecord();
+			} while($mdo->recNext());
+		}
+		return $arrMdo;
+	}
+	public function chargeMassesDeau()
+	{
+		$mdo=mdtb_table::InitObject("mdtb_ae_massesdeau");
+		$mdo->recSQLSearch("1");
+		$arrMdo=array();
+		if($mdo->recFirst())
+		{
+			do
+			{
+				$arrMdo[$mdo->recGetValue("code_me")]=$mdo->recKeyValue();
+			} while($mdo->recNext());
+		}
+		return $arrMdo;
+	}
+	
+	public function chargePressions()
+	{
+		$pressions=mdtb_table::InitObject("mdtb_ae_pressions");
+		$pressions->recSQLSearch("1");
+		$arrPressions=array();
+		if($pressions->recFirst())
+		{
+			do
+			{
+				$arrPressions[$pressions->recGetValue("libelle_pression")]=$pressions->recKeyValue();
+			} while($pressions->recNext());
+		}
+		return $arrPressions;
+	}
+	
+	public function listePressions()
+	{
+		$pressions=mdtb_table::InitObject("mdtb_ae_pressions");
+		$pressions->recSQLSearch("1");
+		$arrPressions=array();
+		if($pressions->recFirst())
+		{
+			do
+			{
+				$arrPressions[$pressions->recKeyValue()]=$pressions->recGetValue("libelle_pression");
+			} while($pressions->recNext());
+		}
+		return $arrPressions;
+	}
+	
+	public function chargePressionsDeCSVEtConsolideListeAvecBase($csv)
+	{
+		
+		//die("Enregistrements actuels dans les pressions : ".print_r($arrPressions,true));
+		$listePressionsDansFichier=array();
+		$nbAjouts=0;
+		foreach($csv as $curData)
+		{
+			$listePressionsDansFichier[$curData["Pression"]]=$curData["Pression"];
+			if(isset($arrPressions[$curData["Pression"]]))
+			{
+				$listePressionsDansFichier[$arrPressions[$curData["Pression"]]]=$curData["Pression"];
+				unset($listePressionsDansFichier[$curData["Pression"]]);
+			}
+			/*
+			 * Array
+				(
+					[Code masse d'eau] => FRDR10040
+					[Pression] => Pollutions agricoles par les pesticides
+					[Classe d'impact SDAGE 2016 (1;2;3) ] => 2
+					[Valeur forcée impact SDAGE 2016 O/N] => O
+					[Classe d'impact EdL2019 (1;2;3)] => 1
+					[RNAOE 2021 (O/N)] => N
+					[Pression à l'origine du risque 2021 (O/N)] => N
+					[RNAOE 2027 (O/N)] => N
+					[Pression à l'origine du risque 2027 (O/N)] => N
+				)
+			 */
+		}
+		
+		foreach($listePressionsDansFichier as $keyCurPression => $valLblPression)
+		{
+			if($keyCurPression === $valLblPression)
+			{
+				$obj=new stdClass();
+				$obj->id_pression=null;
+				$obj->libelle_pression=$valLblPression;
+				$pressions=mdtb_table::InitObject("mdtb_ae_pressions");
+				$pressions->recNewRecord();
+				$pressions->recStore($obj);
+				$newId=$pressions->recKeyValue();
+				$listePressionsDansFichier[$newId]=$valLblPression;
+				unset($listePressionsDansFichier[$valLblPression]);
+			}
+		}
+		
+		$arrPressions=$this->chargePressions();
+		return $arrPressions;
+	}
+	
+	public function handle_Avis()
+	{
+		$action="$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();";
+		if($this->params["sauverAvis"]) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+		if($this->params["validerAvis"]) $action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+		$this->msg_info.="<script>
+			$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');
+			$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
+			".$action."	
+		 </script>";
+		//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
+		return false;
+	}
+	
+	public function handle_Import()
+	{
+		//echo "TRaitement de l'import sur params : <pre>".print_r($this->params,true)."</pre>";
+		if(!isset($this->params["import_echantillons"]))
+		{
+			$this->msg_info="Aucun fichier fourni"; // : <pre>".$requeteME."</pre>";
+			return false;
+		}
+		$csv=new CSV($this->params["import_echantillons"]["tmp_name"]);
+		if(!$csv->isRead())
+		{
+			$this->msg_info="Impossible de lire le fichier"; // : <pre>".$requeteME."</pre>";
+			return false;
+		}
+		$listeEntetes=$csv->getHeaders();
+		$entetesAutorises=self::importGetListeColonnes();
+		foreach($listeEntetes as $curEntete)
+		{
+			if(!in_array($curEntete,$entetesAutorises))
+			{
+				$this->msg_info="Erreur entete non trouvee : ".$curEntete; // : <pre>".$requeteME."</pre>";
+				return false;
+			}
+		}
+		$this->msg_info="Toutes les entetes ont été trouvées, démarrage de l'import";
+		/*
+		 * Import ou mise à jour des pressions
+		 */
+		
+		$arrPressions=$this->chargePressionsDeCSVEtConsolideListeAvecBase($csv);
+		$arrMassesDeau=$this->chargeMassesDeau();
+		$erreurNomMDO=false;
+		foreach($csv as $curData)
+		{
 
+			if(!isset($arrMassesDeau[$curData["Code masse d'eau"]]))
+			{
+				$erreurNomMDO=true;
+				$this->msg_error.="Erreur MDO non trouvée : ".$curData["Code masse d'eau"]."<br />";
+			}
+		}
+		//die(__LINE__." ERREUR ");
+		if($erreurNomMDO)
+		{
+			return false;
+		}
+		//die("Fin après vérification des noms des MDO");
+		//die("Liste indexée des masses d'eau : <pre>".print_r($arrMassesDeau,true)."</pre>");
+		/*
+		 * Import ou mise à jour des états des lieux, écrasement des valeurs précédentes
+		 */
+		$edl= mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
+		$nbEDLMaj=0;
+		foreach($csv as $curData)
+		{
+			$obj=new stdClass();
+			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$arrPressions[$curData["Pression"]]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]);
+			if($edl->recFirst())
+			{
+				$obj=$edl->recGetRecord();
+				//echo "Enregistrement retrouvé "."id_pression=".$arrPressions[$curData["Pression"]]." AND id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]." <pre>".print_r($obj,true)."</pre>";
+			}
+			else
+			{
+				$edl->recNewRecord();
+				$obj->id_edl_massedeau=null;
+			}
+			$obj->id_pression=$arrPressions[$curData["Pression"]];
+			$obj->id_massedeau=$arrMassesDeau[$curData["Code masse d'eau"]];
+			
+			$obj->impact_2016=$curData["Classe d'impact SDAGE 2016 (1;2;3) "];
+			$obj->impact_valeur_forcee=$curData["Valeur forcée impact SDAGE 2016 O/N"]=="O"?1:0;
+			$obj->impact_2019=$curData["Classe d'impact EdL2019 (1;2;3)"];
+			$obj->rnaoe_2021=$curData["RNAOE 2021 (O/N)"]=="O"?1:0;
+			$obj->pression_origine_2021=$curData["Pression à l'origine du risque 2021 (O/N)"]=="O"?1:0;
+			$obj->rnaoe_2027=$curData["RNAOE 2027 (O/N)"]=="O"?1:0;
+			$obj->pression_origine_2027=$curData["Pression à l'origine du risque 2027 (O/N)"]=="O"?1:0;
+			$edl->recStore($obj);
+			//echo "Enregistrement objet.<pre>".print_r($obj,true)."</pre><br />";
+			$nbEDLMaj++;
+		}
+		$this->msg_info.="<br />Mise à jour terminée avec : ".$nbEDLMaj." enregistrements<br />";
+		//echo "Fichier ouvert, entetes : ".print_r($csv->getHeaders(),true)."<br />";
+	}
+    public function handle_Search()
+    {
+		$this->texte_recherche="";
+		$this->liste_ssbv="";
+		$this->liste_ss_ut="";
+    	if(isset($this->params["txtRecherche"]) && $this->params["txtRecherche"]!="")
+		{
+    		$this->texte_recherche= $this->params["txtRecherche"];
+		}
+    	if(isset($this->params["liste_ssbv"]) && is_array($this->params["liste_ssbv"]) && count($this->params["liste_ssbv"]))
+		{
+    		$this->liste_ssbv= "'".implode("','",$this->params["liste_ssbv"])."'";
+		}
+    	if(isset($this->params["liste_ss_ut"]) && is_array($this->params["liste_ss_ut"]) && count($this->params["liste_ss_ut"]))
+		{
+    		$this->liste_ss_ut= "'".implode("','",$this->params["liste_ss_ut"])."'";
+		}
+		
 		if(!in_array($this->params["ssorder"],array("ASC","DESC")))
 			$this->params["ssorder"]="ASC";
 		if(!in_array($this->params["ssfield"],array("n__departement","libelle_me","code_me","nom__region")))
 			$this->params["ssfield"]="code_me";
 		$mySQLOrder=" ORDER BY ".$this->params["ssfield"]." ".$this->params["ssorder"];
 
+		$requeteME="
+			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*
+			FROM ae_massesdeau AS mdo
+			LEFT JOIN ae_ssbv AS ssbv ON ssbv.code_ssbv=mdo.code_ssbv
+			LEFT JOIN ae_ss_ut AS ssut ON ssbv.code_ss_ut=ssut.code_ss_ut
+			WHERE mdo.id_massedeau IS NOT NULL
+		";
 		if($this->texte_recherche!="")
-    	{
-	    	$myQuery="	SELECT COUNT(*) as nboccme, cme.*,ldrmc.n__departement , ldrmc.nom_departement,ldrmc.nom__region 
-						FROM
-							caracteristiques_me as cme,
-							entites_hydrogeologiques_me as ehme ,
-							departements_me as dme,
-							lexique_departements_rmc as ldrmc
-						WHERE
-							cme.code_me=dme.code_me AND
-							ldrmc.n__departement=dme.n__departement AND
-							cme.code_me=ehme.code_me AND
-							(
-								CAST(cme.code_me AS CHAR) LIKE '%".addslashes($this->texte_recherche)."%' OR
-								cme.libelle_me LIKE '%".addslashes($this->texte_recherche)."%' OR
-								ldrmc.n__departement LIKE '".addslashes($this->texte_recherche)."' OR
-								ldrmc.nom_departement LIKE '%".addslashes($this->texte_recherche)."%' OR
-								ldrmc.nom__region LIKE '%".addslashes($this->texte_recherche)
-								/* ." OR code_entite_v1='".addslashes($this->texte_recherche)."' OR
-								code_entite_v2='".addslashes($this->texte_recherche)."' */ ."%'
-							)
-						GROUP BY cme.code_me ".$mySQLOrder /* ORDER BY cme.code_me ASC */ ."
-						";
-    	}
-    	else
-    	{
-	    	$myQuery="	SELECT COUNT(*) as nboccme, cme.*
-						FROM
-							caracteristiques_me as cme,
-							entites_hydrogeologiques_me as ehme ,
-							departements_me as dme,
-							lexique_departements_rmc as ldrmc
-						WHERE
-							cme.code_me=dme.code_me AND
-							ldrmc.n__departement=dme.n__departement AND
-							cme.code_me=ehme.code_me
-						GROUP BY cme.code_me ORDER BY cme.code_me ASC
-						";
-
-    	}
-    	$this->db->setQuery($myQuery);
+		{
+			$keywords = preg_split("/[\s,]+/", $this->texte_recherche);
+			foreach($keywords as $curKeyword)
+			{
+				$curKeyword= addslashes($curKeyword);
+				$requeteME.=" AND (mdo.code_me LIKE '%".$curKeyword."%' OR mdo.libelle_me LIKE '%".$curKeyword."%') ";
+			}
+		}
+		if($this->liste_ssbv!="")
+		{
+			$requeteME.=" AND ssbv.code_ssbv IN ($this->liste_ssbv) ";
+		}
+		if($this->liste_ss_ut!="")
+		{
+			$requeteME.=" AND ssbv.code_ss_ut IN ($this->liste_ss_ut) ";
+		}
+		
+		//echo "<pre>".$requeteME."</pre>";
+		/*
+		 * Sort
+		 */
+		$sortField="code_me";
+		$sortOrder="ASC";
+		if(isset($this->params["ssfield"]) && $this->params["ssfield"]!=="") $sortField=addslashes($this->params["ssfield"]);
+		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
+		$requeteME.=" GROUP BY mdo.id_massedeau ";
+		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
+    	$this->db->setQuery($requeteME);
     	$this->search_result=$this->db->loadObjectList();
-
-    	if(!is_array($this->search_result) || count($this->search_result)<=0)
-    		$this->msg_info="Votre recherche n'a fourni aucun résultat";
+		
+    	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
+		{
+			$this->msg_info="Votre recherche n'a fourni aucun résultat"; // : <pre>".$requeteME."</pre>";
+		}
+		//echo "<pre>".$requeteME."</pre>";
     }
 
 
@@ -458,17 +699,48 @@ class mdosout_metier
 
     function sectionContent_Search()
     {
-    	$this->mapDataToTemplate();
-    	$this->template->assign_vars(array("FORM_PAGE"=>$this->formPage));
-
+    	$this->prepareForm();
     	if(!is_array($this->search_result) || count($this->search_result)<=0)
     	{
     		return $this->template->pparse("accueil",true);
     	}
     	else
     	{
+			$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
+			$arrMassesDeau=$this->listeMassesDeau();
     		foreach($this->search_result as $curme)
     		{
+				// SELECT COUNT(*) as nbocc FROM ae_edl_massesdeau LEFT JOIN ae_massesdeau as id_massedeau_ae_massesdeau ON id_massedeau_ae_massesdeau.id_massedeau=ae_edl_massesdeau.id_massedeau  WHERE  ( ae_edl_massesdeau.id_massedeau=2356) 
+				$edl->recSQLSearch("ae_edl_massesdeau.id_massedeau=".$curme->id_massedeau);
+				$detailPressions="Aucune pression pour cette masse d'eau";
+				if($edl->recFirst())
+				{
+					$arrPressions=$this->listePressions();
+					do
+					{
+						$this->template->assign_block_vars
+						(
+							'pressions',
+							array
+							(
+								'code_me' =>  $arrMassesDeau[$edl->recGetValue("id_massedeau")]->code_me,
+								'libelle_me' => $arrMassesDeau[$edl->recGetValue("id_massedeau")]->libelle_me,
+								'categorie_me' => $arrMassesDeau[$edl->recGetValue("id_massedeau")]->categorie_me,
+								'code_ssbv' => $arrMassesDeau[$edl->recGetValue("id_massedeau")]->code_ssbv,
+								'id_pression' => $edl->recGetValue("id_pression"),
+								'libelle_pression' => $arrPressions[$edl->recGetValue("id_pression")],
+								'impact_2016' => $edl->recGetValue("impact_2016"),
+								'impact_valeur_forcee' => $edl->recGetValue("impact_valeur_forcee")?"O":"N",
+								'impact_2019' => $edl->recGetValue("impact_2019"),
+								'rnaoe_2021' => $edl->recGetValue("rnaoe_2021")?"O":"N",
+								'pression_origine_2021' => $edl->recGetValue("pression_origine_2021")?"O":"N",
+								'rnaoe_2027' => $edl->recGetValue("rnaoe_2021")?"O":"N",
+								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N"
+							)
+						);
+					} while($edl->recNext());
+					$detailPressions=$this->template->pparse("detail-pressions",true);
+				}
     			$this->template->assign_block_vars
 	            (
 	                'tablecontent',
@@ -476,9 +748,10 @@ class mdosout_metier
 	                (
 	                	'code_me' => $curme->code_me,
 	                	'libelle_me' => $curme->libelle_me,
-						'n__departement' => $curme->n__departement,
-	                	'nom__region' => $curme->nom__region,
-	                	'texte_recherche' => urlencode($this->texte_recherche)
+						'code_ssbv' => $curme->code_ssbv,
+	                	'code_ss_ut' => $curme->code_ss_ut,
+	                	'texte_recherche' => urlencode($this->texte_recherche),
+						'detail_pressions'=> $detailPressions
 	                )
 	            );
     			//echo "Code : ".$curme->code_me.", Libellé : ".$curme->libelle_me.", Secteur : ".$curme->secteur_be_caracterisation.BR;
@@ -487,18 +760,38 @@ class mdosout_metier
     		return $this->template->pparse("searchresult",true);
     	}
     }
-    function sectionContent_Accueil()
+	
+	private function prepareForm()
+	{
+    	$this->template->assign_vars(array("FORM_PARAMS"=>"<pre>Params : ".print_r($this->params,true)."</pre>"."<pre>GET : ".print_r($_GET,true)."</pre>"."<pre>POST : ".print_r($_POST,true)."</pre>"));
+		$this->mapDataToTemplate();
+		$this->template->assign_vars(array("FORM_PAGE"=>$this->formPage));
+		$ssut= mdtb_table::InitObject("mdtb_ae_ss_ut");
+		// htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array()
+		$comboSSUT=$ssut->htmlGetComboMultiple("liste_ss_ut","code_ss_ut","code_ss_ut,libelle_ss_ut","1",$this->params["liste_ss_ut"]);
+    	$this->template->assign_vars(array("CMB_SS_UT"=>$comboSSUT));
+		$ssbv= mdtb_table::InitObject("mdtb_ae_ssbv");
+		$comboSSBV=$ssbv->htmlGetComboMultiple("liste_ssbv","code_ssbv","code_ssbv,libelle_ssbv","1",$this->params["liste_ssbv"]);
+    	$this->template->assign_vars(array("CMB_SSBV"=>$comboSSBV));
+		$queryParams= http_build_query(
+			array("txtRecherche"=>$this->params["txtRecherche"],
+				"liste_ssbv"=>$this->params["liste_ssbv"],
+				"liste_ss_ut"=>$this->params["liste_ss_ut"])
+		);
+		$this->template->assign_vars(array("QUERY_PARAMS"=>$queryParams));
+		$this->template->assign_vars(array("texte_recherche"=>$this->params["txtRecherche"]));
+		//echo "<pre>".print_r($this->params,true)."</pre>";
+	}
+	
+    public function sectionContent_Accueil()
     {
-    	$this->mapDataToTemplate();
-
-    	$this->template->assign_vars(array("FORM_PAGE"=>$this->formPage));
+    	$this->prepareForm();
         return $this->template->pparse("accueil",true);
     }
     function sectionContent_Fiche()
     {
 
-    	$this->mapDataToTemplate();
-    	$this->template->assign_vars(array("FORM_PAGE"=>$this->formPage));
+    	$this->prepareForm();
     	foreach($this->caracteristriques_me as $curelement=>$curvalue)
 		{
 			if(is_array($curvalue) && count($curvalue)>0 && substr($curelement,0,6)=="liste_")

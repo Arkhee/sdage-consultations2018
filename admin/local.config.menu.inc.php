@@ -2,7 +2,11 @@
  $TheArrayModules=array(
 "tpl_ae_massesdeau"=>("ae_massesdeau"),
 "tpl_ae_ss_ut"=>("ae_ss_ut"),
-"tpl_rel_ssbv_ss_ut"=>("rel_ssbv_ss_ut"),
+"tpl_ae_ssbv"=>("ae_ssbv"),
+"tpl_ae_avis"=>("ae_avis"),
+"tpl_ae_pressions"=>("ae_pressions"),
+"tpl_ae_edl_massesdeau"=>("ae_edl_massesdeau"),
+"tpl_import"=>("import"),
 	 /*
 "tpl_caracteristiques_me"=>("caracteristiques_me"),
 "tpl_code_comgeo_nom_comgeo"=>("code_comgeo_nom_comgeo"),

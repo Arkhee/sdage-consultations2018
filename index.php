@@ -15,8 +15,8 @@ require_once(_APP_ROOT_DIR_."includes/init.inc.php");
 
 $path_pre="admin/";
 require_once($path_pre."config.inc.php");
-require_once($path_pre."local.classes/mdosout_metier.class.php");
-$myClasseMetierMDOSout=new mdosout_metier($database,$path_pre,__FILE__);
+//require_once($path_pre."local.classes/sdage_metier.class.php");
+$myClasseMetierMDOSout=new sdage_metier($database,$path_pre,__FILE__);
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
@@ -26,7 +26,7 @@ $myBaseGestion=new stdClass();
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><!-- InstanceBegin template="/Templates/contenu-avec-menu.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- InstanceBeginEditable name="doctitle" -->
 <title>Masses d'eau souterraines - Fiches de caract&eacute;risation</title>
 <!-- InstanceEndEditable -->
@@ -35,12 +35,10 @@ $myBaseGestion=new stdClass();
 <link href="/includes/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="/site.css" rel="stylesheet" type="text/css" />
 <script defer src="js/fontawesome-all.min.js"></script>
+<script defer src="js/frontctl.js"></script>
 <link href="/misesenforme.css" rel="stylesheet" type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
-<link href="../../../styles.css" rel="stylesheet" type="text/css" />
-<link href="../stylesmdo.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?php echo DIREN_RACINE_WEB; ?>libs/jquery-ui-1.7.2.custom.min.js"></script>
-<link href="<?php echo DIREN_RACINE_WEB; ?>libs/jquery.css/ui.all.css" rel="stylesheet" type="text/css" />
+<link href="css/styles-fo.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
 </head>
 <body>
@@ -64,7 +62,7 @@ $myBaseGestion=new stdClass();
 				 </button>
              </div>
 			<div class="collapse navbar-collapse" id="menu-navbar">
-				<?php echo Util::insertMenuPrincipal(); ?>
+				<?php echo Util::insertMenuPrincipal("utf8"); ?>
 			</div>
 		</div>
 	</nav>
@@ -76,11 +74,11 @@ $myBaseGestion=new stdClass();
 				<?php echo Util::affRecherche(); ?>
 			</div>			
 		</div>
-		<div id="leftMenu" class="col-md-3 col-sm-1 col-xs-1" role="complementary" >
+		<div id="leftMenu" class="col-md-3 col-sm-1 col-xs-1" role="complementary" style='display: none;'>
 		</div>
-		<div id="contentCentral" class="col-md-9 col-sm-10 col-xs-10" role="main">
+		<div id="contentCentral" class="col-md-12 col-sm-12 col-xs-12" role="main">
         <!-- InstanceBeginEditable name="contenu" -->
-        <h1 align="center"> Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
+        <h1 align="center">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>

@@ -5,3 +5,5 @@
 /admin/local.classes/_notes
 /admin/local.data/_notes
 /admin/local.config.inc.php
+/nbproject/private/
+nbproject

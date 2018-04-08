@@ -10,6 +10,6 @@
  */
 $path_pre="";
 require_once("config.inc.php");
-$myBase=new mdtb_rel_ssbv_ss_ut($database,$template_name,basename(__FILE__),$path_abs);
+$myBase=new mdtb_ae_pressions($database,$template_name,basename(__FILE__),$path_abs);
 $myBase->set_auth($auth);
 require_once("layout.inc.php");

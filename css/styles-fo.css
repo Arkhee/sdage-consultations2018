@@ -1,0 +1,94 @@
+
+#formRecherche { width:100%;  }
+#formRecherche h3 { font-size:14px; font-weight: bold;}
+#formRecherche label { display:block; text-align: left;}
+.blocfiltre { width:23%; margin:5px;}
+.blocfiltre select { width:100%;}
+.mdtb_displaymore_cell { cursor: pointer; padding:3px; font-size:16px;}
+tr.ligne-active
+{
+	border:2px solid black;
+	border-bottom:1px dotted grey;
+	background-color:#CCC;
+}
+tr.ligne-active + tr
+{
+	border:2px solid black;
+	border-top:none;
+}
+
+table.mdtb_form_table_searchresult
+{
+	width:100%;
+}
+
+table.mdtb_form_table_searchresult table
+{
+	margin:5px;
+}
+
+table.listepressions th{ text-align: center; border-bottom:1px #666 dotted;}
+table.listepressions th ,table.listepressions td { text-align: center;}
+table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left;}
+
+div.formAvis { min-width: 900px;}
+
+table.detailPression, table.detailPression table
+{
+	width:100%;
+}
+table.detailMdoEtPression {
+	border:1px solid #333;
+}
+table.detailMdoEtPression td 
+{
+	width:170px;
+	font-weight: bold;
+	padding:5px;
+}
+table.detailMdoEtPression td + td
+{
+	text-align: left;
+	width:auto;
+	font-weight: normal;
+}
+
+table.detailPression table.detailGroupe td 
+{
+	font-weight: bold;
+	border-right:1px solid #AAA;
+	width:60%;
+	padding:5px;
+}
+table.detailPression table.detailGroupe td + td
+{
+	font-weight: normal;
+	border-right:none;
+	text-align: left;
+	width:auto;
+}
+
+form.formAvisMassedeau 
+{
+	padding:5px;
+}
+form.formAvisMassedeau label
+{
+	clear:left;
+}
+
+div.blocValidationFormulaire
+{
+	text-align: right;
+	padding:5px;
+}
+
+form.sauvegardeok
+{
+	/* border:1px solid green;  */
+}
+
+form.formAvisMassedeau label.sauvegarde { display:none;font-weight:bold; }
+form.formAvisMassedeau label.sauvegardeok { color:green;  }
+form.formAvisMassedeau label.sauvegardeerreur { color:red;  }
+form.formAvisMassedeau label.validationok { color:orange; }

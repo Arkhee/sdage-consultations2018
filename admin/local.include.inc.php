@@ -12,7 +12,12 @@
 
 @include_once($path_pre."local.classes/mdtb_ae_massesdeau.class.php");
 @include_once($path_pre."local.classes/mdtb_ae_ss_ut.class.php");
-@include_once($path_pre."local.classes/mdtb_rel_ssbv_ss_ut.class.php");
+@include_once($path_pre."local.classes/mdtb_ae_ssbv.class.php");
+@include_once($path_pre."local.classes/mdtb_ae_avis.class.php");
+@include_once($path_pre."local.classes/mdtb_ae_edl_massesdeau.class.php");
+@include_once($path_pre."local.classes/mdtb_ae_pressions.class.php");
+@require_once($path_pre."local.classes/sdage_metier.class.php");
+@require_once($path_pre."classes/CSV.class.php");
 /*
 @include_once($path_pre."local.classes/mdtb_caracteristiques_me.class.php");
 @include_once($path_pre."local.classes/mdtb_code_comgeo_nom_comgeo.class.php");

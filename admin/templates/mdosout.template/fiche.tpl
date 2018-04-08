@@ -3,7 +3,7 @@ $(document).ready(function() {  $("#tabs").tabs(); } );
 </script>
 <h2>Fiche de caractérisation - Masse d'eau souterraine n°{code_me}</h2>
 <em><a href="fiches/{code_me}_fic.pdf" target="_blank">Télécharger la fiche au format PDF</a></em>&nbsp; - &nbsp;
-<a href="{FORM_PAGE}?section=search&txtRecherche={texte_recherche}">Retour à la recherche par critères</a>&nbsp; - &nbsp;
+<a href="{FORM_PAGE}?section=search&{QUERY_PARAMS}">Retour à la recherche par critères</a>&nbsp; - &nbsp;
 <a href="../syntheses/db_mesout.php" style="display:none;">Retour à la recherche cartographique</a>
 <br/><br/>
 <body>
