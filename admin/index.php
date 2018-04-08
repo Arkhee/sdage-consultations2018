@@ -13,4 +13,3 @@ require_once("config.inc.php");
 $myBase=new mdtb_ae_massesdeau($database,$template_name,basename(__FILE__),$path_abs);
 $myBase->set_auth($auth);
 require_once("layout.inc.php");
-?>

@@ -9,7 +9,16 @@ class sdage_metier
 	var $code_me="";
 	var $caracteristriques_me="";
 	var $template=null;
-	var $template_filenames=array("accueil"=>"accueil.tpl","searchresult"=>"searchresult.tpl","fiche"=>"fiche.tpl","detail-pressions" => "detail-pressions.tpl");
+	public $auth=null;
+	public $sections_avec_menu=array("index","accueil","connexion","panneau");
+	var $template_filenames=array(
+		"accueil"=>"accueil.tpl",
+		"connexion"=>"connexion.tpl",
+		"panneau"=>"panneau.tpl",
+		"searchresult"=>"searchresult.tpl",
+		"fiche"=>"fiche.tpl",
+		"detail-pressions" => "detail-pressions.tpl"
+		);
 	var $template_name="mdosout.template";
 	var $path_pre="";
 	var $formPage="";
@@ -43,6 +52,11 @@ class sdage_metier
 		//echo "Objet template : ".Tools::Display($this->template);
     }
 
+	public function setAuth($authobject)
+	{
+		$this->auth=$authobject;
+	}
+	
 	public static function importGetListeColonnes()
 	{
 		return self::$importColonnes;
@@ -61,8 +75,9 @@ class sdage_metier
     public function handle()
     {
     	if(isset($this->params["section"]) && $this->params["section"]!="")
+		{
     		$this->section=$this->params["section"];
-
+		}
     	switch($this->section)
     	{
 			case "avis":
@@ -440,15 +455,25 @@ class sdage_metier
 	public function handle_Avis()
 	{
 		$action="$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();";
-		if($this->params["sauverAvis"]) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
-		if($this->params["validerAvis"]) $action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
-		$this->msg_info.="<script>
-			$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');
-			$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
-			".$action."	
-		 </script>";
-		//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
-		return false;
+		if(!$this->auth->isLoaded() || $this->auth->user_Rank!="crea")
+		{
+			$this->msg_info.="<script>alert(\"Vous n'avez pas les droits d'écriture sur les avis : ".$this->auth->user_Rank."\");</script>";
+			// Pas de sauvegarde de l'avis
+			return false;
+		}
+		else
+		{
+			// TRaitement de la sauvegarde de l'avis
+			if($this->params["sauverAvis"]) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+			if($this->params["validerAvis"]) $action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+			$this->msg_info.="<script>
+				$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');
+				$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
+				".$action."	
+			 </script>";
+			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
+			return false;
+		}
 	}
 	
 	public function handle_Import()
@@ -540,6 +565,8 @@ class sdage_metier
 		$this->texte_recherche="";
 		$this->liste_ssbv="";
 		$this->liste_ss_ut="";
+		$this->liste_impacts="";
+		$this->liste_pressions="";
     	if(isset($this->params["txtRecherche"]) && $this->params["txtRecherche"]!="")
 		{
     		$this->texte_recherche= $this->params["txtRecherche"];
@@ -553,17 +580,46 @@ class sdage_metier
     		$this->liste_ss_ut= "'".implode("','",$this->params["liste_ss_ut"])."'";
 		}
 		
+		if(isset($this->params["liste_impacts"]) && is_array($this->params["liste_impacts"]) && count($this->params["liste_impacts"]))
+		{
+			$this->liste_impacts="'".implode("','",$this->params["liste_impacts"])."'";
+		}
+		
+		if(isset($this->params["liste_pressions"]) && is_array($this->params["liste_pressions"]) && count($this->params["liste_pressions"]))
+		{
+			$this->liste_pressions="'".implode("','",$this->params["liste_pressions"])."'";
+		}
+		
+		if(isset($this->params["liste_typesmdo"]) && $this->params["liste_typesmdo"]!='toutes' && $this->params["liste_typesmdo"]!='')
+		{
+			$this->liste_typesmdo=trim($this->params["liste_typesmdo"]);
+		}
+		
 		if(!in_array($this->params["ssorder"],array("ASC","DESC")))
 			$this->params["ssorder"]="ASC";
-		if(!in_array($this->params["ssfield"],array("n__departement","libelle_me","code_me","nom__region")))
+		if(!in_array($this->params["ssfield"],array("categorie_me","code_ssbv","libelle_me","code_me","code_ss_ut")))
 			$this->params["ssfield"]="code_me";
 		$mySQLOrder=" ORDER BY ".$this->params["ssfield"]." ".$this->params["ssorder"];
-
+		$joinImpactOuPression="";
+		
+		if($this->liste_pressions!="")
+		{
+			$joinImpactOuPression=" LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=mdo.id_massedeau ";
+		}
+		if($this->liste_impacts!="")
+		{
+			$joinImpactOuPression=" LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=mdo.id_massedeau ";
+		}
+		
 		$requeteME="
-			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*
+			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*,
+				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut,
+				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut_sort
 			FROM ae_massesdeau AS mdo
 			LEFT JOIN ae_ssbv AS ssbv ON ssbv.code_ssbv=mdo.code_ssbv
 			LEFT JOIN ae_ss_ut AS ssut ON ssbv.code_ss_ut=ssut.code_ss_ut
+			LEFT JOIN rel_me_sout_ss_ut AS rsoutssut ON mdo.code_me=rsoutssut.code_me
+			".$joinImpactOuPression."
 			WHERE mdo.id_massedeau IS NOT NULL
 		";
 		if($this->texte_recherche!="")
@@ -575,13 +631,34 @@ class sdage_metier
 				$requeteME.=" AND (mdo.code_me LIKE '%".$curKeyword."%' OR mdo.libelle_me LIKE '%".$curKeyword."%') ";
 			}
 		}
+		if($this->liste_typesmdo!="")
+		{
+			switch($this->liste_typesmdo)
+			{
+				case "mdosup":
+					$requeteME.=" AND mdo.categorie_me!='Eau souterraine' ";
+					break;
+				case "mdosout":
+					$requeteME.=" AND mdo.categorie_me='Eau souterraine' ";
+					break;
+			}
+		}
 		if($this->liste_ssbv!="")
 		{
 			$requeteME.=" AND ssbv.code_ssbv IN ($this->liste_ssbv) ";
 		}
 		if($this->liste_ss_ut!="")
 		{
-			$requeteME.=" AND ssbv.code_ss_ut IN ($this->liste_ss_ut) ";
+			$requeteME.=" AND (ssbv.code_ss_ut IN ($this->liste_ss_ut) OR rsoutssut.code_ss_ut IN ($this->liste_ss_ut)) ";
+		}
+		
+		if($this->liste_pressions!="")
+		{
+			$requeteME.=" AND edl.id_pression IN ($this->liste_pressions) ";
+		}
+		if($this->liste_impacts!="")
+		{
+			$requeteME.=" AND edl.impact_2016 IN ($this->liste_impacts) ";
 		}
 		
 		//echo "<pre>".$requeteME."</pre>";
@@ -599,7 +676,7 @@ class sdage_metier
 		
     	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
 		{
-			$this->msg_info="Votre recherche n'a fourni aucun résultat"; // : <pre>".$requeteME."</pre>";
+			$this->msg_info="Votre recherche n'a fourni aucun résultat<div style='display:none'>".$requeteME."</div>";
 		}
 		//echo "<pre>".$requeteME."</pre>";
     }
@@ -610,6 +687,12 @@ class sdage_metier
     	$myContent="";
     	switch($this->section)
     	{
+			case "panneau":
+				$myContent=$this->sectionContent_Panneau();
+				break;
+			case "connexion":
+				$myContent=$this->sectionContent_Connexion();
+				break;
     		case "accueil":
     		default:
     			$myContent=$this->sectionContent_Accueil();
@@ -626,7 +709,32 @@ class sdage_metier
     	}
     	return $myContent;
     }
+	
+	public function sectionHasMenu()
+	{
+		if(in_array($this->section,$this->sections_avec_menu))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public function getSection()
+	{
+		return $this->section;
+	}
+	
+	public function initSection()
+	{
+		if($this->auth->isLoaded()) $this->setSection("panneau");
+		else $this->setSection("connexion");
+	}
 
+	public function setSection($section)
+	{
+		$this->section=$section;
+	}
+	
     function sectionContent_ZoneDetail()
     {
         if($this->zoneDetail===false)
@@ -711,7 +819,16 @@ class sdage_metier
     		foreach($this->search_result as $curme)
     		{
 				// SELECT COUNT(*) as nbocc FROM ae_edl_massesdeau LEFT JOIN ae_massesdeau as id_massedeau_ae_massesdeau ON id_massedeau_ae_massesdeau.id_massedeau=ae_edl_massesdeau.id_massedeau  WHERE  ( ae_edl_massesdeau.id_massedeau=2356) 
-				$edl->recSQLSearch("ae_edl_massesdeau.id_massedeau=".$curme->id_massedeau);
+				$requeteSearch="ae_edl_massesdeau.id_massedeau=".$curme->id_massedeau;
+				if($this->liste_pressions!="")
+				{
+					$requeteSearch.=" AND ae_edl_massesdeau.id_pression IN (".$this->liste_pressions.") ";
+				}
+				if($this->liste_impacts!="")
+				{
+					$requeteSearch.=" AND ae_edl_massesdeau.impact_2016 IN (".$this->liste_impacts.") ";
+				}
+				$edl->recSQLSearch($requeteSearch);
 				$detailPressions="Aucune pression pour cette masse d'eau";
 				if($edl->recFirst())
 				{
@@ -748,6 +865,7 @@ class sdage_metier
 	                (
 	                	'code_me' => $curme->code_me,
 	                	'libelle_me' => $curme->libelle_me,
+	                	'categorie_me' => $curme->categorie_me,
 						'code_ssbv' => $curme->code_ssbv,
 	                	'code_ss_ut' => $curme->code_ss_ut,
 	                	'texte_recherche' => urlencode($this->texte_recherche),
@@ -770,9 +888,28 @@ class sdage_metier
 		// htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array()
 		$comboSSUT=$ssut->htmlGetComboMultiple("liste_ss_ut","code_ss_ut","code_ss_ut,libelle_ss_ut","1",$this->params["liste_ss_ut"]);
     	$this->template->assign_vars(array("CMB_SS_UT"=>$comboSSUT));
+		
 		$ssbv= mdtb_table::InitObject("mdtb_ae_ssbv");
 		$comboSSBV=$ssbv->htmlGetComboMultiple("liste_ssbv","code_ssbv","code_ssbv,libelle_ssbv","1",$this->params["liste_ssbv"]);
     	$this->template->assign_vars(array("CMB_SSBV"=>$comboSSBV));
+		
+		$pressions= mdtb_table::InitObject("mdtb_ae_pressions");
+		$comboPressions=$pressions->htmlGetComboMultiple("liste_pressions","id_pression","libelle_pression","1",$this->params["liste_pressions"]);
+    	$this->template->assign_vars(array("CMB_PRESSIONS"=>$comboPressions));
+    	$arrImpacts=array();
+		for($i=0;$i<=4;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+		$listeImpacts=mdtb_forms::combolistmultiple("liste_impacts",$arrImpacts,$this->params["liste_impacts"]);
+		$this->template->assign_vars(array("CMB_IMPACT"=>$listeImpacts));
+		$arrTypesMdo=array(
+			array("id"=>"toutes","value"=>"Tous types de masses d'eau"),
+			array("id"=>"mdosup","value"=>"Masses d'eau superficielles"),
+			array("id"=>"mdosout","value"=>"Masses d'eau souterraines"),
+		);
+		$listeTypesMDO=mdtb_forms::combolist("liste_typesmdo",$arrTypesMdo,$this->params["liste_typesmdo"]);
+		$this->template->assign_vars(array("CMB_TYPEMDO"=>$listeTypesMDO));
+		
+		$pressions=$this->listePressions();
+		
 		$queryParams= http_build_query(
 			array("txtRecherche"=>$this->params["txtRecherche"],
 				"liste_ssbv"=>$this->params["liste_ssbv"],
@@ -781,6 +918,22 @@ class sdage_metier
 		$this->template->assign_vars(array("QUERY_PARAMS"=>$queryParams));
 		$this->template->assign_vars(array("texte_recherche"=>$this->params["txtRecherche"]));
 		//echo "<pre>".print_r($this->params,true)."</pre>";
+	}
+	
+	public function sectionContent_Connexion()
+	{
+		$this->prepareForm();
+		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
+		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+        return $this->template->pparse("connexion",true);
+	}
+	
+	public function sectionContent_Panneau()
+	{
+		$this->prepareForm();
+		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
+		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+        return $this->template->pparse("panneau",true);
 	}
 	
     public function sectionContent_Accueil()

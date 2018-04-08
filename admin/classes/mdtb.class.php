@@ -1449,13 +1449,17 @@ class mdtb_table extends mosDBTable
 		$myRedir=$this->_params->redir;
 		if($theRedir!="")
 			$myRedir=$theRedir;
+		if($myRedir==="referer" && $_SERVER["HTTP_REFERER"]!="")
+		{
+			$myRedir=$_SERVER["HTTP_REFERER"];
+		}
 		if($debug) echo __LINE__." => Redirection vers : ".$myRedir."<br>\n";
 		$myBeginUrl=strtolower(substr($myRedir,0,7));
 		if($debug) echo "Début url : ".$myBeginUrl."<br>\n";
-		if($myBeginUrl!="http://")
+		if($myBeginUrl!="http://" && $myBeginUrl!="https://")
 			$myRedir="http://".$myRedir;
 		if($debug) echo "Url finale : ".$myRedir."<br>\n";
-		if($myRedir!="http://")
+		if($myRedir!="http://" && $myRedir!="https://")
 		{
 			if(!headers_sent())
 			{

@@ -51,36 +51,42 @@
 											</td>
 										</tr>
 									</table>
-									<h3>Donnez votre avis sur l'état de ce cours d'eau</h3>
-									<form method="post" action="#" 
-										  id="formAvisPression_{pressions.id_pression}_{pressions.code_me}" 
-										  enctype="multipart/form-data" target="targetSauvegarde"
-										  class="formAvisMassedeau">
-										<input type='hidden' name="section" value="avis"/>
-										<input type='hidden' name="id_form_avis" value="formAvisPression_{pressions.id_pression}_{pressions.code_me}"/>
-										<label for="impact_estime">Impact estimé</label>
-										<select name="impact_estime" id="impact_estime">
-											<option value="0">0</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-										</select><br />
-										<label for="justification">Justification</label>
-										<textarea name="justification" id="justification" style="width:100%; height:250px"></textarea><br />
-										<label for="pression_cause_du_risque">Pression cause du risque</label>
-										<select name="pression_cause_du_risque" id="pression_cause_du_risque">
-											<option value="O">Oui</option>
-											<option value="N">Non</option>
-										</select>
-										<div class="blocValidationFormulaire">
-											<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
-											<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
-											<label class="sauvegarde validationok">Votre avis a bien été validé</label>
-											<input type="submit" name="sauverAvis" id="sauverAvis" value="Sauver mon avis"/>
-											<input type="submit" name="validerAvis" id="validerAvis" value="Valider mon avis"/>
-										</div>
-									</form>
+									<div class="formulaire_avis">
+										<h3>Donnez votre avis sur l'état de ce cours d'eau</h3>
+										<form method="post" action="#" 
+											  id="formAvisPression_{pressions.id_pression}_{pressions.code_me}" 
+											  enctype="multipart/form-data" target="targetSauvegarde"
+											  class="formAvisMassedeau">
+											<input type='hidden' name="section" value="avis"/>
+											<input type='hidden' name="id_form_avis" value="formAvisPression_{pressions.id_pression}_{pressions.code_me}"/>
+											<label for="impact_estime">Impact estimé</label>
+											<select name="impact_estime" id="impact_estime">
+												<option value="1">1 - Impact faible</option>
+												<option value="2">2 - Impact moyen</option>
+												<option value="3">3 - Impact fort</option>
+											</select><br />
+											
+											<label for="justification">Justification</label>
+											<textarea name="justification" id="justification" style="width:100%; height:250px"></textarea><br />
+											
+											<label for="pression_cause_du_risque">Pression cause du risque</label>
+											<select name="pression_cause_du_risque" id="pression_cause_du_risque">
+												<option value="O">Oui</option>
+												<option value="N">Non</option>
+											</select><br />
+											
+											<label for="documents">Documents complémentaires</label>
+											<input type="file" name="documents" id="documents">
+											
+											<div class="blocValidationFormulaire">
+												<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
+												<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
+												<label class="sauvegarde validationok">Votre avis a bien été validé</label>
+												<input type="submit" name="sauverAvis" id="sauverAvis" value="Sauver mon avis"/>
+												<input type="submit" name="validerAvis" id="validerAvis" value="Valider mon avis"/>
+											</div>
+										</form>
+									</div>
 								</div>
 							</div>
 						</td>

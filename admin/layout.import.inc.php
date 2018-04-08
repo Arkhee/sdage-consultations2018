@@ -28,7 +28,10 @@ $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->bind($_FILES);
 $myClasseMetierMDOSout->handle();
-
+if($auth->user_Rank!="admin")
+{
+	die("Accès interdit");
+}
 /*
 $database->setQuery("SELECT * FROM entreprises;");
 $myList=$database->loadObjectList();

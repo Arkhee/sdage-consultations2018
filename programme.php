@@ -42,7 +42,7 @@ $myBaseGestion=new stdClass();
 <link href="css/styles-fo.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
 </head>
-<body class="<?php echo $auth->isLoaded()?("connecte connecte_".$auth->user_Rank):""; ?>">
+<body>
 	<div id="shadowLeftMenu" class="hidden-lg hidden-md"></div>
 	<div id="header">
     	<a href="<?php echo DIREN_RACINE_WEB; ?>" title="Retour &agrave; l'accueil">
@@ -107,15 +107,10 @@ $myBaseGestion=new stdClass();
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
         <h1 align="center">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
-        <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
-							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
-					<?php } ?>
-
-					<?php if($myClasseMetierMDOSout->msg_info!="") { ?>
-							<div id="display_msg" style="border:1px solid #00AA00;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_info;?></div>
-					<?php } ?>
-
-				  <?php echo $myClasseMetierMDOSout->sectionContent(); ?>
+        
+		Programme etc...
+		
+		
 		  <!-- InstanceEndEditable -->
 		</div>
 	</div>

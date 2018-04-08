@@ -18,9 +18,11 @@ require_once($path_pre."config.inc.php");
 //require_once($path_pre."local.classes/sdage_metier.class.php");
 $myClasseMetierMDOSout=new sdage_metier($database,$path_pre,__FILE__);
 $myClasseMetierMDOSout->setAuth($auth);
+$myClasseMetierMDOSout->initSection();
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
+
 $myBaseGestion=new stdClass();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,7 +44,7 @@ $myBaseGestion=new stdClass();
 <link href="css/styles-fo.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
 </head>
-<body class="<?php echo $auth->isLoaded()?("connecte connecte_".$auth->user_Rank):""; ?>">
+<body>
 	<div id="shadowLeftMenu" class="hidden-lg hidden-md"></div>
 	<div id="header">
     	<a href="<?php echo DIREN_RACINE_WEB; ?>" title="Retour &agrave; l'accueil">
@@ -75,7 +77,7 @@ $myBaseGestion=new stdClass();
 				<?php echo Util::affRecherche(); ?>
 			</div>			
 		</div>
-		<?php if($myClasseMetierMDOSout->section==="accueil")
+		<?php if($myClasseMetierMDOSout->sectionHasMenu())
 		{
 			?>
 			<div id="leftMenu" class="col-md-3 col-sm-1 col-xs-1" role="complementary">
@@ -114,7 +116,6 @@ $myBaseGestion=new stdClass();
 					<?php if($myClasseMetierMDOSout->msg_info!="") { ?>
 							<div id="display_msg" style="border:1px solid #00AA00;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_info;?></div>
 					<?php } ?>
-
 				  <?php echo $myClasseMetierMDOSout->sectionContent(); ?>
 		  <!-- InstanceEndEditable -->
 		</div>

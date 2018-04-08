@@ -1,4 +1,4 @@
-
+#leftMenu li.dropdown a.toRight.linkselected{ color:white !important;}
 #formRecherche { width:100%;  }
 #formRecherche h3 { font-size:14px; font-weight: bold;}
 #formRecherche label { display:block; text-align: left;}
@@ -26,6 +26,8 @@ table.mdtb_form_table_searchresult table
 {
 	margin:5px;
 }
+
+table.mdtb_form_table_searchresult th {height:26px;}
 
 table.listepressions th{ text-align: center; border-bottom:1px #666 dotted;}
 table.listepressions th ,table.listepressions td { text-align: center;}
@@ -92,3 +94,22 @@ form.formAvisMassedeau label.sauvegarde { display:none;font-weight:bold; }
 form.formAvisMassedeau label.sauvegardeok { color:green;  }
 form.formAvisMassedeau label.sauvegardeerreur { color:red;  }
 form.formAvisMassedeau label.validationok { color:orange; }
+
+table.mdtb_form_table_searchresult tr.mdtb_content_row { cursor: pointer;}
+table.mdtb_form_table_searchresult td.mdtb_content_cell { cursor: pointer;}
+div.texteRecherche { display:flex;}
+div.texteRecherche input#txtRecherche { width:69%; margin-right:5px;}
+div.texteRecherche select#liste_typesmdo { height:26px; margin-right:5px; }
+
+#formConnexion 
+{
+	margin-left:150px;
+}
+
+#formConnexion label
+{
+	width:110px;
+}
+
+.formulaire_avis { display:none;}
+body.connecte_crea .formulaire_avis { display:block;}
