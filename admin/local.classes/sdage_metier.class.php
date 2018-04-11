@@ -896,8 +896,8 @@ class sdage_metier
 		$pressions= mdtb_table::InitObject("mdtb_ae_pressions");
 		$comboPressions=$pressions->htmlGetComboMultiple("liste_pressions","id_pression","libelle_pression","1",$this->params["liste_pressions"]);
     	$this->template->assign_vars(array("CMB_PRESSIONS"=>$comboPressions));
-    	$arrImpacts=array();
-		for($i=0;$i<=4;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+    	$arrImpacts=array(); //array("id"=>"","value"=>""));
+		for($i=0;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 		$listeImpacts=mdtb_forms::combolistmultiple("liste_impacts",$arrImpacts,$this->params["liste_impacts"]);
 		$this->template->assign_vars(array("CMB_IMPACT"=>$listeImpacts));
 		$arrTypesMdo=array(
