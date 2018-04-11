@@ -658,7 +658,7 @@ class sdage_metier
 		}
 		if($this->liste_impacts!="")
 		{
-			$requeteME.=" AND edl.impact_2016 IN ($this->liste_impacts) ";
+			$requeteME.=" AND edl.impact_2019 IN ($this->liste_impacts) ";
 		}
 		
 		//echo "<pre>".$requeteME."</pre>";
