@@ -566,9 +566,14 @@ class sdage_metier
 				$erreurNomMDO=true;
 				$this->msg_error.="Erreur MDO non trouvée : ".$curData["code_masse_eau"]."<br />";
 			}
+			if(!isset($arrPressions[$curData["code_pression"]])) // V2rification que l'id de pression existe dans le référentiel
+			{
+				$erreurPression=true;
+				$this->msg_error.="Erreur Pression non trouvée : ".$curData["code_pression"]."<br />";
+			}
 		}
 		//die(__LINE__." ERREUR ");
-		if($erreurNomMDO)
+		if($erreurNomMDO ||$erreurPression)
 		{
 			return false;
 		}
@@ -582,7 +587,7 @@ class sdage_metier
 		foreach($csv as $curData)
 		{
 			$obj=new stdClass();
-			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$arrPressions[$curData["Pression"]]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]);
+			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$curData["code_pression"]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["code_masse_eau"]]);
 			if($edl->recFirst())
 			{
 				$obj=$edl->recGetRecord();
