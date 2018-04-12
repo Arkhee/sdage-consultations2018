@@ -761,14 +761,18 @@ class sdage_metier
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
-		file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage()."\r\nRequête : \r\n".$requeteME."\r\n");
+		file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage().
+			"\r\nRequête count : \r\n".$requeteMEChampsCount.$requeteME."\r\n"
+		);
 		// Requete count : 
     	$this->db->setQuery($requeteMEChampsCount.$requeteME);
 		$resultatCount=$this->db->loadObjectList();
-		$nbresultats=$resultatCount[0]["nboccme"];
+		$this->nbresultats=$resultatCount[0]["nboccme"];
+		
 		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
 		$curpage=($curpage<=0)?1:$curpage;
 		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
+		file_put_contents(__DIR__."/derniere-recherche.log","Requête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
     	$this->db->setQuery($requeteMEChampsListe.$requeteME.$requeteMELimit);
     	$this->search_result=$this->db->loadObjectList();
 		
@@ -920,7 +924,7 @@ class sdage_metier
 			$arrMassesDeau=$this->listeMassesDeau();
 			$arrSSBV=$this->listeSSBV("code");
 			
-			$nb_pages=ceil($this->nb_search/self::$pagination);
+			$nb_pages=ceil($this->nbresultats/self::$pagination);
 			if(!isset($this->params["pagination"])) $this->params["pagination"]=1;
 			$arrPages=array();
 			for($i=1;$i<=$nb_pages;$i++) $arrPages[]=array("id"=>$i,"value"=>$i);
