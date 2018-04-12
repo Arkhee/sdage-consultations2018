@@ -594,7 +594,11 @@ class sdage_metier
 			if($edl->recFirst())
 			{
 				file_put_contents(__DIR__."/import.log"," MISE A JOUR  ... ",FILE_APPEND);
-				if(isset($this->params["skipupdate"]) && $this->params["skipupdate"]==="skip") continue;
+				if(isset($this->params["skipupdate"]) && $this->params["skipupdate"]==="skip")
+				{
+					file_put_contents(__DIR__."/import.log"," skip \r\n",FILE_APPEND);
+					continue;
+				}
 				$obj=$edl->recGetRecord();
 				//echo "Enregistrement retrouvé "."id_pression=".$arrPressions[$curData["Pression"]]." AND id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]." <pre>".print_r($obj,true)."</pre>";
 			}
@@ -754,6 +758,7 @@ class sdage_metier
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
+		file_put_contents(__DIR__."/derniere-recherche.sql",$requeteME);
     	$this->db->setQuery($requeteME);
     	$this->search_result=$this->db->loadObjectList();
 		
