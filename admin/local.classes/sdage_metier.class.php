@@ -12,6 +12,7 @@ class sdage_metier
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","panneau");
 	public static $pagination=20;
+	public static $extensions_autorisees=array("jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
 	var $template_filenames=array(
 		"accueil"=>"accueil.tpl",
 		"connexion"=>"connexion.tpl",
@@ -541,11 +542,20 @@ class sdage_metier
 			if(!isset($obj->documents)) $obj->documents="";
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
-			file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
-				// Traitement du fichier téléchargé
-				$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
-				move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
-				$obj->documents=$newFileName;
+				$path_parts=pathinfo($this->params["documents"]["name"]);
+				$extension= strtolower($path_parts["extension"]);
+				if(in_array($extension,self::$extensions_autorisees))
+				{
+					file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
+					// Traitement du fichier téléchargé
+					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
+					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
+					$obj->documents=$newFileName;
+				}
+				else
+				{
+					file_put_contents(__DIR__."/creation-avis.log","Extension interdite : ".$this->params["documents"]["name"]."\r\n",FILE_APPEND);
+				}
 			}
 			$obj->date_modification=date('Y-m-d H:i:s');
 			
