@@ -72,6 +72,8 @@
 												  enctype="multipart/form-data" target="targetSauvegarde"
 												  class="formAvisMassedeau">
 												<input type='hidden' name="section" value="avis"/>
+												<input type='hidden' name="id_pression" value="{pressions.id_pression}"/>
+												<input type='hidden' name="id_massedeau" value="{pressions.id_massedeau}"/>
 												<input type='hidden' name="id_form_avis" value="formAvisPression_{pressions.id_pression}_{pressions.code_me}"/>
 
 												<label for="pression_cause_du_risque">Pression cause du risque</label>
