@@ -1013,6 +1013,7 @@ class sdage_metier
 								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N",
 								*/
 								'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
+								'id_massedeau' =>  $edl->id_massedeau,
 								'libelle_me' => $arrMassesDeau[$edl->id_massedeau]->libelle_me,
 								'categorie_me' => $arrMassesDeau[$edl->id_massedeau]->categorie_me,
 								'code_ssbv' => $arrMassesDeau[$edl->id_massedeau]->code_ssbv,
@@ -1029,6 +1030,7 @@ class sdage_metier
 								"nbavis" => $edl->nbavis,
 								"avis_valide"=>$objAvis->avis_valide,
 								"impact_estime"=>$objAvis->impact_estime,
+								"icone_avis"=>$icone_avis,
 								"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
 								"justification"=>$objAvis->commentaires,
 								"lien_documents"=>$objAvis->lien_documents,
