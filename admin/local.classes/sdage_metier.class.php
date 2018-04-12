@@ -771,6 +771,7 @@ class sdage_metier
 		
 		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
 		$curpage=($curpage<=0)?1:$curpage;
+		if($curpage>self::$pagination) $curpage=self::$pagination;
 		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
 		file_put_contents(__DIR__."/derniere-recherche.log","Compte : ".$this->nbresultats."\r\nRequête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
     	$this->db->setQuery($requeteMEChampsListe.$requeteME.$requeteMELimit);
