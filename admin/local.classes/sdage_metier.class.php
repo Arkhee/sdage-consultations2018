@@ -584,6 +584,7 @@ class sdage_metier
 		 */
 		$edl= mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 		$nbEDLMaj=0;
+		
 		file_put_contents(__DIR__."/import.log","Import en cours ".date("Y-m-d H:i:s")."\r\n");
 		foreach($csv as $curData)
 		{
