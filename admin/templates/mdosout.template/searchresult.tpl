@@ -13,6 +13,7 @@
 		<div class="blocfiltre"><label placeholder="Sélectionnez une pression">Pressions :</label>{CMB_PRESSIONS}</div>
 		<div class="blocfiltre"><label placeholder="Sélectionnez un niveau d'impact">Impact :</label>{CMB_IMPACT}</div>
 	</div>
+	<div class="pagination">Page&nbsp;:&nbsp;{CMB_PAGINATION}/{nb_pages}</div>
   <input type="hidden" name="section" id="section" value="search" />
 </form>
 				

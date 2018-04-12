@@ -11,7 +11,7 @@ class sdage_metier
 	var $template=null;
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","panneau");
-	public static $pagination=200;
+	public static $pagination=20;
 	var $template_filenames=array(
 		"accueil"=>"accueil.tpl",
 		"connexion"=>"connexion.tpl",
@@ -53,6 +53,7 @@ class sdage_metier
 	
     public function __construct(&$database,&$path_pre,$thePage="index.php")
     {
+		if(defined("RECHERCHE_PAGINATION")) self::$pagination=(int)RECHERCHE_PAGINATION;
     	$this->path_pre=$path_pre;
     	$this->formPage=basename($thePage);
 		//die("Nom : ".basename($thePage));
@@ -693,11 +694,12 @@ class sdage_metier
 		{
 			$joinImpactOuPression=" LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=mdo.id_massedeau ";
 		}
-		
-		$requeteME="
+		$requeteMEChampsListe="
 			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*,
 				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut,
-				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut_sort
+				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut_sort";
+		$requeteMEChampsCount="SELECT COUNT(*) AS nboccme ";
+		$requeteME="
 			FROM ae_massesdeau AS mdo
 			LEFT JOIN ae_ssbv AS ssbv ON ssbv.code_ssbv=mdo.code_ssbv
 			LEFT JOIN ae_ss_ut AS ssut ON ssbv.code_ss_ut=ssut.code_ss_ut
@@ -760,7 +762,14 @@ class sdage_metier
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
 		file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage()."\r\nRequête : \r\n".$requeteME."\r\n");
-    	$this->db->setQuery($requeteME);
+		// Requete count : 
+    	$this->db->setQuery($requeteMEChampsCount.$requeteME);
+		$resultatCount=$this->db->loadObjectList();
+		$nbresultats=$resultatCount[0]["nboccme"];
+		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
+		$curpage=($curpage<=0)?1:$curpage;
+		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
+    	$this->db->setQuery($requeteME.$requeteMELimit);
     	$this->search_result=$this->db->loadObjectList();
 		
     	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
@@ -769,7 +778,7 @@ class sdage_metier
 		}
 		if(is_array($this->search_result) && count($this->search_result)>self::$pagination)
 		{
-			$this->msg_info="Trop de résultats à votre recherche, veuillez ajouter un filtre. Sortie limitée à 200 résultats";
+			//$this->msg_info="Trop de résultats à votre recherche, veuillez ajouter un filtre. Sortie limitée à 200 résultats";
 		}
 		//echo "<pre>".$requeteME."</pre>";
     }
@@ -910,11 +919,21 @@ class sdage_metier
 			//$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 			$arrMassesDeau=$this->listeMassesDeau();
 			$arrSSBV=$this->listeSSBV("code");
+			
+			$nb_pages=ceil($this->nb_search/self::$pagination);
+			if(!isset($this->params["pagination"])) $this->params["pagination"]=1;
+			$arrPages=array();
+			for($i=1;$i<=$nb_pages;$i++) $arrPages[]=array("id"=>$i,"value"=>$i);
+			$cmbPagination= mdtb_forms::combolist("pagination",$arrPages,$this->params["pagination"]);
+			$this->template->assign_var("CMB_PAGINATION", $cmbPagination);
+			$this->template->assign_var("nb_pages", $nb_pages);
+			
 			$nbaffiche=0;
     		foreach($this->search_result as $curme)
     		{
 				$nbaffiche++;
 				if($nbaffiche>self::$pagination) break;
+				
 				// SELECT COUNT(*) as nbocc FROM ae_edl_massesdeau LEFT JOIN ae_massesdeau as id_massedeau_ae_massesdeau ON id_massedeau_ae_massesdeau.id_massedeau=ae_edl_massesdeau.id_massedeau  WHERE  ( ae_edl_massesdeau.id_massedeau=2356) 
 				$requeteSearch="ae_edl_massesdeau.id_massedeau=".$curme->id_massedeau;
 				if($this->liste_pressions!="")
