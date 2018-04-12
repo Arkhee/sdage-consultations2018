@@ -964,7 +964,7 @@ class sdage_metier
 				if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 				{
 					$arrPressions=$this->listePressions();
-					$this->template->assign_var("pressions",null);
+					$this->template->clear_block_var("pressions");
 					foreach($listeEdl as $edl)  //do
 					{
 						if(!$this->authIsCollaborateur())

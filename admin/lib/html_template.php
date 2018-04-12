@@ -196,12 +196,18 @@ class Template {
 			// Top-level block.
 			// Add a new iteration to this block with the variable assignments
 			// we were given.
+			if(!isset($this->_tpldata[$blockname . '.'])) $this->_tpldata[$blockname . '.']=array();
 			$this->_tpldata[$blockname . '.'][] = $vararray;
 		}
 
 		return true;
 	}
 
+	
+	public function clear_block_var($blockname)
+	{
+		unset($this->_tpldata[$blockname . '.']);
+	}
 	/**
 	 * Root-level variable assignment. Adds to current assignments, overriding
 	 * any existing variable assignment with the same name.
