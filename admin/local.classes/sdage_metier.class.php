@@ -27,6 +27,17 @@ class sdage_metier
 	var $search_result=array();
 
 	public static $importColonnes=array(
+		// code_masse_eau;code_pression;impact_2016;valeur_forcee_2016;rnabe_2021;pression_origine_risque_2021;impact_2019;rnabe_2027;pression_origine_risque_2027
+		"code_me"=>"code_masse_eau",
+		"id_pression" => "code_pression",
+		"impact_2016"=>"impact_2016",
+		"impact_valeur_forcee"=>"valeur_forcee_2016",
+		"rnaoe_2021"=>"rnabe_2021",
+		"pression_origine_2021"=>"pression_origine_risque_2021",
+		"impact_2019"=>"impact_2019",
+		"rnaoe_2027"=>"rnabe_2027",
+		"pression_origine_2027"=>"pression_origine_risque_2027"
+		/*
 		"code_me"=>"Code masse d'eau",
 		"libelle_pression" => "Pression",
 		"impact_2016"=>"Classe d'impact SDAGE 2016 (1;2;3) ",
@@ -35,7 +46,7 @@ class sdage_metier
 		"rnaoe_2021"=>"RNAOE 2021 (O/N)",
 		"pression_origine_2021"=>"Pression à l'origine du risque 2021 (O/N)",
 		"rnaoe_2027"=>"RNAOE 2027 (O/N)",
-		"pression_origine_2027"=>"Pression à l'origine du risque 2027 (O/N)"
+		"pression_origine_2027"=>"Pression à l'origine du risque 2027 (O/N)" */
 	);
 
 	
@@ -52,6 +63,23 @@ class sdage_metier
 		//echo "Objet template : ".Tools::Display($this->template);
     }
 
+	public function authIsCreateur()
+	{
+		if(!$this->auth->isLoaded()) return false;
+		if(!isset($this->auth) || !isset($this->auth->user_Rank)) return false;
+		if($this->auth->user_Rank!=="crea") return false;
+		return true;
+	}
+
+	public function authIsCollaborateur()
+	{
+		if(!$this->auth->isLoaded()) return false;
+		if(!isset($this->auth) || !isset($this->auth->user_Rank)) return false;
+		if($this->auth->user_Rank!=="coll") return false;
+		return true;
+		
+	}
+	
 	public function setAuth($authobject)
 	{
 		$this->auth=$authobject;
@@ -357,6 +385,23 @@ class sdage_metier
 		}
 		return $arrMdo;
 	}
+	
+	public function listeSSBV($typeindex="id")
+	{
+		$mdo=mdtb_table::InitObject("mdtb_ae_ssbv");
+		$mdo->recSQLSearch("1");
+		$arrMdo=array();
+		if($mdo->recFirst())
+		{
+			do
+			{
+				if($typeindex=="id") $arrMdo[$mdo->recGetValue("id_ssbv")]=$mdo->recGetRecord();
+				elseif($typeindex=="code") $arrMdo[$mdo->recGetValue("code_ssbv")]=$mdo->recGetRecord();
+			} while($mdo->recNext());
+		}
+		return $arrMdo;
+	}
+	
 	public function chargeMassesDeau()
 	{
 		$mdo=mdtb_table::InitObject("mdtb_ae_massesdeau");
@@ -465,7 +510,11 @@ class sdage_metier
 		{
 			// TRaitement de la sauvegarde de l'avis
 			if($this->params["sauverAvis"]) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
-			if($this->params["validerAvis"]) $action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+			if($this->params["validerAvis"])
+			{
+				$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+				$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
+			}
 			$this->msg_info.="<script>
 				$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');
 				$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
@@ -505,16 +554,17 @@ class sdage_metier
 		 * Import ou mise à jour des pressions
 		 */
 		
-		$arrPressions=$this->chargePressionsDeCSVEtConsolideListeAvecBase($csv);
+		//$arrPressions=$this->chargePressionsDeCSVEtConsolideListeAvecBase($csv);
+		$arrPressions=$this->listePressions();
 		$arrMassesDeau=$this->chargeMassesDeau();
 		$erreurNomMDO=false;
 		foreach($csv as $curData)
 		{
 
-			if(!isset($arrMassesDeau[$curData["Code masse d'eau"]]))
+			if(!isset($arrMassesDeau[$curData["code_masse_eau"]]))
 			{
 				$erreurNomMDO=true;
-				$this->msg_error.="Erreur MDO non trouvée : ".$curData["Code masse d'eau"]."<br />";
+				$this->msg_error.="Erreur MDO non trouvée : ".$curData["code_masse_eau"]."<br />";
 			}
 		}
 		//die(__LINE__." ERREUR ");
@@ -543,9 +593,8 @@ class sdage_metier
 				$edl->recNewRecord();
 				$obj->id_edl_massedeau=null;
 			}
-			$obj->id_pression=$arrPressions[$curData["Pression"]];
+			/*
 			$obj->id_massedeau=$arrMassesDeau[$curData["Code masse d'eau"]];
-			
 			$obj->impact_2016=$curData["Classe d'impact SDAGE 2016 (1;2;3) "];
 			$obj->impact_valeur_forcee=$curData["Valeur forcée impact SDAGE 2016 O/N"]=="O"?1:0;
 			$obj->impact_2019=$curData["Classe d'impact EdL2019 (1;2;3)"];
@@ -553,6 +602,17 @@ class sdage_metier
 			$obj->pression_origine_2021=$curData["Pression à l'origine du risque 2021 (O/N)"]=="O"?1:0;
 			$obj->rnaoe_2027=$curData["RNAOE 2027 (O/N)"]=="O"?1:0;
 			$obj->pression_origine_2027=$curData["Pression à l'origine du risque 2027 (O/N)"]=="O"?1:0;
+			*/
+			
+			$obj->id_pression=$curData["code_pression"]; //$arrPressions[$curData["Pression"]];
+			$obj->id_massedeau=$arrMassesDeau[$curData["code_masse_eau"]];
+			$obj->impact_2016=$curData["impact_2016"];
+			$obj->impact_valeur_forcee=$curData["valeur_forcee_2016"];
+			$obj->rnaoe_2021=$curData["rnabe_2021"];
+			$obj->pression_origine_2021=$curData["pression_origine_risque_2021"];
+			$obj->impact_2019=$curData["impact_2019"];
+			$obj->rnaoe_2027=$curData["rnabe_2027"];
+			$obj->pression_origine_2027=$curData["pression_origine_risque_2027"];
 			$edl->recStore($obj);
 			//echo "Enregistrement objet.<pre>".print_r($obj,true)."</pre><br />";
 			$nbEDLMaj++;
@@ -590,9 +650,13 @@ class sdage_metier
 			$this->liste_pressions="'".implode("','",$this->params["liste_pressions"])."'";
 		}
 		
-		if(isset($this->params["liste_typesmdo"]) && $this->params["liste_typesmdo"]!='toutes' && $this->params["liste_typesmdo"]!='')
+		if(isset($this->params["liste_typesmdo"]) && is_array($this->params["liste_typesmdo"]) && count($this->params["liste_typesmdo"])) // && $this->params["liste_typesmdo"]!='toutes' && $this->params["liste_typesmdo"]!='')
 		{
-			$this->liste_typesmdo=trim($this->params["liste_typesmdo"]);
+			//die("Types : ".print_r($this->params["liste_typesmdo"],true));
+			foreach($this->params["liste_typesmdo"] as &$clef) $clef=addslashes($clef);
+			$this->liste_typesmdo="'".implode("','",($this->params["liste_typesmdo"]))."'";
+			
+			//die("liste : ".$this->liste_typesmdo);
 		}
 		
 		if(!in_array($this->params["ssorder"],array("ASC","DESC")))
@@ -633,6 +697,9 @@ class sdage_metier
 		}
 		if($this->liste_typesmdo!="")
 		{
+			//die("liste : ".$this->liste_typesmdo);
+			$requeteME.=" AND mdo.categorie_me IN (".$this->liste_typesmdo.") ";
+			/*
 			switch($this->liste_typesmdo)
 			{
 				case "mdosup":
@@ -642,6 +709,8 @@ class sdage_metier
 					$requeteME.=" AND mdo.categorie_me='Eau souterraine' ";
 					break;
 			}
+			 * 
+			 */
 		}
 		if($this->liste_ssbv!="")
 		{
@@ -814,8 +883,9 @@ class sdage_metier
     	}
     	else
     	{
-			$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
+			//$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 			$arrMassesDeau=$this->listeMassesDeau();
+			$arrSSBV=$this->listeSSBV("code");
     		foreach($this->search_result as $curme)
     		{
 				// SELECT COUNT(*) as nbocc FROM ae_edl_massesdeau LEFT JOIN ae_massesdeau as id_massedeau_ae_massesdeau ON id_massedeau_ae_massesdeau.id_massedeau=ae_edl_massesdeau.id_massedeau  WHERE  ( ae_edl_massesdeau.id_massedeau=2356) 
@@ -826,20 +896,50 @@ class sdage_metier
 				}
 				if($this->liste_impacts!="")
 				{
-					$requeteSearch.=" AND ae_edl_massesdeau.impact_2016 IN (".$this->liste_impacts.") ";
+					$requeteSearch.=" AND ae_edl_massesdeau.impact_2019 IN (".$this->liste_impacts.") ";
 				}
-				$edl->recSQLSearch($requeteSearch);
-				$detailPressions="Aucune pression pour cette masse d'eau";
-				if($edl->recFirst())
+				//$edl->recSQLSearch($requeteSearch);
+				$requeteSQL="SELECT ae_edl_massesdeau.*, (SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis FROM ae_edl_massesdeau WHERE ".$requeteSearch." GROUP BY ae_edl_massesdeau.id_pression";
+				$this->db->setQuery($requeteSQL);
+				$listeEdl=$this->db->loadObjectList();
+				$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
+				
+				$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
+				if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 				{
 					$arrPressions=$this->listePressions();
-					do
+					foreach($listeEdl as $edl)  //do
 					{
+						if(!$this->authIsCollaborateur())
+						{
+							$edl->nbavis="-";
+							$edl->impact_valeur_forcee="-";
+						}
+						else
+						{
+							$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"O":"N";
+						}
+						
+						$objAvis=$mdtbAvis->getAvisPourPressionMdo($edl->id_pression,$edl->id_massedeau);
+						
+						$arrpression_cause_du_risque=array();
+						$arrpression_cause_du_risque[]=array("id"=>"","value"=>"");
+						$arrpression_cause_du_risque[]=array("id"=>"1","value"=>"Oui");
+						$arrpression_cause_du_risque[]=array("id"=>"0","value"=>"Non");
+						$CMB_PRESSION_CAUSE_DU_RISQUE=mdtb_forms::combolist("pression_cause_du_risque",$arrpression_cause_du_risque,$objAvis->pression_cause_du_risque);
+						//die("cmb pression  : ".print_r($CMB_PRESSION_CAUSE_DU_RISQUE,true));
+						$arrImpacts=array(); //array("id"=>"","value"=>""));
+						$arrImpacts[]=array("id"=>"","value"=>"");
+						for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+						$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
+						
+						//die("Boucle sur edl : ".print_r($listeEdl,true));
 						$this->template->assign_block_vars
 						(
 							'pressions',
 							array
 							(
+								/*
 								'code_me' =>  $arrMassesDeau[$edl->recGetValue("id_massedeau")]->code_me,
 								'libelle_me' => $arrMassesDeau[$edl->recGetValue("id_massedeau")]->libelle_me,
 								'categorie_me' => $arrMassesDeau[$edl->recGetValue("id_massedeau")]->categorie_me,
@@ -852,12 +952,36 @@ class sdage_metier
 								'rnaoe_2021' => $edl->recGetValue("rnaoe_2021")?"O":"N",
 								'pression_origine_2021' => $edl->recGetValue("pression_origine_2021")?"O":"N",
 								'rnaoe_2027' => $edl->recGetValue("rnaoe_2021")?"O":"N",
-								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N"
+								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N",
+								*/
+								'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
+								'libelle_me' => $arrMassesDeau[$edl->id_massedeau]->libelle_me,
+								'categorie_me' => $arrMassesDeau[$edl->id_massedeau]->categorie_me,
+								'code_ssbv' => $arrMassesDeau[$edl->id_massedeau]->code_ssbv,
+								'libelle_ssbv' => $arrSSBV[$arrMassesDeau[$edl->id_massedeau]->code_ssbv]->libelle_ssbv,
+								'id_pression' => $edl->id_pression,
+								'libelle_pression' => $arrPressions[$edl->id_pression],
+								'impact_2016' => $edl->impact_2016,
+								'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"O":"N",
+								'impact_2019' => $edl->impact_2019,
+								'rnaoe_2021' => $edl->rnaoe_2021?"O":"N",
+								'pression_origine_2021' => $edl->pression_origine_2021?"O":"N",
+								'rnaoe_2027' => $edl->rnaoe_2021?"O":"N",
+								'pression_origine_2027'=> $edl->pression_origine_2027?"O":"N",
+								"nbavis" => $edl->nbavis,
+								"avis_valide"=>$objAvis->avis_valide,
+								"impact_estime"=>$objAvis->impact_estime,
+								"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
+								"justification"=>$objAvis->commentaires,
+								"lien_documents"=>$objAvis->lien_documents,
+								"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
+								"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
 							)
 						);
-					} while($edl->recNext());
+					} //while($edl->recNext());
 					$detailPressions=$this->template->pparse("detail-pressions",true);
 				}
+				
     			$this->template->assign_block_vars
 	            (
 	                'tablecontent',
@@ -867,7 +991,9 @@ class sdage_metier
 	                	'libelle_me' => $curme->libelle_me,
 	                	'categorie_me' => $curme->categorie_me,
 						'code_ssbv' => $curme->code_ssbv,
+						'libelle_ssbv' => $curme->libelle_ssbv,
 	                	'code_ss_ut' => $curme->code_ss_ut,
+	                	'libelle_ss_ut' => $curme->libelle_ss_ut,
 	                	'texte_recherche' => urlencode($this->texte_recherche),
 						'detail_pressions'=> $detailPressions
 	                )
@@ -900,12 +1026,22 @@ class sdage_metier
 		for($i=0;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 		$listeImpacts=mdtb_forms::combolistmultiple("liste_impacts",$arrImpacts,$this->params["liste_impacts"]);
 		$this->template->assign_vars(array("CMB_IMPACT"=>$listeImpacts));
-		$arrTypesMdo=array(
-			array("id"=>"toutes","value"=>"Tous types de masses d'eau"),
-			array("id"=>"mdosup","value"=>"Masses d'eau superficielles"),
-			array("id"=>"mdosout","value"=>"Masses d'eau souterraines"),
-		);
-		$listeTypesMDO=mdtb_forms::combolist("liste_typesmdo",$arrTypesMdo,$this->params["liste_typesmdo"]);
+		
+		
+		$mdtbMdo=mdtb_table::InitObject("mdtb_ae_massesdeau");
+		$listeTypesMDO=$mdtbMdo->getListeTypesMassesDEau();
+		$arrTypesMdo=array(); //array("id"=>"toutes","value"=>"Tous types de masses d'eau"));
+		foreach($listeTypesMDO as $curTypeMdo)
+		{
+			//echo "Type <pre>".print_r($curTypeMdo,true)."</pre><br/>";
+			$arrTypesMdo[]=array("id"=>$curTypeMdo->categorie_me,"value"=>$curTypeMdo->categorie_me);
+		}
+		foreach($this->params["liste_typesmdo"] as &$clef)
+		{
+			$clef= stripslashes($clef);
+		}
+		$listeTypesMDO=mdtb_forms::combolistmultiple("liste_typesmdo",$arrTypesMdo,$this->params["liste_typesmdo"]);
+		
 		$this->template->assign_vars(array("CMB_TYPEMDO"=>$listeTypesMDO));
 		
 		$pressions=$this->listePressions();

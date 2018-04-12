@@ -2,10 +2,10 @@
 <form id="formRecherche" name="formRecherche" method="post" action="{FORM_PAGE}">
 	<h3>Affinez votre recherche :</h3>
 	<div class='texteRecherche'>
-		<input type="text" name="txtRecherche" placeholder="Saisissez un code ou libellé de masse d'eau" id="txtRecherche" value="{texte_recherche}" />
-		{CMB_TYPEMDO}
+		<input type="text" name="txtRecherche" placeholder="Saisissez un code ou libellé de masse d'eau" id="txtRecherche" value="{texte_recherche}" /><br />
 		<input type="submit" name="cmdOk" value="Recherche" />
 	</div>
+	<div class="blocfiltre typesmdo"><label placeholder="Sélectionnez un type de masse d'eau">Type de masse d'eau :</label>{CMB_TYPEMDO}</div>
 	<!-- <span onclick="jQuery('#rechercheavancee').toggle();" style="cursor:pointer;text-decoration: underline;"><i class="fas fa-plus-square"></i>Recherche avancée</span> -->
 	<div id="rechercheavancee" style="display:flex;">
 		<div class="blocfiltre"><label placeholder="Sélectionnez une sous-unité">Sous-unité territoriale :</label>{CMB_SS_UT}</div>
@@ -24,7 +24,7 @@
 			&nbsp;
 		</th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
-			Code ME
+			Code Masse d'eau
             <a href="{FORM_PAGE}?section=search&ssfield=code_me&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=code_me&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
         </th>
@@ -68,10 +68,10 @@
                 {tablecontent.categorie_me}
             </td>
             <td class="mdtb_content_cell">
-                {tablecontent.code_ssbv}
+                {tablecontent.code_ssbv}&nbsp;-&nbsp;{tablecontent.libelle_ssbv}
             </td>
             <td class="mdtb_content_cell">
-                {tablecontent.code_ss_ut}
+                {tablecontent.code_ss_ut}&nbsp;-&nbsp;{tablecontent.libelle_ss_ut}
             </td>
         </tr>
         <tr style="display:none;">

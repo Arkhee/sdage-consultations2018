@@ -3,6 +3,8 @@
 #formRecherche h3 { font-size:14px; font-weight: bold;}
 #formRecherche label { display:block; text-align: left;}
 .blocfiltre { width:23%; margin:5px;}
+.blocfiltre.typesmdo { width:100% !important;}
+.blocfiltre.typesmdo select { width:100% !important;}
 .blocfiltre select { width:100%;}
 .mdtb_displaymore_cell { cursor: pointer; padding:3px; font-size:16px;}
 tr.ligne-active
@@ -24,15 +26,27 @@ table.mdtb_form_table_searchresult
 
 table.mdtb_form_table_searchresult table
 {
-	margin:5px;
+	margin:0px;
 }
+
+table.mdtb_form_table_searchresult table td { padding:5px;}
 
 table.mdtb_form_table_searchresult th {height:26px;}
 
 table.listepressions th{ text-align: center; border-bottom:1px #666 dotted;}
 table.listepressions th ,table.listepressions td { text-align: center;}
 table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left;}
-
+table.listepressions tr:nth-child(even)  { background-color: lightblue; }
+table.listepressions tr .avis  { display:none; }
+table.listepressions tr .valeur_forcee,
+table.listepressions tr.valeur_forcee,
+table.detailPression tr.valeur_forcee
+{ display:none; }
+body.connecte_coll table.listepressions tr .avis  { display:table-cell; }
+body.connecte_coll table.listepressions tr .valeur_forcee,
+body.connecte_coll table.listepressions tr.valeur_forcee,
+body.connecte_coll table.detailPression tr.valeur_forcee
+{ display:table-cell; }
 div.formAvis { min-width: 900px;}
 
 table.detailPression, table.detailPression table
@@ -62,6 +76,19 @@ table.detailPression table.detailGroupe td
 	width:60%;
 	padding:5px;
 }
+label.erreur
+{
+	font-weight: bold;
+	color:red;
+}
+table.detailGroupe {
+    border: 1px solid #666;
+    margin-top: 5px;
+}
+
+table.detailPression > tbody >  tr > td { padding-right: 0px;}
+table.detailPression > tbody >  tr > td + td { padding-right: 0px}
+
 table.detailPression table.detailGroupe td + td
 {
 	font-weight: normal;
@@ -98,7 +125,7 @@ form.formAvisMassedeau label.validationok { color:orange; }
 table.mdtb_form_table_searchresult tr.mdtb_content_row { cursor: pointer;}
 table.mdtb_form_table_searchresult td.mdtb_content_cell { cursor: pointer;}
 div.texteRecherche { display:flex;}
-div.texteRecherche input#txtRecherche { width:69%; margin-right:5px;}
+div.texteRecherche input#txtRecherche { width:100%; margin-right:5px;}
 div.texteRecherche select#liste_typesmdo { height:26px; margin-right:5px; }
 
 #formConnexion 
@@ -113,3 +140,8 @@ div.texteRecherche select#liste_typesmdo { height:26px; margin-right:5px; }
 
 .formulaire_avis { display:none;}
 body.connecte_crea .formulaire_avis { display:block;}
+
+
+div.avis_lecture { display:none;}
+div.avis_valide div.avis_lecture { display:block;}
+div.avis_valide div.avis_ecriture { display:none;}

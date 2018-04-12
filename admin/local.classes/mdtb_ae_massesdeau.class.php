@@ -39,4 +39,13 @@ class mdtb_ae_massesdeau extends mdtb_table
 		$this->_template_sections=array("header"=>"header","footer"=>"footer","menu"=>"menu","ajaxsearchlist"=>"ajaxsearchlist","ajaxselectlist"=>"ajaxselectlist","form"=>"form","list"=>"list","detail"=>"detail");
 		if(method_exists($this,"parent_init")) $this->parent_init();
 	}
+	
+	public function getListeTypesMassesDEau()
+	{
+		$sql="SELECT categorie_me FROM ".$this->table_name." GROUP BY categorie_me;";
+		$this->_db->setQuery($sql);
+		$liste=$this->_db->loadObjectList();
+		//die("Liste : ".$sql."<pre>".print_r($liste,true));
+		return $liste;
+	}
 }

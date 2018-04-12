@@ -55,8 +55,10 @@ class mdtb_table extends mosDBTable
 
 	public static function InitObject($class)
 	{
-		global $database,$template_name,$path_abs;
-		return new $class($database,$template_name,basename(__FILE__),$path_abs,true);
+		global $database,$template_name,$path_abs,$auth;
+		$obj = new $class($database,$template_name,basename(__FILE__),$path_abs,true);
+		if(!is_null($auth) && is_object($auth)) $obj->set_auth($auth);
+		return $obj;
 	}
 	
 	

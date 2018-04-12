@@ -37,4 +37,41 @@ class mdtb_ae_avis extends mdtb_table
 		$this->_template_sections=array("header"=>"header","footer"=>"footer","menu"=>"menu","ajaxsearchlist"=>"ajaxsearchlist","ajaxselectlist"=>"ajaxselectlist","form"=>"form","list"=>"list","detail"=>"detail");
 		if(method_exists($this,"parent_init")) $this->parent_init();
 	}
+	
+	public function getAvisDefaultObject()
+	{
+		$obj = new stdClass();
+		$obj->avis_valide="";
+		$obj->impact_estime="";
+		$obj->pression_cause_du_risque="";
+		$obj->justification="";
+		$obj->lien_documents="";
+		//die("Objet : <pre>".print_r($obj,true)."</pre>");
+		return $obj;
+	}
+	
+	public function getAvisPourPressionMdo($id_pression,$id_mdo)
+	{
+		if(!isset($this->auth) || !is_object($this->auth) || !$this->auth->isLoaded()) return $this->getAvisDefaultObject();
+		$requeteAvis="
+			SELECT 
+				IF(a.date_validation='0000-00-00 00:00:00','','avis_valide') AS avis_valide,
+				a.*
+			FROM ".$this->table_name." AS a
+			WHERE a.id_pression=".(int)$id_pression." AND a.id_massedeau=".(int)$id_mdo." AND a.id_user=".$this->auth->user_ID.";
+		";
+		$this->_db->setQuery($requeteAvis);
+		$liste=$this->_db->loadObjectList();
+		if(!is_array($liste) || !count($liste))
+		{
+			$obj=$this->getAvisDefaultObject();
+		}
+		else
+		{
+			$obj = $liste[0];
+			$obj->lien_documents=$this->_parent_href.$obj->documents;
+		}
+		
+		return $obj;
+	}
 }
