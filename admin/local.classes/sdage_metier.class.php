@@ -590,6 +590,7 @@ class sdage_metier
 			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$curData["code_pression"]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["code_masse_eau"]]);
 			if($edl->recFirst())
 			{
+				if(isset($this->params["skipupdate"]) && $this->params["skipupdate"]==="skip") continue;
 				$obj=$edl->recGetRecord();
 				//echo "Enregistrement retrouvé "."id_pression=".$arrPressions[$curData["Pression"]]." AND id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]." <pre>".print_r($obj,true)."</pre>";
 			}
