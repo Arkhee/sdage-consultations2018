@@ -776,6 +776,7 @@ class sdage_metier
     	$this->db->setQuery($requeteMEChampsListe.$requeteME.$requeteMELimit);
     	$this->search_result=$this->db->loadObjectList();
 		
+		
     	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
 		{
 			$this->msg_info="Votre recherche n'a fourni aucun résultat<div style='display:none'>".$requeteME."</div>";
