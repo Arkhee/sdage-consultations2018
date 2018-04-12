@@ -515,7 +515,7 @@ class sdage_metier
 			$obj=new stdClass();
 			$avis= mdtb_table::InitObject("mdtb_ae_avis");
 			file_put_contents(__DIR__."/creation-avis.log","Début création avis : ".$this->params["id_pression"]."/".$this->params["id_massedeau"]."/".$this->auth->user_ID."\r\n");
-			$avis->recSQLSearch("id_pression=".$this->params["id_pression"]." AND id_massedeau=".$this->params["id_massedeau"]." AND id_user=".$this->auth->user_ID);
+			$avis->recSQLSearch("ae_avis.id_pression=".$this->params["id_pression"]." AND ae_avis.id_massedeau=".$this->params["id_massedeau"]." AND ae_avis.id_user=".$this->auth->user_ID);
 			if($avis->recFirst())
 			{
 				$obj=$avis->recGetRecord();
@@ -545,6 +545,7 @@ class sdage_metier
 				// Traitement du fichier téléchargé
 				$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 				move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
+				$obj->documents=$newFileName;
 			}
 			$obj->date_modification=date('Y-m-d H:i:s');
 			
