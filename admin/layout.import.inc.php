@@ -74,7 +74,7 @@ TT_Template::BlockBegin("curbase","content","","mod_content");
 	<label>Fichier CSV contenant les données :</label>
 	<input type="file" name="import_echantillons">
 	<input type="hidden" name="section" value="import" />
-	<input type="checkbox" name="skipupdate" id="skipupdate" value="skip" />
+	<br /><input type="checkbox" name="skipupdate" id="skipupdate" value="skip" />
 	<label for"skipupdate">Ne pas mettre à jour (import nouveaux uniquement)</label>
 	<input type="submit" name="importer" value="Tester et importer" />
 </form>

@@ -2954,6 +2954,7 @@ class mdtb_table extends mosDBTable
 
 	function recSQLSearch($theSQLQuery,$theFieldSort="",$theOrderSort="")
 	{
+		if(!isset($this->_params)) $this->_params=new stdClass();
 		if($theFieldSort!="") $this->_params->sortfield=$theFieldSort;
 		else $this->_params->sortfield=$this->_defaultparams->sortfield;
 		if($theOrderSort!="") $this->_params->sortorder=$theOrderSort;
@@ -4637,6 +4638,7 @@ class mdtb_forms
 	
 	function combolistmultiple($theName,$theList,$theDefaults=array(),$theClass="")
 	{
+		if(!is_array($theDefaults)) $theDefaults=array();
 		$myCombo = "<select name=\"".$theName."[]\" id=\"".$theName."\" class=\"".$theClass."\" multiple >\n";
 		if(count($theList)>0)
 			foreach($theList as $curoption)

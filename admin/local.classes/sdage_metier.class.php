@@ -584,18 +584,22 @@ class sdage_metier
 		 */
 		$edl= mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 		$nbEDLMaj=0;
+		file_put_contents(__DIR__."/import.log","Import en cours ".date("Y-m-d H:i:s")."\r\n");
 		foreach($csv as $curData)
 		{
 			$obj=new stdClass();
 			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$curData["code_pression"]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["code_masse_eau"]]);
+			file_put_contents(__DIR__."/import.log","Import pression ".$curData["code_pression"]." et mdo ".$arrMassesDeau[$curData["code_masse_eau"]]."... ",FILE_APPEND);
 			if($edl->recFirst())
 			{
+				file_put_contents(__DIR__."/import.log"," MISE A JOUR  ... ",FILE_APPEND);
 				if(isset($this->params["skipupdate"]) && $this->params["skipupdate"]==="skip") continue;
 				$obj=$edl->recGetRecord();
 				//echo "Enregistrement retrouvé "."id_pression=".$arrPressions[$curData["Pression"]]." AND id_massedeau=".$arrMassesDeau[$curData["Code masse d'eau"]]." <pre>".print_r($obj,true)."</pre>";
 			}
 			else
 			{
+				file_put_contents(__DIR__."/import.log"," CREATION ... ",FILE_APPEND);
 				$edl->recNewRecord();
 				$obj->id_edl_massedeau=null;
 			}
@@ -619,10 +623,13 @@ class sdage_metier
 			$obj->impact_2019=$curData["impact_2019"];
 			$obj->rnaoe_2027=$curData["rnabe_2027"];
 			$obj->pression_origine_2027=$curData["pression_origine_risque_2027"];
-			$edl->recStore($obj);
+			file_put_contents(__DIR__."/import.log"," affectation valeurs ... ",FILE_APPEND);
+			$retour=$edl->recStore($obj);
+			file_put_contents(__DIR__."/import.log"," sauvegarde : ".($retour?"ok":"erreur")."\r\n",FILE_APPEND);
 			//echo "Enregistrement objet.<pre>".print_r($obj,true)."</pre><br />";
 			$nbEDLMaj++;
 		}
+		file_put_contents(__DIR__."/import.log","IMPORT TERMINE\r\n",FILE_APPEND);
 		$this->msg_info.="<br />Mise à jour terminée avec : ".$nbEDLMaj." enregistrements<br />";
 		//echo "Fichier ouvert, entetes : ".print_r($csv->getHeaders(),true)."<br />";
 	}
