@@ -4623,9 +4623,9 @@ class mdtb_forms
 		return "<input type=\"button\" name=\"".$theName."\" id=\"".$theName."\" value=\"".$theValue."\" class=\"".$theClass."\" ".$theParams.">\n";
 	}
 
-	function combolist($theName,$theList,$theDefault="",$theClass="")
+	function combolist($theName,$theList,$theDefault="",$theClass="",$theParams="")
 	{
-		$myCombo = "<select name=\"".$theName."\" id=\"".$theName."\" class=\"".$theClass."\" >\n";
+		$myCombo = "<select name=\"".$theName."\" id=\"".$theName."\" class=\"".$theClass."\" ".$theParams." >\n";
 		if(count($theList)>0)
 			foreach($theList as $curoption)
 			{

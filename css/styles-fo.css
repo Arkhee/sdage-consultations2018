@@ -145,3 +145,9 @@ body.connecte_crea .formulaire_avis { display:block;}
 div.avis_lecture { display:none;}
 div.avis_valide div.avis_lecture { display:block;}
 div.avis_valide div.avis_ecriture { display:none;}
+
+.pagination_resultat {
+    width: 100%;
+    text-align: center;
+    margin: 6px 0px;
+}
