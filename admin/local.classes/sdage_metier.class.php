@@ -448,7 +448,7 @@ class sdage_metier
 		}
 		return $arrPressions;
 	}
-	
+	/*
 	public function chargePressionsDeCSVEtConsolideListeAvecBase($csv)
 	{
 		
@@ -463,20 +463,6 @@ class sdage_metier
 				$listePressionsDansFichier[$arrPressions[$curData["Pression"]]]=$curData["Pression"];
 				unset($listePressionsDansFichier[$curData["Pression"]]);
 			}
-			/*
-			 * Array
-				(
-					[Code masse d'eau] => FRDR10040
-					[Pression] => Pollutions agricoles par les pesticides
-					[Classe d'impact SDAGE 2016 (1;2;3) ] => 2
-					[Valeur forcée impact SDAGE 2016 O/N] => O
-					[Classe d'impact EdL2019 (1;2;3)] => 1
-					[RNAOE 2021 (O/N)] => N
-					[Pression à l'origine du risque 2021 (O/N)] => N
-					[RNAOE 2027 (O/N)] => N
-					[Pression à l'origine du risque 2027 (O/N)] => N
-				)
-			 */
 		}
 		
 		foreach($listePressionsDansFichier as $keyCurPression => $valLblPression)
@@ -498,10 +484,25 @@ class sdage_metier
 		$arrPressions=$this->chargePressions();
 		return $arrPressions;
 	}
-	
+	*/
 	public function handle_Avis()
 	{
+		global $ThePrefs;
 		$action="$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();";
+		$this->params["id_pression"]=intval($this->params["id_pression"]);
+		$this->params["id_massedeau"]=intval($this->params["id_massedeau"]);
+		$this->params["justification"]=trim($this->params["justification"]);
+		$this->params["impact_estime"]=trim($this->params["impact_estime"]);
+		$this->params["pression_cause_du_risque"]=trim($this->params["pression_cause_du_risque"]);
+		if($this->params["id_pression"]<=0 
+			|| $this->params["id_massedeau"]<=0 
+			|| $this->params["impact_estime"]==""
+			|| $this->params["justification"]=="")
+		{
+			$this->msg_info.="<script>alert(\"Erreur : paramètres incorrects\");</script>";
+			return false;
+		}
+		
 		if(!$this->auth->isLoaded() || $this->auth->user_Rank!="crea")
 		{
 			$this->msg_info.="<script>alert(\"Vous n'avez pas les droits d'écriture sur les avis : ".$this->auth->user_Rank."\");</script>";
@@ -511,11 +512,52 @@ class sdage_metier
 		else
 		{
 			// TRaitement de la sauvegarde de l'avis
-			if($this->params["sauverAvis"]) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+			$obj=new stdClass();
+			$avis= mdtb_table::InitObject("ae_avis");
+			$avis->recSQLSearch("id_pression=".$this->params["id_pression"]." AND id_massedeau=".$this->params["id_massedeau"]." AND id_user=".$this->auth->user_ID);
+			if($avis->recFirst())
+			{
+				$obj=$avis->recGetRecord();
+				if($obj->date_validation!=="0000-00-00 00:00:00")
+				{
+					$this->msg_info.="<script>alert(\"Erreur : avis déjà validé, il ne peut être modifié\");</script>";
+					return false;
+				}
+			}
+			else
+			{
+				$avis->recNewRecord();
+			}
+			
+			$obj->id_massedeau=$this->params["id_massedeau"];
+			$obj->id_pression=$this->params["id_pression"]; //$arrPressions[$curData["Pression"]];
+			$obj->id_user=$this->auth->user_ID; //$arrPressions[$curData["Pression"]];
+			$obj->impact_estime=$this->params["impact_estime"];
+			$obj->pression_cause_du_risque=$this->params["pression_cause_du_risque"];
+			$obj->commentaires=$this->params["justification"];
+			if(!isset($obj->documents)) $obj->documents="";
+			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
+			{
+				// Traitement du fichier téléchargé
+				$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
+				move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
+			}
+			$obj->date_modification=date('Y-m-d H:i:s');
+			
+			
+			if($this->params["sauverAvis"])
+			{
+				$retour=$avis->recStore($obj);
+				if($retour) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+			}
 			if($this->params["validerAvis"])
 			{
-				$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
-				$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
+				$obj->date_validation=date('Y-m-d H:i:s');
+				$retour=$avis->recStore($obj);
+				if($retour) {
+					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+					$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
+				}
 			}
 			$this->msg_info.="<script>
 				$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');

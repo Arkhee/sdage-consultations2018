@@ -20,6 +20,7 @@ $myClasseMetierMDOSout=new sdage_metier($database,$path_pre,__FILE__);
 $myClasseMetierMDOSout->setAuth($auth);
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
+$myClasseMetierMDOSout->bind($_FILES);
 $myClasseMetierMDOSout->handle();
 $myBaseGestion=new stdClass();
 ?>

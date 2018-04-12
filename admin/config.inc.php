@@ -30,6 +30,10 @@ $ThePrefs->encoding="UTF-8";
 //$ThePrefs->encoding="ISO-8859-1";
 $ThePrefs->DatePrefs=$TheDatePref;
 $ThePrefs->UseAuth=false;
+
+$ThePrefs->BaseFolder=dirname($_SERVER["SCRIPT_FILENAME"]);
+$ThePrefs->DocumentsFolder=$ThePrefs->BaseFolder."/documents/";
+if(!file_exists($ThePrefs->BaseFolder."/documents/")) mkdir($ThePrefs->BaseFolder."/documents/");
 $TheArrayModules=array(
 						"index"=>"MDTB",
 						
