@@ -513,7 +513,7 @@ class sdage_metier
 		{
 			// TRaitement de la sauvegarde de l'avis
 			$obj=new stdClass();
-			$avis= mdtb_table::InitObject("ae_avis");
+			$avis= mdtb_table::InitObject("mdtb_ae_avis");
 			$avis->recSQLSearch("id_pression=".$this->params["id_pression"]." AND id_massedeau=".$this->params["id_massedeau"]." AND id_user=".$this->auth->user_ID);
 			if($avis->recFirst())
 			{
