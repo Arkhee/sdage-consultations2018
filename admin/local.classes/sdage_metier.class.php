@@ -11,6 +11,7 @@ class sdage_metier
 	var $template=null;
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","panneau");
+	public static $pagination=200;
 	var $template_filenames=array(
 		"accueil"=>"accueil.tpl",
 		"connexion"=>"connexion.tpl",
@@ -758,13 +759,17 @@ class sdage_metier
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
-		file_put_contents(__DIR__."/derniere-recherche.sql",$requeteME);
+		file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage()."\r\nRequête : \r\n".$requeteME."\r\n");
     	$this->db->setQuery($requeteME);
     	$this->search_result=$this->db->loadObjectList();
 		
     	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
 		{
 			$this->msg_info="Votre recherche n'a fourni aucun résultat<div style='display:none'>".$requeteME."</div>";
+		}
+		if(is_array($this->search_result) && count($this->search_result)>self::$pagination)
+		{
+			$this->msg_info="Trop de résultats à votre recherche, veuillez ajouter un filtre. Sortie limitée à 200 résultats";
 		}
 		//echo "<pre>".$requeteME."</pre>";
     }
@@ -905,8 +910,11 @@ class sdage_metier
 			//$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 			$arrMassesDeau=$this->listeMassesDeau();
 			$arrSSBV=$this->listeSSBV("code");
+			$nbaffiche=0;
     		foreach($this->search_result as $curme)
     		{
+				$nbaffiche++;
+				if($nbaffiche>self::$pagination) break;
 				// SELECT COUNT(*) as nbocc FROM ae_edl_massesdeau LEFT JOIN ae_massesdeau as id_massedeau_ae_massesdeau ON id_massedeau_ae_massesdeau.id_massedeau=ae_edl_massesdeau.id_massedeau  WHERE  ( ae_edl_massesdeau.id_massedeau=2356) 
 				$requeteSearch="ae_edl_massesdeau.id_massedeau=".$curme->id_massedeau;
 				if($this->liste_pressions!="")
