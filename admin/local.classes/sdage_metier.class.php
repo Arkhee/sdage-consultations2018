@@ -1144,9 +1144,12 @@ class sdage_metier
 			//echo "Type <pre>".print_r($curTypeMdo,true)."</pre><br/>";
 			$arrTypesMdo[]=array("id"=>$curTypeMdo->categorie_me,"value"=>$curTypeMdo->categorie_me);
 		}
-		foreach($this->params["liste_typesmdo"] as &$clef)
+		if(is_array($this->params["liste_typesmdo"] )&& count($this->params["liste_typesmdo"]))
 		{
-			$clef= stripslashes($clef);
+			foreach($this->params["liste_typesmdo"] as &$clef)
+			{
+				$clef= stripslashes($clef);
+			}
 		}
 		$listeTypesMDO=mdtb_forms::combolistmultiple("liste_typesmdo",$arrTypesMdo,$this->params["liste_typesmdo"]);
 		
