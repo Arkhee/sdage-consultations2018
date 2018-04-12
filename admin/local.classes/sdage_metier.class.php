@@ -514,10 +514,12 @@ class sdage_metier
 			// TRaitement de la sauvegarde de l'avis
 			$obj=new stdClass();
 			$avis= mdtb_table::InitObject("mdtb_ae_avis");
+			file_put_contents(__DIR__."/creation-avis.log","Début création avis : ".$this->params["id_pression"]."/".$this->params["id_massedeau"]."/".$this->auth->user_ID."\r\n");
 			$avis->recSQLSearch("id_pression=".$this->params["id_pression"]." AND id_massedeau=".$this->params["id_massedeau"]." AND id_user=".$this->auth->user_ID);
 			if($avis->recFirst())
 			{
 				$obj=$avis->recGetRecord();
+				file_put_contents(__DIR__."/creation-avis.log","Avis existant : ".print_r($obj,true),FILE_APPEND);
 				if($obj->date_validation!=="0000-00-00 00:00:00")
 				{
 					$this->msg_info.="<script>alert(\"Erreur : avis déjà validé, il ne peut être modifié\");</script>";
@@ -526,6 +528,7 @@ class sdage_metier
 			}
 			else
 			{
+				file_put_contents(__DIR__."/creation-avis.log","Nouvel Avis",FILE_APPEND);
 				$avis->recNewRecord();
 			}
 			
@@ -538,6 +541,7 @@ class sdage_metier
 			if(!isset($obj->documents)) $obj->documents="";
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
+			file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 				// Traitement du fichier téléchargé
 				$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 				move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
