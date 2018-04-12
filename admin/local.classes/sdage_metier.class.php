@@ -765,7 +765,8 @@ class sdage_metier
 		// Requete count : 
     	$this->db->setQuery($requeteMEChampsCount.$requeteME);
 		$resultatCount=$this->db->loadObjectList();
-		$nbresultats=$resultatCount[0]["nboccme"];
+		$this->nbresultats=$resultatCount[0]["nboccme"];
+		
 		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
 		$curpage=($curpage<=0)?1:$curpage;
 		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
@@ -920,7 +921,7 @@ class sdage_metier
 			$arrMassesDeau=$this->listeMassesDeau();
 			$arrSSBV=$this->listeSSBV("code");
 			
-			$nb_pages=ceil($this->nb_search/self::$pagination);
+			$nb_pages=ceil($this->nbresultats/self::$pagination);
 			if(!isset($this->params["pagination"])) $this->params["pagination"]=1;
 			$arrPages=array();
 			for($i=1;$i<=$nb_pages;$i++) $arrPages[]=array("id"=>$i,"value"=>$i);
