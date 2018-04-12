@@ -765,14 +765,14 @@ class sdage_metier
 			"\r\nRequête count : \r\n".$requeteMEChampsCount.$requeteME."\r\n"
 		);
 		// Requete count : 
-    	$this->db->setQuery($requeteMEChampsCount.$requeteME);
-		$resultatCount=$this->db->loadObjectList();
-		$this->nbresultats=$resultatCount[0]["nboccme"];
+    	$this->db->setQuery($requeteMEChampsListe.$requeteME);
+    	$this->db->query();
+		$this->nbresultats=$this->db->getNumRows();
 		
 		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
 		$curpage=($curpage<=0)?1:$curpage;
 		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
-		file_put_contents(__DIR__."/derniere-recherche.log","Requête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
+		file_put_contents(__DIR__."/derniere-recherche.log","Compte : ".$this->nbresultats."\r\nRequête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
     	$this->db->setQuery($requeteMEChampsListe.$requeteME.$requeteMELimit);
     	$this->search_result=$this->db->loadObjectList();
 		
