@@ -929,7 +929,7 @@ class sdage_metier
 			if(!isset($this->params["pagination"])) $this->params["pagination"]=1;
 			$arrPages=array();
 			for($i=1;$i<=$nb_pages;$i++) $arrPages[]=array("id"=>$i,"value"=>$i);
-			$cmbPagination= mdtb_forms::combolist("pagination",$arrPages,$this->params["pagination"],"","onchange='form.submit();");
+			$cmbPagination= mdtb_forms::combolist("pagination",$arrPages,$this->params["pagination"],"","onchange='form.submit();'");
 			$this->template->assign_var("CMB_PAGINATION", $cmbPagination);
 			$this->template->assign_var("nb_pages", $nb_pages);
 			
