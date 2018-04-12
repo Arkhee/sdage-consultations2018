@@ -78,7 +78,7 @@ class mdtb_ae_avis extends mdtb_table
 		else
 		{
 			$obj = $liste[0];
-			$obj->lien_documents=$this->_parent_href.$obj->documents;
+			$obj->lien_documents="<a href='documents/".$obj->documents."'>".str_replace($id_mdo."_".$id_pression."_".$this->_auth->user_ID."-","",$obj->documents)."</a>";
 		}
 		
 		return $obj;
