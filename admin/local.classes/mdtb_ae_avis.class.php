@@ -57,14 +57,18 @@ class mdtb_ae_avis extends mdtb_table
 	
 	public function getAvisPourPressionMdo($id_pression,$id_mdo)
 	{
-		if(!isset($this->auth) || !is_object($this->auth) || !$this->auth->isLoaded()) return $this->getAvisDefaultObject();
+		if(!isset($this->_auth)) die("Pas de auth");
+		if(!is_object($this->_auth)) die("auth pas objet");
+		if(!$this->_auth->isLoaded()) die("auth not loaded");
+		//return $this->getAvisDefaultObject();
 		$requeteAvis="
 			SELECT 
 				IF(a.date_validation='0000-00-00 00:00:00','','avis_valide') AS avis_valide,
 				a.*
 			FROM ".$this->table_name." AS a
-			WHERE a.id_pression=".(int)$id_pression." AND a.id_massedeau=".(int)$id_mdo." AND a.id_user=".$this->auth->user_ID.";
+			WHERE a.id_pression=".(int)$id_pression." AND a.id_massedeau=".(int)$id_mdo." AND a.id_user=".$this->_auth->user_ID.";
 		";
+		
 		$this->_db->setQuery($requeteAvis);
 		$liste=$this->_db->loadObjectList();
 		if(!is_array($liste) || !count($liste))
