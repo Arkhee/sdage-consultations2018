@@ -988,7 +988,9 @@ class sdage_metier
 						$arrImpacts[]=array("id"=>"","value"=>"");
 						for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 						$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
-						
+						$icone_avis="fa-plus-circle";
+						if($objAvis->avis_valide=="avis_valide") $icone_avis="fa-check-circle";
+						elseif($objAvis->impact_estime!="") $icone_avis="fa-edit";
 						//die("Boucle sur edl : ".print_r($listeEdl,true));
 						$this->template->assign_block_vars
 						(

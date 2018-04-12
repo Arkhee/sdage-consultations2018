@@ -22,7 +22,7 @@
 						<td align='center'>{pressions.rnaoe_2027}</td>
 						<td align='center'>{pressions.pression_origine_2027}</td>
 						<td align='center'><a href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
-								<i class="fas fa-plus-circle"></i>
+								<i class="fas {pressions.icone_avis}"></i>
 							</a>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
