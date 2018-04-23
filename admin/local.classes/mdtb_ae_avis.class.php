@@ -59,7 +59,15 @@ class mdtb_ae_avis extends mdtb_table
 	{
 		if(!isset($this->_auth)) die("Pas de auth");
 		if(!is_object($this->_auth)) die("auth pas objet");
-		if(!$this->_auth->isLoaded()) die("auth not loaded");
+		if(!$this->_auth->isLoaded())
+		{
+			$objAvisVide=new stdClass();
+			$objAvisVide->pression_cause_du_risque="";
+			$objAvisVide->impact_estime="";
+			$objAvisVide->avis_valide="";
+			return $objAvisVide;
+			return array(); //die("auth not loaded");
+		}
 		//return $this->getAvisDefaultObject();
 		$requeteAvis="
 			SELECT 
