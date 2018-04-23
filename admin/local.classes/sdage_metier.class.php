@@ -1255,6 +1255,7 @@ class sdage_metier
 	
 	public function sectionContent_Panneau()
 	{
+		$this->SendMailTest();
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
@@ -1364,6 +1365,25 @@ class sdage_metier
 		$this->template->assign_var("MSG_ERREUR","<div class='msg_erreur'>Un problème est survenu à la création du compte, merci de contacter le webmaster</div>");
         return $this->template->pparse("inscription_retour",true);
     }
+	
+	private function SendMailTest()
+	{
+		global $ThePrefs;
+		if(false) $objUsers=new mdtb_users();
+		$objUsers=mdtb_table::InitObject("mdtb_users");
+		$objUsers->recSQLSearch("group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
+		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
+		$message="Inscription d'un nouveau créateur : \r\n";
+		if($objUsers->recCount())
+		{
+			$objUsers->recFirst();
+			do
+			{
+				$to=$objUsers->recGetValue("user_Mail");
+				Tools::PHPMailer($to,$subject,$message);
+			} while($objUsers->recNext());
+		}
+	}
 	
 	private function SendMailInscriptionCreateur($user)
 	{
