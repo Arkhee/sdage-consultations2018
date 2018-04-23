@@ -9,17 +9,27 @@ class sdage_metier
 	var $code_me="";
 	var $caracteristriques_me="";
 	var $template=null;
+	const LISTMODE_NORMAL="";
+	const LISTMODE_LIST="list";
+	const LISTMODE_SHORTLIST="shortlist";
 	public $auth=null;
-	public $sections_avec_menu=array("index","accueil","connexion","panneau");
+	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
 	public static $extensions_autorisees=array("jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
 	var $template_filenames=array(
 		"accueil"=>"accueil.tpl",
+		"inscription"=>"inscription.tpl",
+		"inscription_interdit"=>"inscription_interdit.tpl",
+		"inscription_retour"=>"inscription_retour.tpl",
 		"connexion"=>"connexion.tpl",
 		"panneau"=>"panneau.tpl",
 		"searchresult"=>"searchresult.tpl",
+		"searchresultlist"=>"searchresultlist.tpl",
+		"searchresultshortlist"=>"searchresultshortlist.tpl",
 		"fiche"=>"fiche.tpl",
-		"detail-pressions" => "detail-pressions.tpl"
+		"detail-pressions" => "detail-pressions.tpl",
+		"detail-pressions-shortlist" => "detail-pressions-shortlist.tpl",
+		"detail-pressions-list" => "detail-pressions-list.tpl"
 		);
 	var $template_name="mdosout.template";
 	var $path_pre="";
@@ -111,6 +121,9 @@ class sdage_metier
 		}
     	switch($this->section)
     	{
+			case "inscription":
+				$this->handle_Inscription();
+				break;
 			case "avis":
 				$this->handle_Avis();
 				break;
@@ -122,6 +135,9 @@ class sdage_metier
     			break;
     		case "fiche":
     			$this->handle_Fiche();
+    			break;
+    		case "connexion":
+    			$this->handle_Connexion();
     			break;
     		case "zonedetail":
     			 $this->handle_ZoneDetail();
@@ -584,6 +600,16 @@ class sdage_metier
 		}
 	}
 	
+	public function handle_Inscription()
+	{
+		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
+		{
+			$this->msg_error="Clef incorrecte"; // : <pre>".$requeteME."</pre>";
+			return false;
+		}
+		return true;
+	}
+	
 	public function handle_Import()
 	{
 		//echo "TRaitement de l'import sur params : <pre>".print_r($this->params,true)."</pre>";
@@ -697,7 +723,7 @@ class sdage_metier
 		$this->msg_info.="<br />Mise à jour terminée avec : ".$nbEDLMaj." enregistrements<br />";
 		//echo "Fichier ouvert, entetes : ".print_r($csv->getHeaders(),true)."<br />";
 	}
-    public function handle_Search()
+    public function handle_Search($currentuser=false)
     {
 		$this->texte_recherche="";
 		$this->liste_ssbv="";
@@ -743,13 +769,18 @@ class sdage_metier
 		$mySQLOrder=" ORDER BY ".$this->params["ssfield"]." ".$this->params["ssorder"];
 		$joinImpactOuPression="";
 		
-		if($this->liste_pressions!="")
+		if($this->liste_pressions!="" || ($currentuser && $this->auth->isLoaded()))
 		{
 			$joinImpactOuPression=" LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=mdo.id_massedeau ";
 		}
-		if($this->liste_impacts!="")
+		if($this->liste_impacts!="" || ($currentuser && $this->auth->isLoaded()))
 		{
 			$joinImpactOuPression=" LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=mdo.id_massedeau ";
+		}
+		$joinCreateur="";
+		if($currentuser && $this->auth->isLoaded())
+		{
+			$joinCreateur=" RIGHT JOIN ae_avis AS avis ON (avis.id_user=".$this->auth->user_ID." AND avis.id_massedeau=mdo.id_massedeau AND avis.id_pression=edl.id_pression) ";
 		}
 		$requeteMEChampsListe="
 			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*,
@@ -762,6 +793,7 @@ class sdage_metier
 			LEFT JOIN ae_ss_ut AS ssut ON ssbv.code_ss_ut=ssut.code_ss_ut
 			LEFT JOIN rel_me_sout_ss_ut AS rsoutssut ON mdo.code_me=rsoutssut.code_me
 			".$joinImpactOuPression."
+			".$joinCreateur."
 			WHERE mdo.id_massedeau IS NOT NULL
 		";
 		if($this->texte_recherche!="")
@@ -862,6 +894,9 @@ class sdage_metier
 			case "connexion":
 				$myContent=$this->sectionContent_Connexion();
 				break;
+			case "inscription":
+				$myContent=$this->sectionContent_Inscription();
+				break;
     		case "accueil":
     		default:
     			$myContent=$this->sectionContent_Accueil();
@@ -893,10 +928,23 @@ class sdage_metier
 		return $this->section;
 	}
 	
-	public function initSection()
+	public function initSection($section=null)
 	{
-		if($this->auth->isLoaded()) $this->setSection("panneau");
-		else $this->setSection("connexion");
+		if(is_null($section))
+		{
+			if($this->auth->isLoaded())
+			{
+				$this->setSection("panneau");
+			}
+			else
+			{
+				$this->setSection("connexion");
+			}
+		}
+		else
+		{
+			$this->setSection($section);
+		}
 	}
 
 	public function setSection($section)
@@ -974,7 +1022,7 @@ class sdage_metier
         return $myContent;
     }
 
-    function sectionContent_Search()
+    function sectionContent_Search($listmode=self::LISTMODE_NORMAL,$currentuser=false)
     {
     	$this->prepareForm();
     	if(!is_array($this->search_result) || count($this->search_result)<=0)
@@ -1011,8 +1059,22 @@ class sdage_metier
 				{
 					$requeteSearch.=" AND ae_edl_massesdeau.impact_2019 IN (".$this->liste_impacts.") ";
 				}
+				$joinAvis="";
+				$countAvis="(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis"; 
+				if($currentuser && $this->auth->isLoaded())
+				{
+					$joinAvis=" RIGHT JOIN ae_avis ON (ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) ";
+					$countAvis="(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis"; 
+				}
 				//$edl->recSQLSearch($requeteSearch);
-				$requeteSQL="SELECT ae_edl_massesdeau.*, (SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis FROM ae_edl_massesdeau WHERE ".$requeteSearch." GROUP BY ae_edl_massesdeau.id_pression";
+				$requeteSQL="
+				SELECT ae_edl_massesdeau.*,
+				".$countAvis."
+				FROM ae_edl_massesdeau 
+				".$joinAvis."
+				WHERE ".$requeteSearch."
+				GROUP BY ae_edl_massesdeau.id_pression";
+				//die($requeteSQL);
 				$this->db->setQuery($requeteSQL);
 				$listeEdl=$this->db->loadObjectList();
 				$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
@@ -1087,6 +1149,9 @@ class sdage_metier
 								'pression_origine_2027'=> $edl->pression_origine_2027?"O":"N",
 								"nbavis" => $edl->nbavis,
 								"avis_valide"=>$objAvis->avis_valide,
+								"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé":"En cours d'édition",
+								"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
+								"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
 								"impact_estime"=>$objAvis->impact_estime,
 								"icone_avis"=>$icone_avis,
 								"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
@@ -1097,7 +1162,7 @@ class sdage_metier
 							)
 						);
 					} //while($edl->recNext());
-					$detailPressions=$this->template->pparse("detail-pressions",true);
+					$detailPressions=$this->template->pparse("detail-pressions".($listmode!=""?"-":"").$listmode,true);
 				}
 				
     			$this->template->assign_block_vars
@@ -1119,7 +1184,8 @@ class sdage_metier
     			//echo "Code : ".$curme->code_me.", Libellé : ".$curme->libelle_me.", Secteur : ".$curme->secteur_be_caracterisation.BR;
     		}
     		//echo Tools::Display($this->search_result);
-    		return $this->template->pparse("searchresult",true);
+    		return $this->template->pparse("searchresult".$listmode,true);
+    		
     	}
     }
 	
@@ -1182,6 +1248,8 @@ class sdage_metier
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+		
+		
         return $this->template->pparse("connexion",true);
 	}
 	
@@ -1190,6 +1258,36 @@ class sdage_metier
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+		
+		$arrTypeStructure=array(
+			array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
+			array("id"=>"Conseils régionaux EPTB, structures locales de gestion de l'eau","value" => "Conseils régionaux EPTB, structures locales de gestion de l'eau"),
+			array("id"=>"Parcs nationaux et régionaux","value" => "Parcs nationaux et régionaux"),
+			array("id"=>"Chambres d’agriculture","value" => "Chambres d’agriculture"),
+			array("id"=>"Chambres de commerce et d’industrie","value" => "Chambres de commerce et d’industrie"),
+			array("id"=>"Chambres des métiers et de l’artisanat","value" => "Chambres des métiers et de l’artisanat"),
+			array("id"=>"Grands établissements industriels (EDF, CNR, BRL)","value" => "Grands établissements industriels (EDF, CNR, BRL)"),
+			array("id"=>"Fédérations pour la pêche et la protection du milieu aquatique","value" => "Fédérations pour la pêche et la protection du milieu aquatique"),
+			array("id"=>"Associations de protection de la nature, CREN et autres associations majeures éventuelles","value" => "Associations de protection de la nature, CREN et autres associations majeures éventuelles")
+		);
+		
+		
+		$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->auth->user_Structure);
+		
+		$this->handle_Search(true); // Création de la recherche sur les avis de l'utilisateur courant
+		$resultats=$this->sectionContent_Search(self::LISTMODE_SHORTLIST,true);
+		
+		$this->template->assign_vars(array(
+				"user_ID" => $this->auth->user_ID,
+				"user_name" => $this->auth->user_Name,
+				"user_firstname" => $this->auth->user_FirstName,
+				"user_email" => $this->auth->user_Mail,
+				"user_nomstructure" => $this->auth->user_NomStructure,
+				"resultats" => $resultats,
+				"CMB_TYPE_STRUCTURE"=>$cmbTypeStructure
+		));
+		
+		//print_r($this->search_result);
         return $this->template->pparse("panneau",true);
 	}
 	
@@ -1198,7 +1296,166 @@ class sdage_metier
     	$this->prepareForm();
         return $this->template->pparse("accueil",true);
     }
-    function sectionContent_Fiche()
+	
+	
+    public function sectionContent_Inscription()
+    {
+		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
+		{
+			$this->msg_error="Clef incorrecte"; // : <pre>".$requeteME."</pre>";
+			return $this->template->pparse("inscription_interdit",true);
+		}
+		$this->template->assign_var("CLEF_TRANSMISE", $this->params["clef"]);
+		if(!isset($this->params["inscription"]))
+		{
+			return $this->template->pparse("inscription",true);
+		}
+		/*
+		 * Test paramètres d'entrée
+		 */
+		$retourTest="";
+		$paramsTest=array("user_name"=>"Nom","user_firstname"=>"Prénom","user_email"=>"EMail","user_nomstructure"=>"Nom de la structure","type_structure"=>"Type de structure","user_password" => "Mot de passe");
+		foreach($paramsTest as $key => $label)
+		{
+			if(!isset($this->params[$key]) || trim($this->params[$key])==="")
+			{
+				$retourTest.="Le champ ".$label." est incorrect<br />";
+			}
+			else
+			{
+				$this->params[$key]=addslashes($this->params[$key]);
+			}
+		}
+		$this->template->assign_var("user_name",$this->params["user_name"]);
+		$this->template->assign_var("user_firstname",$this->params["user_firstname"]);
+		$this->template->assign_var("user_email",$this->params["user_email"]);
+		$this->template->assign_var("user_nomstructure",$this->params["user_nomstructure"]);
+		$this->template->assign_var("type_structure",$this->params["type_structure"]);
+		if($retourTest!="")
+		{
+			$this->template->assign_var("MSG_ERREUR","<div class='msg_erreur'>".$retourTest."</div>");
+			//echo __LINE__."<br />";
+			return $this->template->pparse("inscription",true);
+		}
+		if(false) $objUser=new mdtb_users();
+		$objUser=mdtb_table::InitObject("mdtb_users");
+		$objUser->recSQLSearch("user_Mail='".$this->params["user_email"]."'");
+		if($objUser->recCount()>0)
+		{
+			//die(__LINE__." => tests : ".print_r($this->params,true));
+			$this->template->assign_var("MSG_ERREUR","<div class='msg_erreur'>Un compte existe déjà avec cet email</div>");
+			return $this->template->pparse("inscription",true);
+		}
+		$objNewUser=new stdClass();
+		$objNewUser->group_ID=4;
+		$objNewUser->user_Login=$this->params["user_email"];
+		$objNewUser->user_Name=$this->params["user_name"];
+		$objNewUser->user_FirstName=$this->params["user_firstname"];
+		$objNewUser->user_Mail=$this->params["user_email"];
+		$objNewUser->user_Password=md5(trim($this->params["user_password"]));
+		$objNewUser->user_NomStructure=$this->params["user_nomstructure"];
+		$objNewUser->user_Structure=$this->params["type_structure"];
+		$objNewUser->user_Rank="crea";
+		if($objUser->recStore($objNewUser))
+		{
+			$this->SendMailInscriptionCreateur($objNewUser);
+			return $this->template->pparse("inscription_retour",true);
+		}
+		$this->template->assign_var("MSG_ERREUR","<div class='msg_erreur'>Un problème est survenu à la création du compte, merci de contacter le webmaster</div>");
+        return $this->template->pparse("inscription_retour",true);
+    }
+	
+	private function SendMailInscriptionCreateur($user)
+	{
+		global $ThePrefs;
+		$mailFrom=$ThePrefs->From; //="webmaster@rhone-mediterranee.eaufrance.fr";
+		$nameFrom=$ThePrefs->FromName; //="Webmaster SIE";
+		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
+		$message="Inscription d'un nouveau créateur : \r\n".
+		"Nom : ".$user->user_Name."\r\n".
+		"Prénom : ".$user->user_FirstName."\r\n".
+		"Email : ".$user->user_Mail."\r\n".
+		"Type de structure : ".$user->user_Structure."\r\n".
+		"Nom de la structure : ".$user->user_NomStructure."\r\n".
+		"Date inscription : ".date("d/m/Y");
+		if(false) $objUsers=new mdtb_users();
+		$objUsers=mdtb_table::InitObject("mdtb_users");
+		$objUsers->recSQLSearch("group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
+		if($objUsers->recCount())
+		{
+			$objUsers->recFirst();
+			do
+			{
+				$to=$objUsers->recGetValue("user_Mail");
+				Tools::SendMailWithNames($mailFrom,$nameFrom,$to,$subject,$message);
+			} while($objUsers->recNext());
+		}
+	}
+	
+    public function handle_Connexion()
+    {
+		if(!$this->auth->isLoaded()) return false;
+		if(isset($this->params["user_ID"]) && $this->params["user_ID"]>=0 && $this->params["user_ID"]!=$this->auth->user_ID)
+		{
+			die("Incohérence au niveau des utilisateurs");
+			return false;
+		}
+		//die("Ligne ... ".__LINE__." auth : ".($auth->isLoaded()?"connecte":"deconnecte")."<br />\r\n".print_r($auth,true));
+		if(!isset($this->params["miseajour"]) || $this->params["miseajour"]=="") return false;
+		$this->setSection("panneau");
+		$modif=false;
+		if($this->params["user_name"]!="" && $this->params["user_name"]!=$this->auth->user_Name)
+		{
+			$this->auth->user_Name=$this->params["user_name"];
+			$modif=true;
+		}
+		
+		if($this->params["user_email"]!="" && $this->params["user_email"]!=$this->auth->user_Mail)
+		{
+			$this->auth->user_Mail=$this->params["user_email"];
+			$this->auth->user_Login=$this->params["user_email"];
+			$modif=true;
+		}
+		
+		
+		if($this->params["user_firstname"]!="" && $this->params["user_firstname"]!=$this->auth->user_FirstName)
+		{
+			$this->auth->user_FirstName=$this->params["user_firstname"];
+			$modif=true;
+		}
+		
+		
+		if($this->params["user_nomstructure"]!="" && $this->params["user_nomstructure"]!=$this->auth->user_NomStructure)
+		{
+			$this->auth->user_NomStructure=$this->params["user_nomstructure"];
+			$modif=true;
+		}
+		
+		
+		if($this->params["type_structure"]!="" && $this->params["type_structure"]!=$this->auth->user_Structure)
+		{
+			$this->auth->user_Structure=$this->params["type_structure"];
+			$modif=true;
+		}
+		
+		
+		if($this->params["user_password"]===$this->params["user_password2"] && $this->params["user_password"]!="" && md5($this->params["user_password"]) != $this->auth->user_Password)
+		{
+			$this->auth->user_Password=md5($this->params["user_password"]);
+			$modif=true;
+		}
+		
+		if($modif)
+		{
+			return $this->auth->store();
+		}	
+		
+		return false;
+    }
+	
+	
+	
+    public function sectionContent_Fiche()
     {
 
     	$this->prepareForm();

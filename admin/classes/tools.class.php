@@ -1895,6 +1895,18 @@ class Tools
 
 		return mail($to, $subject, $message, $headers);
 	}
+	
+	public static function SendMailWithNames($mailFrom,$nameFrom,$to,$subject,$message)
+	{
+		$mailReply=$mailFrom;
+		$nameReply=$nameFrom;
+
+		$headers = 'From: '.$nameFrom.' <'.$mailFrom. '>' . "\r\n" .
+					'Reply-To:'. $nameReply.' <'.$mailReply. '>' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+
+		return mail($to, $subject, $message, $headers);
+	}
 		
 		
 		

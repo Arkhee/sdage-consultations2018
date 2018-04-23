@@ -24,6 +24,11 @@ table.mdtb_form_table_searchresult
 	width:100%;
 }
 
+table.shortlist table
+{
+	width:100%;
+}
+
 table.mdtb_form_table_searchresult table
 {
 	margin:0px;
@@ -137,7 +142,25 @@ div.texteRecherche select#liste_typesmdo { height:26px; margin-right:5px; }
 {
 	width:110px;
 }
-
+#formInscription label,
+#formMiseAJour label
+{
+	width:180px;
+}
+#msg_erreur_inscription,.msg_erreur { border:1px solid #9A0000; margin:5px; padding:10px;}
+#msg_erreur_inscription  { display:none; }
+#formInscription .erreur,
+#formMiseAJour .erreur
+{
+	border:1px solid black;
+	background-color: #FF9966;
+}
+#formInscription select,
+#formMiseAJour select
+{
+	max-width:350px;
+	height:26px;
+}
 .formulaire_avis { display:none;}
 body.connecte_crea .formulaire_avis { display:block;}
 

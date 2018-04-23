@@ -370,7 +370,7 @@ class database {
 			$values[] = "'" . $this->getEscaped( $v ) . "'";
 		}
 		$this->setQuery( sprintf( $fmtsql, implode( ",", $fields ) ,  implode( ",", $values ) ) );
-		//if(!is_array($fields))
+		if(!is_array($fields))
 			echo "Requête : ".$this->getQuery();
 		($verbose) && print "$sql<br />\n";
 		if (!$this->query()) {

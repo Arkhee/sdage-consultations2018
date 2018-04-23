@@ -6,9 +6,12 @@ class users extends mosDBTable
 	var $group_ID=-1;
 	var $user_Login="";
 	var $user_Name="";
+	var $user_FirstName="";
 	var $user_Mail="";
 	var $user_Password="";
 	var $user_Rank="";
+	var $user_Structure="";
+	var $user_NomStructure="";
 	
 	var $_tablename="#__mdtb_users";
 	var $_key="user_ID";
@@ -99,6 +102,7 @@ class users extends mosDBTable
     		$cr_pass=md5($pass);
     	$this->_db->setQuery("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."';");
     	$myReturn=$this->_db->loadObject($this);
+		//die("Connexion avec ".$user." : ".print_r("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."';",true)." : ".$myReturn->user_Login);
     	return $myReturn;
     }
     
@@ -278,4 +282,3 @@ class users extends mosDBTable
     
     
 }
-?>

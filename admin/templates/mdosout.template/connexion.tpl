@@ -1,3 +1,4 @@
+{MSG_ERREUR}
 <form id="formConnexion" name="formConnexion" method="post" action="{FORM_CONNEXION_PAGE}">
 	<label for='login'>Identifiant :</label><input type='text' name='user_Login' id="login" value="" /><br />
 	<label for='password'>Mot de passe :</label><input type='password' name='user_Password' id="password" value="" /><br/>

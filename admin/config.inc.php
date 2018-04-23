@@ -17,6 +17,7 @@ $db_prefix="mdtb_";
 */
 // Localised date parameters
 if(!isset($TheDatePref)) $TheDatePref=new stdClass();
+
 $TheDatePref->SelFormat="dd/MM/yyyy";
 $TheDatePref->JSSelFormat="dd/mm/yy";
 $TheDatePref->DispFormat="d/m/Y";
@@ -31,6 +32,9 @@ $ThePrefs->encoding="UTF-8";
 $ThePrefs->DatePrefs=$TheDatePref;
 $ThePrefs->UseAuth=false;
 
+$ThePrefs->From="webmaster@rhone-mediterranee.eaufrance.fr";
+$ThePrefs->FromName="Webmaster SIE";
+$ThePrefs->AdminGroupPourAlertesMails=3;
 $ThePrefs->BaseFolder=dirname($_SERVER["SCRIPT_FILENAME"]);
 $ThePrefs->DocumentsFolder=$ThePrefs->BaseFolder."/documents/";
 if(!file_exists($ThePrefs->BaseFolder."/documents/")) mkdir($ThePrefs->BaseFolder."/documents/");

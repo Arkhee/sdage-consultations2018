@@ -87,7 +87,7 @@ $myBaseGestion=new stdClass();
 							<ul class="dropdown-menu" role="menu">
 								  <li><a href="index.php">Recherche de masses d'eau</a></li>
 								  <li><a href="programme.php">Le programme de mesure</a></li>
-								  <li><a href="connexion.php">Connexion</a></li>
+								  <li><a href="connexion.php"><?php echo ($auth->isLoaded()?"Votre espace":"Connexion"); ?></a></li>
 							</ul>
 						</li>
 					</ul>

@@ -22,6 +22,7 @@ $myClasseMetierMDOSout->initSection();
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
+//die("Ligne ... ".__LINE__." auth : ".($auth->isLoaded()?"connecte":"deconnecte")."<br />\r\n".print_r($auth,true));
 
 $myBaseGestion=new stdClass();
 ?>
@@ -44,7 +45,7 @@ $myBaseGestion=new stdClass();
 <link href="css/styles-fo.css" rel="stylesheet" type="text/css" />
 <!-- InstanceEndEditable -->
 </head>
-<body>
+<body class="<?php echo $auth->isLoaded()?("connecte connecte_".$auth->user_Rank):""; ?>">
 	<div id="shadowLeftMenu" class="hidden-lg hidden-md"></div>
 	<div id="header">
     	<a href="<?php echo DIREN_RACINE_WEB; ?>" title="Retour &agrave; l'accueil">
@@ -88,7 +89,7 @@ $myBaseGestion=new stdClass();
 							<ul class="dropdown-menu" role="menu">
 								  <li><a href="index.php">Recherche de masses d'eau</a></li>
 								  <li><a href="programme.php">Le programme de mesure</a></li>
-								  <li><a href="connexion.php">Connexion</a></li>
+								  <li><a href="connexion.php"><?php echo ($auth->isLoaded()?"Votre espace":"Connexion"); ?></a></li>
 							</ul>
 						</li>
 					</ul>

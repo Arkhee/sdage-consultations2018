@@ -1,5 +1,6 @@
 <?php
 define("NO_PCB_NEWS",true);
+define("_CLEF_INSCRIPTION_","ergunezricyhighsrdoeih");
 require_once(_APP_ROOT_DIR_."includes/init.inc.php"); 
 /*
  * diren_mdosout
@@ -12,20 +13,21 @@ require_once(_APP_ROOT_DIR_."includes/init.inc.php");
  * Description :
  *
  */
- 
+
 $path_pre="admin/";
 require_once($path_pre."config.inc.php");
 //require_once($path_pre."local.classes/sdage_metier.class.php");
 $myClasseMetierMDOSout=new sdage_metier($database,$path_pre,__FILE__);
 $myClasseMetierMDOSout->setAuth($auth);
+$myClasseMetierMDOSout->initSection("inscription");
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
+
 $myBaseGestion=new stdClass();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><!-- InstanceBegin template="/Templates/contenu-avec-menu.dwt" codeOutsideHTMLIsLocked="false" -->
-
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -76,7 +78,7 @@ $myBaseGestion=new stdClass();
 				<?php echo Util::affRecherche(); ?>
 			</div>			
 		</div>
-		<?php if($myClasseMetierMDOSout->section==="accueil")
+		<?php if($myClasseMetierMDOSout->sectionHasMenu())
 		{
 			?>
 			<div id="leftMenu" class="col-md-3 col-sm-1 col-xs-1" role="complementary">
@@ -108,10 +110,14 @@ $myBaseGestion=new stdClass();
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
         <h1 align="center">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
-        
-		Programme etc...
-		
-		
+        <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
+							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
+					<?php } ?>
+
+					<?php if($myClasseMetierMDOSout->msg_info!="") { ?>
+							<div id="display_msg" style="border:1px solid #00AA00;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_info;?></div>
+					<?php } ?>
+				  <?php echo $myClasseMetierMDOSout->sectionContent(); ?>
 		  <!-- InstanceEndEditable -->
 		</div>
 	</div>

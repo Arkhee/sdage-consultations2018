@@ -40,13 +40,16 @@ if(!isset($langtable["user_Login"]))
 	$langtable["user_Login"]="Login";
 if(!isset($langtable["user_Name"]))
 	$langtable["user_Name"]="Nom";
+if(!isset($langtable["user_FirstName"]))
+	$langtable["user_FirstName"]="Prénom";
 if(!isset($langtable["user_Password"]))	
 	$langtable["user_Password"]="Mot de passe";
 if(!isset($langtable["user_Rank"]))	
 	$langtable["user_Rank"]="Rang";
 if(!isset($langtable["user_Mail"]))	
 	$langtable["user_Mail"]="e-Mail";
-
+if(!isset($langtable["user_Structure"]))
+	$langtable["user_Structure"]="Structure";
 
 class mdtb_users extends mdtb_table
 {	
@@ -59,9 +62,12 @@ class mdtb_users extends mdtb_table
 		//$this->add_field("user_CreationDate","date","","","",$i,$i,$i++);
 		$this->add_field("group_ID","reference","#__mdtb_groupes","group_ID","group_Nom",$i,$i,$i++);
 		$this->add_field("user_Name","text","","","",$i,$i,$i++);
+		$this->add_field("user_FirstName","text","","","",$i,$i,$i++);
 		$this->add_field("user_Mail","text","","","",$i,$i,$i++);
 		$this->add_field("user_Password","password","","","",0,$i++,0);
 		$this->add_field("user_Rank","combolist",array("admin"=>"Administrateur","user"=>"Utilisateur"),"","",$i,$i,$i++);
+		$this->add_field("user_Structure","text","","","",$i,$i,$i++);
+		$this->add_field("user_NomStructure","text","","","",$i,$i,$i++);
 		$this->set_key("user_ID");
 		$this->searchable=array("user_Login","user_Nom","user_Mail");
 		$this->name="Liste des utilisateurs";
