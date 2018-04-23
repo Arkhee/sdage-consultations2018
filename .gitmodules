@@ -1,3 +1,6 @@
 [submodule "admin/local.lib/phpmailer"]
 	path = admin/local.lib/phpmailer
 	url = https://github.com/PHPMailer/PHPMailer.git
+[submodule "admin/local.lib/html2pdf"]
+	path = admin/local.lib/html2pdf
+	url = https://github.com/spipu/html2pdf.git
