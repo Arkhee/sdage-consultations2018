@@ -589,14 +589,18 @@ class sdage_metier
 			}
 			if($this->params["validerAvis"])
 			{
+				file_put_contents(__DIR__."/savepdf.log","Validation avis : ".$obj->id_avis."\r\n",FILE_APPEND);
 				$obj->date_validation=date('Y-m-d H:i:s');
 				if(false) $avis=new mdtb_ae_avis();
 				$retour=$avis->recStore($obj);
+				file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee\r\n",FILE_APPEND);
 				if($retour) {
+					file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee OK\r\n",FILE_APPEND);
 					/*
 					 * Sauvegarde du pdf et envoi du mail
 					 */
 					$this->params["id_avis"]=$avis->recKeyValue();
+					file_put_contents(__DIR__."/savepdf.log","Clef : ".$this->params["id_avis"]."\r\n",FILE_APPEND);
 					$fichier=$this->handle_PDF(true);
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
