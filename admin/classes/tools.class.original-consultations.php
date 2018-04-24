@@ -230,7 +230,7 @@ class Tools
 		$myFileSize=0;
 		foreach($myArrayTable as $keyarray=>$curarray)
 		{
-			$myLine= "\"".implode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n";
+			$myLine= utf8_decode("\"".implode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n");
 			$myFileSize+=strlen($myLine);
 			fwrite($tmpFileForDownload, $myLine);
 			$myCurLine++;

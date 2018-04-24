@@ -1273,7 +1273,7 @@ class Tools
 		$myFileSize=strlen($headerLine);
 		foreach($myArrayTable as $keyarray=>$curarray)
 		{
-			$myLine= "\"".Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n";
+			$myLine= utf8_decode("\"".Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n");
 			//die("Ligne : ".$myLine);
 			$myFileSize+=strlen($myLine);
 			fwrite($tmpFileForDownload, $myLine);
