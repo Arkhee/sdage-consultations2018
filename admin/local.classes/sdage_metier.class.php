@@ -537,12 +537,12 @@ class sdage_metier
 			// TRaitement de la sauvegarde de l'avis
 			$obj=new stdClass();
 			$avis= mdtb_table::InitObject("mdtb_ae_avis");
-			file_put_contents(__DIR__."/creation-avis.log","Début création avis : ".$this->params["id_pression"]."/".$this->params["id_massedeau"]."/".$this->auth->user_ID."\r\n");
+			//file_put_contents(__DIR__."/creation-avis.log","Début création avis : ".$this->params["id_pression"]."/".$this->params["id_massedeau"]."/".$this->auth->user_ID."\r\n");
 			$avis->recSQLSearch("ae_avis.id_pression=".$this->params["id_pression"]." AND ae_avis.id_massedeau=".$this->params["id_massedeau"]." AND ae_avis.id_user=".$this->auth->user_ID);
 			if($avis->recFirst())
 			{
 				$obj=$avis->recGetRecord();
-				file_put_contents(__DIR__."/creation-avis.log","Avis existant : ".print_r($obj,true),FILE_APPEND);
+				//file_put_contents(__DIR__."/creation-avis.log","Avis existant : ".print_r($obj,true),FILE_APPEND);
 				if($obj->date_validation!=="0000-00-00 00:00:00")
 				{
 					$this->msg_info.="<script>alert(\"Erreur : avis déjà validé, il ne peut être modifié\");</script>";
@@ -551,7 +551,7 @@ class sdage_metier
 			}
 			else
 			{
-				file_put_contents(__DIR__."/creation-avis.log","Nouvel Avis",FILE_APPEND);
+				//file_put_contents(__DIR__."/creation-avis.log","Nouvel Avis",FILE_APPEND);
 				$avis->recNewRecord();
 			}
 			
@@ -568,7 +568,7 @@ class sdage_metier
 				$extension= strtolower($path_parts["extension"]);
 				if(in_array($extension,self::$extensions_autorisees))
 				{
-					file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
+					//file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 					// Traitement du fichier téléchargé
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
@@ -576,7 +576,7 @@ class sdage_metier
 				}
 				else
 				{
-					file_put_contents(__DIR__."/creation-avis.log","Extension interdite : ".$this->params["documents"]["name"]."\r\n",FILE_APPEND);
+					//file_put_contents(__DIR__."/creation-avis.log","Extension interdite : ".$this->params["documents"]["name"]."\r\n",FILE_APPEND);
 				}
 			}
 			$obj->date_modification=date('Y-m-d H:i:s');
@@ -589,13 +589,13 @@ class sdage_metier
 			}
 			if($this->params["validerAvis"])
 			{
-				file_put_contents(__DIR__."/savepdf.log","Validation avis : ".$obj->id_avis."\r\n",FILE_APPEND);
+				//file_put_contents(__DIR__."/savepdf.log","Validation avis : ".$obj->id_avis."\r\n",FILE_APPEND);
 				$obj->date_validation=date('Y-m-d H:i:s');
 				if(false) $avis=new mdtb_ae_avis();
 				$retour=$avis->recStore($obj);
 				file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee\r\n",FILE_APPEND);
 				if($retour) {
-					file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee OK\r\n",FILE_APPEND);
+					//file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee OK\r\n",FILE_APPEND);
 					/*
 					 * Sauvegarde du pdf et envoi du mail
 					 */
@@ -604,6 +604,7 @@ class sdage_metier
 					$fichier=$this->handle_PDF(true);
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
+					file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier)."\r\n",FILE_APPEND);
 					Tools::PHPMailer($this->auth->user_Mail, $sujet, $message,array($fichier));
 					/* Finalisation des actions de confirmation */
 					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
@@ -1046,26 +1047,26 @@ class sdage_metier
 	public function handle_PDF($save=false)
 	{
 		global $ThePrefs;
-		file_put_contents(__DIR__."/savepdf.log","Demarrage génération PDF\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Demarrage génération PDF\r\n",FILE_APPEND);
 		if(!$this->auth->isLoaded()) die("Non authentifié");
-		file_put_contents(__DIR__."/savepdf.log","Authentifié\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Authentifié\r\n",FILE_APPEND);
 		if(isset($this->params["id_avis"]) && $this->params["id_avis"]>0)
 		{
-			file_put_contents(__DIR__."/savepdf.log","ID OK\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","ID OK\r\n",FILE_APPEND);
 			if(false) $objAvis=new mdtb_ae_avis();
 			$objAvis=mdtb_table::InitObject("mdtb_ae_avis");
-			file_put_contents(__DIR__."/savepdf.log","Chargement avis ".$this->params["id_avis"]." ...\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","Chargement avis ".$this->params["id_avis"]." ...\r\n",FILE_APPEND);
 			if(!$objAvis->recLoad((int)$this->params["id_avis"]))
 			{
-				file_put_contents(__DIR__."/savepdf.log","ERREUR Chargement avis ".$this->params["id_avis"]." ... : ".mdtb_table::$_latest_query."\r\n",FILE_APPEND);
+				//file_put_contents(__DIR__."/savepdf.log","ERREUR Chargement avis ".$this->params["id_avis"]." ... : ".mdtb_table::$_latest_query."\r\n",FILE_APPEND);
 				die("ID Incorrect");
 			}
-			file_put_contents(__DIR__."/savepdf.log","Chargement OK\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","Chargement OK\r\n",FILE_APPEND);
 			if($objAvis->recGetValue("id_user")!=$this->auth->user_ID)
 			{
 				die("Vous n'avez pas les droits");
 			}
-			file_put_contents(__DIR__."/savepdf.log","User OK pour avis\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","User OK pour avis\r\n",FILE_APPEND);
 		}
 		
 		$joinAvis=" RIGHT JOIN ae_avis ON (ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) ";
@@ -1078,12 +1079,12 @@ class sdage_metier
 		GROUP BY ae_edl_massesdeau.id_pression";
 		//die($requeteSQL);
 		$this->db->setQuery($requeteSQL);
-		file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
 		$listeEdl=$this->db->loadObjectList();
 		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
 
 		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
-		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
 		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 		{
 			$arrPressions=$this->listePressions();
@@ -1158,12 +1159,12 @@ class sdage_metier
 		//die($detailPressions);
 		if($save)
 		{
-			$baseName="avis-valide-".$this->params["avis"].".pdf";
-			file_put_contents(__DIR__."/savepdf.log","Sauvegarde PDF : ".$baseName."\r\n",FILE_APPEND);
+			$baseName="avis-valide-".$this->params["id_avis"].".pdf";
+			//file_put_contents(__DIR__."/savepdf.log","Sauvegarde PDF : ".$baseName."\r\n",FILE_APPEND);
 			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
-			file_put_contents(__DIR__."/savepdf.log","Fichier : ".print_r($file,true)."\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","Fichier : ".print_r($file,true)."\r\n",FILE_APPEND);
 			Tools::HTML2PDF($detailPressions,$file["path"],false);
-			file_put_contents(__DIR__."/savepdf.log","Retour HTML2PDF : ".(file_exists($file["path"])?"existe":"erreur")."\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/savepdf.log","Retour HTML2PDF : ".(file_exists($file["path"])?"existe":"erreur")."\r\n",FILE_APPEND);
 			return $file;
 		}
 		else
