@@ -1105,7 +1105,7 @@ class sdage_metier
 				CONCAT(DAY(a.date_validation),'/',MONTH(a.date_validation),'/',YEAR(a.date_validation)) AS validation,
 				a.commentaires,
 				a.documents,
-				CONCAT('".$_SERVER["HTTP_HOST"]."/".dirname($_SERVER["SCRIPT_NAME"])."/admin/upload/',a.documents) AS url_document
+				CONCAT('http://".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"])."/documents/',a.documents) AS url_document
 			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u,ae_edl_massesdeau AS edl
 			WHERE
 				a.date_validation!='0000-00-00 00:00:00'
