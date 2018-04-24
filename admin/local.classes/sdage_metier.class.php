@@ -16,6 +16,19 @@ class sdage_metier
 	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
 	public static $extensions_autorisees=array("jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
+	var $TypesStructures=array(
+				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
+				array("id"=>"Conseils régionaux","value" => "Conseils régionaux"),
+				array("id"=>"EPTB, structures locales de gestion de l'eau","value" => "EPTB, structures locales de gestion de l'eau"),
+				array("id"=>"Parcs nationaux et régionaux","value" => "Parcs nationaux et régionaux"),
+				array("id"=>"Chambres d’agriculture","value" => "Chambres d’agriculture"),
+				array("id"=>"Chambres de commerce et d’industrie","value" => "Chambres de commerce et d’industrie"),
+				array("id"=>"Chambres des métiers et de l’artisanat","value" => "Chambres des métiers et de l’artisanat"),
+				array("id"=>"Grands établissements industriels (EDF, CNR, BRL)","value" => "Grands établissements industriels (EDF, CNR, BRL)"),
+				array("id"=>"Fédérations pour la pêche et la protection du milieu aquatique","value" => "Fédérations pour la pêche et la protection du milieu aquatique"),
+				array("id"=>"Associations de protection de la nature, CREN et autres associations majeures éventuelles","value" => "Associations de protection de la nature, CREN et autres associations majeures éventuelles"),
+				array("id"=>"Autre","value" => "Autre")
+			);
 	var $template_filenames=array(
 		"accueil"=>"accueil.tpl",
 		"inscription"=>"inscription.tpl",
@@ -1056,10 +1069,10 @@ class sdage_metier
 				u.user_Name AS NomCreateur,
 				u.user_FirstName AS PrenomCreateur,
 				u.user_Structure AS TypeStructure,
-				u.user_NomStructure AS NomStructure
+				u.user_NomStructure AS NomStructure,
 			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u
 			WHERE
-				a.dave_validation!='0000-00-00 00:00:00'
+				a.date_validation!='0000-00-00 00:00:00'
 				AND a.id_massedeau=e.id_massedeau
 				AND a.id_pression=p.id_pression
 				AND a.id_user=u.user_ID
@@ -1448,21 +1461,10 @@ class sdage_metier
 			$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 			$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
 
-			$arrTypeStructure=array(
-				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
-				array("id"=>"Conseils régionaux EPTB, structures locales de gestion de l'eau","value" => "Conseils régionaux EPTB, structures locales de gestion de l'eau"),
-				array("id"=>"Parcs nationaux et régionaux","value" => "Parcs nationaux et régionaux"),
-				array("id"=>"Chambres d’agriculture","value" => "Chambres d’agriculture"),
-				array("id"=>"Chambres de commerce et d’industrie","value" => "Chambres de commerce et d’industrie"),
-				array("id"=>"Chambres des métiers et de l’artisanat","value" => "Chambres des métiers et de l’artisanat"),
-				array("id"=>"Grands établissements industriels (EDF, CNR, BRL)","value" => "Grands établissements industriels (EDF, CNR, BRL)"),
-				array("id"=>"Fédérations pour la pêche et la protection du milieu aquatique","value" => "Fédérations pour la pêche et la protection du milieu aquatique"),
-				array("id"=>"Associations de protection de la nature, CREN et autres associations majeures éventuelles","value" => "Associations de protection de la nature, CREN et autres associations majeures éventuelles")
-			);
 
-
+			$arrTypeStructure=$this->TypesStructures;
 			$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->auth->user_Structure);
-
+			
 			$this->handle_Search(true); // Création de la recherche sur les avis de l'utilisateur courant
 			$resultats=$this->sectionContent_Search(self::LISTMODE_SHORTLIST,true);
 
@@ -1499,6 +1501,9 @@ class sdage_metier
 		$this->template->assign_var("CLEF_TRANSMISE", $this->params["clef"]);
 		if(!isset($this->params["inscription"]))
 		{
+			$arrTypeStructure=$this->TypesStructures;
+			$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->auth->user_Structure);
+			$this->template->assign_var("CMB_TYPE_STRUCTURE",$cmbTypeStructure);
 			return $this->template->pparse("inscription",true);
 		}
 		/*
