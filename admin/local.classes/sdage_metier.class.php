@@ -1075,7 +1075,7 @@ class sdage_metier
 		SELECT ae_edl_massesdeau.*,1 as nbavis
 		FROM ae_edl_massesdeau 
 		".$joinAvis."
-		WHERE ae_avis.id_avis=".$this->params["avis"]." 
+		WHERE ae_avis.id_avis=".$this->params["id_avis"]." 
 		GROUP BY ae_edl_massesdeau.id_pression";
 		//die($requeteSQL);
 		$this->db->setQuery($requeteSQL);
@@ -1169,7 +1169,7 @@ class sdage_metier
 		}
 		else
 		{
-			Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["avis"].".pdf");
+			Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["id_avis"].".pdf");
 			die();
 		}
 	}
