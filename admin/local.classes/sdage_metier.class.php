@@ -27,6 +27,7 @@ class sdage_metier
 		"searchresultlist"=>"searchresultlist.tpl",
 		"searchresultshortlist"=>"searchresultshortlist.tpl",
 		"fiche"=>"fiche.tpl",
+		"detail-avis" => "detail-avis.tpl",
 		"detail-pressions" => "detail-pressions.tpl",
 		"detail-pressions-shortlist" => "detail-pressions-shortlist.tpl",
 		"detail-pressions-list" => "detail-pressions-list.tpl"
@@ -126,6 +127,9 @@ class sdage_metier
 				break;
 			case "avis":
 				$this->handle_Avis();
+				break;
+			case "pdf":
+				$this->handle_PDF();
 				break;
     		case "import":
     			$this->handle_Import();
@@ -274,6 +278,8 @@ class sdage_metier
     	}
     }
 
+	
+	
     public function handle_Fiche()
     {
     	if(isset($this->params["txtRecherche"]) && $this->params["txtRecherche"]!="")
@@ -1022,6 +1028,114 @@ class sdage_metier
         return $myContent;
     }
 
+	
+	public function handle_PDF()
+	{
+		if(!$this->auth->isLoaded()) die("Non authentifié");
+		if(isset($this->params["id_avis"]) && $this->params["id_avis"]>0)
+		{
+			if(false) $objAvis=new mdtb_ae_avis();
+			$objAvis=mdtb_table::InitObject("mdtb_ae_avis");
+			if(!$objAvis->load($this->params["id_avis"]))
+			{
+				die("ID Incorrect");
+			}
+			if($objAvis->recGetValue("id_user")!=$this->auth->user_ID)
+			{
+				die("Vous n'avez pas les droits");
+			}
+		}
+		
+		$joinAvis=" RIGHT JOIN ae_avis ON (ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) ";
+		
+		$requeteSQL="
+		SELECT ae_edl_massesdeau.*,1 as nbavis
+		FROM ae_edl_massesdeau 
+		".$joinAvis."
+		WHERE ae_avis.id_avis=".$this->params["avis"]." 
+		GROUP BY ae_edl_massesdeau.id_pression";
+		//die($requeteSQL);
+		$this->db->setQuery($requeteSQL);
+		$listeEdl=$this->db->loadObjectList();
+		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
+
+		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
+		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
+		{
+			$arrPressions=$this->listePressions();
+			$this->template->clear_block_var("pressions");
+			foreach($listeEdl as $edl)  //do
+			{
+				if(!$this->authIsCollaborateur())
+				{
+					$edl->nbavis="-";
+					$edl->impact_valeur_forcee="-";
+				}
+				else
+				{
+					$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"O":"N";
+				}
+
+				$objAvis=$mdtbAvis->getAvisPourPressionMdo($edl->id_pression,$edl->id_massedeau);
+				$arrMassesDeau=$this->listeMassesDeau();
+				$arrSSBV=$this->listeSSBV("code");
+				$arrpression_cause_du_risque=array();
+				$arrpression_cause_du_risque[]=array("id"=>"","value"=>"");
+				$arrpression_cause_du_risque[]=array("id"=>"1","value"=>"Oui");
+				$arrpression_cause_du_risque[]=array("id"=>"0","value"=>"Non");
+				$CMB_PRESSION_CAUSE_DU_RISQUE=mdtb_forms::combolist("pression_cause_du_risque",$arrpression_cause_du_risque,$objAvis->pression_cause_du_risque);
+				//die("cmb pression  : ".print_r($CMB_PRESSION_CAUSE_DU_RISQUE,true));
+				$arrImpacts=array(); //array("id"=>"","value"=>""));
+				$arrImpacts[]=array("id"=>"","value"=>"");
+				for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+				$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
+				$icone_avis="fa-plus-circle";
+				if($objAvis->avis_valide=="avis_valide") $icone_avis="fa-check-circle";
+				elseif($objAvis->impact_estime!="") $icone_avis="fa-edit";
+				//die("Boucle sur edl : ".print_r($listeEdl,true));
+				$this->template->assign_vars
+				(
+					array
+					(
+						
+						'id_avis' =>  $objAvis->id_avis,
+						'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
+						'id_massedeau' =>  $edl->id_massedeau,
+						'libelle_me' => $arrMassesDeau[$edl->id_massedeau]->libelle_me,
+						'categorie_me' => $arrMassesDeau[$edl->id_massedeau]->categorie_me,
+						'code_ssbv' => $arrMassesDeau[$edl->id_massedeau]->code_ssbv,
+						'libelle_ssbv' => $arrSSBV[$arrMassesDeau[$edl->id_massedeau]->code_ssbv]->libelle_ssbv,
+						'id_pression' => $edl->id_pression,
+						'libelle_pression' => $arrPressions[$edl->id_pression],
+						'impact_2016' => $edl->impact_2016,
+						'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"O":"N",
+						'impact_2019' => $edl->impact_2019,
+						'rnaoe_2021' => $edl->rnaoe_2021?"O":"N",
+						'pression_origine_2021' => $edl->pression_origine_2021?"O":"N",
+						'rnaoe_2027' => $edl->rnaoe_2021?"O":"N",
+						'pression_origine_2027'=> $edl->pression_origine_2027?"O":"N",
+						"nbavis" => $edl->nbavis,
+						"avis_valide"=>$objAvis->avis_valide,
+						"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé":"En cours d'édition",
+						"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
+						"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
+						"impact_estime"=>$objAvis->impact_estime,
+						"icone_avis"=>$icone_avis,
+						"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
+						"justification"=>$objAvis->commentaires,
+						"lien_documents"=>$objAvis->lien_documents,
+						"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
+						"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
+					)
+				);
+			} //while($edl->recNext());
+			$detailPressions=$this->template->pparse("detail-avis",true);
+		}
+		//die($detailPressions);
+		Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["avis"].".pdf");
+	}
+	
+	
     function sectionContent_Search($listmode=self::LISTMODE_NORMAL,$currentuser=false)
     {
     	$this->prepareForm();
@@ -1132,6 +1246,7 @@ class sdage_metier
 								'rnaoe_2027' => $edl->recGetValue("rnaoe_2021")?"O":"N",
 								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N",
 								*/
+								'id_avis' =>  $objAvis->id_avis,
 								'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
 								'id_massedeau' =>  $edl->id_massedeau,
 								'libelle_me' => $arrMassesDeau[$edl->id_massedeau]->libelle_me,
@@ -1255,7 +1370,7 @@ class sdage_metier
 	
 	public function sectionContent_Panneau()
 	{
-		$this->SendMailTest();
+		//$this->SendMailTest();
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
@@ -1369,18 +1484,25 @@ class sdage_metier
 	private function SendMailTest()
 	{
 		global $ThePrefs;
+		//echo __LINE__." => Mail test ...";
 		if(false) $objUsers=new mdtb_users();
 		$objUsers=mdtb_table::InitObject("mdtb_users");
-		$objUsers->recSQLSearch("group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
+		$objUsers->recSQLSearch("mdtb_users.group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
+		//echo __LINE__." => recherche "."group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails." ... ".mdtb_table::$_latest_query."<br />";
 		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
 		$message="Inscription d'un nouveau créateur : \r\n";
 		if($objUsers->recCount())
 		{
+			//echo __LINE__." => nb envois ".$objUsers->recCount()." ...";
 			$objUsers->recFirst();
 			do
 			{
 				$to=$objUsers->recGetValue("user_Mail");
-				Tools::PHPMailer($to,$subject,$message);
+				if(trim($to)!="")
+				{
+					//echo __LINE__." => envoi vers ".$to." ...";
+					Tools::PHPMailer($to,$subject,$message);
+				}
 			} while($objUsers->recNext());
 		}
 	}
@@ -1391,25 +1513,33 @@ class sdage_metier
 		$mailFrom=$ThePrefs->From; //="webmaster@rhone-mediterranee.eaufrance.fr";
 		$nameFrom=$ThePrefs->FromName; //="Webmaster SIE";
 		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
-		$message="Inscription d'un nouveau créateur : \r\n".
-		"Nom : ".$user->user_Name."\r\n".
-		"Prénom : ".$user->user_FirstName."\r\n".
-		"Email : ".$user->user_Mail."\r\n".
-		"Type de structure : ".$user->user_Structure."\r\n".
-		"Nom de la structure : ".$user->user_NomStructure."\r\n".
-		"Date inscription : ".date("d/m/Y");
+		$message="<b>Inscription d'un nouveau créateur :</b><br />\r\n".
+		"<b>Nom : </b>".$user->user_Name."<br />\r\n".
+		"<b>Prénom :</b>".$user->user_FirstName."<br />\r\n".
+		"<b>Email :</b>".$user->user_Mail."<br />\r\n".
+		"<b>Type de structure :</b>".$user->user_Structure."<br />\r\n".
+		"<b>Nom de la structure :</b>".$user->user_NomStructure."<br />\r\n".
+		"<b>Date inscription :</b>".date("d/m/Y");
+		
+		//echo __LINE__." => Mail test ...";
 		if(false) $objUsers=new mdtb_users();
 		$objUsers=mdtb_table::InitObject("mdtb_users");
-		$objUsers->recSQLSearch("group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
+		$objUsers->recSQLSearch("mdtb_users.group_ID=".(int)$ThePrefs->AdminGroupPourAlertesMails);
 		if($objUsers->recCount())
 		{
+			//echo __LINE__." => nb envois ".$objUsers->recCount()." ...";
 			$objUsers->recFirst();
 			do
 			{
 				$to=$objUsers->recGetValue("user_Mail");
-				Tools::SendMailWithNames($mailFrom,$nameFrom,$to,$subject,$message);
+				if(trim($to)!="")
+				{
+					//echo __LINE__." => envoi vers ".$to." ...";
+					Tools::PHPMailer($to,$subject,$message);
+				}
 			} while($objUsers->recNext());
 		}
+		
 	}
 	
     public function handle_Connexion()

@@ -10,13 +10,21 @@ $traceactive=true;
  * Insertion phpmailer
  */
 use PHPMailer\PHPMailer\PHPMailer;
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 if(file_exists(__DIR__."/../local.lib/phpmailer"))
 {
 	require_once(__DIR__.'/../local.lib/phpmailer/src/PHPMailer.php');
 	require_once(__DIR__.'/../local.lib/phpmailer/src/SMTP.php');
-	require_once(__DIR__.'/../local.lib/phpmailer/src/PHP3.php');
+	require_once(__DIR__.'/../local.lib/phpmailer/src/POP3.php');
 	require_once(__DIR__.'/../local.lib/phpmailer/src/OAuth.php');
 }
+if(file_exists(__DIR__."/../local.lib/html2pdf"))
+{
+		require_once(__DIR__."/../local.lib/html2pdf/vendor/autoload.php");
+}
+
 
 if(!function_exists("xdebug_break"))
 {
@@ -1921,8 +1929,23 @@ class Tools
 		return mail($to, $subject, $message, $headers);
 	}
 		
-		
-		
+	public static function HTML2PDF($html,$file)
+	{
+		try {
+				$content = $html;
+				$html2pdf = new Html2Pdf('P', 'A4', 'fr');
+				//die("TRaitement contenu ...");
+				$html2pdf->setDefaultFont('Arial');
+				$html2pdf->writeHTML($content);
+				$html2pdf->output($file);
+				
+			} catch (Html2PdfException $e) {
+				$html2pdf->clean();
+				$formatter = new ExceptionFormatter($e);
+				echo $formatter->getHtmlMessage();
+			}
+	}
+	
 	public static function PHPMailer($to,$subject,$message)
 	{
 		global $ThePrefs;
@@ -1936,8 +1959,11 @@ class Tools
 		//date_default_timezone_set('Etc/UTC');
 		//require '../vendor/autoload.php';
 		//Create a new PHPMailer instance
+		//echo "Instance phpmailer ...";
 		$mail = new PHPMailer;
+		//echo "isSMTP ?...";
 		//Tell PHPMailer to use SMTP
+		/*
 		$mail->isSMTP();
 		//Enable SMTP debugging
 		// 0 = off (for production use)
@@ -1950,28 +1976,32 @@ class Tools
 		$mail->Port = $ThePrefs->SMTPPort; //25;
 		//Whether to use SMTP authentication
 		$mail->SMTPAuth = true;
+		$mail->SMTPSecure = "tls";
 		//Username to use for SMTP authentication
 		$mail->Username = $ThePrefs->SMTPUser; //'yourname@example.com';
 		//Password to use for SMTP authentication
 		$mail->Password = $ThePrefs->SMTPPass; //'yourpassword';
+		 * 
+		 */
 		//Set who the message is to be sent from
-		
 		$mail->setFrom($ThePrefs->From,$ThePrefs->FromName);
 		//Set an alternative reply-to address
 		$mail->addReplyTo($ThePrefs->From,$ThePrefs->FromName);
 		//Set who the message is to be sent to
 		$mail->addAddress($to);
 		//Set the subject line
-		$mail->Subject = $subject;
+		$mail->Timeout = 20;
+		$mail->Subject = utf8_decode($subject);
 		//Read an HTML message body from an external file, convert referenced images to embedded,
 		//convert HTML into a basic plain-text alternative body
 		//$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
-		$mail->msgHTML($message, __DIR__);
+		$mail->msgHTML(utf8_decode($message), __DIR__);
 		//Replace the plain text body with one created manually
 		$mail->AltBody = strip_tags(str_replace("</p>","</p>\r\n",str_replace("<br","\r\n<br",$message)));
 		//Attach an image file
 		//$mail->addAttachment('images/phpmailer_mini.png');
 		//send the message, check for errors
+		//die("User : ".$ThePrefs->SMTPUser.", Host : ".$ThePrefs->SMTPHost.", Port : ".$ThePrefs->SMTPPort."<pre>".print_r($mail,true)."</pre>");
 		if (!$mail->send()) {
 			return 'Mailer Error: ' . $mail->ErrorInfo;
 		} else {

@@ -35,9 +35,9 @@ $ThePrefs->UseAuth=false;
 $ThePrefs->From="webmaster@rhone-mediterranee.eaufrance.fr";
 $ThePrefs->FromName="Webmaster SIE";
 $ThePrefs->SMTPHost="smtp.zoho.com";
-$ThePrefs->SMTPPost=465;
+$ThePrefs->SMTPPort=587;
 $ThePrefs->SMTPUser="webmaster@rhone-mediterranee.eaufrance.fr";
-$ThePrefs->SMTPPassword="c69c0ba37b";
+$ThePrefs->SMTPPassword="errc69c0ba37b";
 
 $ThePrefs->AdminGroupPourAlertesMails=3;
 $ThePrefs->BaseFolder=dirname($_SERVER["SCRIPT_FILENAME"]);

@@ -20,6 +20,7 @@ class mdtb_table extends mosDBTable
 	var $sortfield_order="";
 	var $searchable_large=true;
 
+	public static $_latest_query="";
 	var $_tablename="mdtb_tables";
 	var $_actions=array();
 	var $_global_actions=array();
@@ -3762,6 +3763,7 @@ class mdtb_recordset extends mosDBTable
 		$myQueryCount=$this->_build_query($theSort,$theOrder,$thePage,$theFiltersCompulsory,true,$theLimitlessSearch);
 		//echo "Requête de compte : <pre>".$myQueryCount."</pre>".BR;
 		//echo "Requête de recherche : <pre>".$myQuery."</pre>".BR;
+		mdtb_table::$_latest_query=$myQuery;
 		if($myQuery!==false)
 		{
 			$this->_db->setQuery($myQueryCount);
@@ -3773,6 +3775,7 @@ class mdtb_recordset extends mosDBTable
 				$this->_result_nb_rows=$myCount[0]->nbocc;
 				$this->clear();
 				$this->_db->setQuery($myQuery);
+				mdtb_table::$_latest_query=$this->_db->getQuery();
 				//if(isset($this->_reference->table) && isset($this->_reference->key_value))
 				if($debug) //*/
 					echo __FUNCTION__."@".__LINE__." => Requête de recherche : ".$this->_db->getQuery();
