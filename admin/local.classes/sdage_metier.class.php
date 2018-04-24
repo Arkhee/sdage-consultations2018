@@ -604,7 +604,7 @@ class sdage_metier
 					$fichier=$this->handle_PDF(true);
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
-					file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier)."\r\n",FILE_APPEND);
+					file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier,true)."\r\n",FILE_APPEND);
 					Tools::PHPMailer($this->auth->user_Mail, $sujet, $message,array($fichier));
 					/* Finalisation des actions de confirmation */
 					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
