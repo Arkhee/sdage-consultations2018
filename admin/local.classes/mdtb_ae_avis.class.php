@@ -14,6 +14,7 @@ class mdtb_ae_avis extends mdtb_table
 	function specific_init()
 	{
 		$this->table_name="#__ae_avis";
+		$this->_tbl="#__ae_avis";
 		$i=1;
 		$this->add_field("id_avis","number","","","",0,0,0);
 		$this->add_field("id_massedeau","reference","ae_massesdeau","id_massedeau","libelle_me",$i,$i,$i++);
