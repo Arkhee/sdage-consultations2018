@@ -913,7 +913,7 @@ class mosDBTable {
 		. "\n WHERE $this->_tbl_key = '$oid'"
 		;
 		$this->_db->setQuery( $query );
-		
+		if(class_exists("mdtb_table")) mdtb_table::$_latest_query=$this->_db->getQuery();
 		return $this->_db->loadObject( $this );
 	}
 

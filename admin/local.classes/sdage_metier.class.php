@@ -1055,9 +1055,9 @@ class sdage_metier
 			if(false) $objAvis=new mdtb_ae_avis();
 			$objAvis=mdtb_table::InitObject("mdtb_ae_avis");
 			file_put_contents(__DIR__."/savepdf.log","Chargement avis ".$this->params["id_avis"]." ...\r\n",FILE_APPEND);
-			if(!$objAvis->load($this->params["id_avis"]))
+			if(!$objAvis->load((int)$this->params["id_avis"]))
 			{
-				file_put_contents(__DIR__."/savepdf.log","ERREUR Chargement avis ".$this->params["id_avis"]." ...\r\n",FILE_APPEND);
+				file_put_contents(__DIR__."/savepdf.log","ERREUR Chargement avis ".$this->params["id_avis"]." ... : ".mdtb_table::$_latest_query."\r\n",FILE_APPEND);
 				die("ID Incorrect");
 			}
 			file_put_contents(__DIR__."/savepdf.log","Chargement OK\r\n",FILE_APPEND);
