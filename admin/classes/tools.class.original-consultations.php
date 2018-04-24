@@ -131,7 +131,7 @@ class Tools
 			$formats_array[$cell_format]->setNumFormat('@');
 
 			$i=0;
-			//echo "Données : ".Tools::Display($myArrayTable);
+			//echo "Donnï¿½es : ".Tools::Display($myArrayTable);
 			foreach($myArrayTable as $keyarray=>$curarray)
 			{
 				$j=0;
@@ -172,7 +172,7 @@ class Tools
 			$workbook->close();
 			
 			/*
-			 * Récupération des données et envoi en streaming
+			 * Rï¿½cupï¿½ration des donnï¿½es et envoi en streaming
 			 */
 			if(!headers_sent())
 			{
@@ -182,7 +182,7 @@ class Tools
 			}
 			else
 			{
-				$error_msg.="Entêtes déjà envoyés ! Des erreurs dans le script ? Impossible d'envoyer le téléchargement<br />\n";
+				$error_msg.="Entï¿½tes dï¿½jï¿½ envoyï¿½s ! Des erreurs dans le script ? Impossible d'envoyer le tï¿½lï¿½chargement<br />\n";
 				unlink($tmpfname);
 			}
 		}
@@ -195,8 +195,16 @@ class Tools
 		$myCurLine=0;
 		$myLineStop=-1;
 		$myArrayTable=$theData;
+		
 		/*
-		 * Formatage des données
+		 * VÃ©rification des donnÃ©es
+		 */
+		foreach($myArrayTable as $keyarray=> &$curarray)
+		{
+			if(is_object($curarray)) $curarray=(array)$curarray;
+		}
+		/*
+		 * Formatage des donnï¿½es
 		 */
 		if($theHasHeader)
 		{
@@ -231,7 +239,7 @@ class Tools
 		}
 		
 		/*
-		 * Récupération des données et envoi en streaming
+		 * Rï¿½cupï¿½ration des donnï¿½es et envoi en streaming
 		 */
 		if($theStoreFile!="")
 		{
@@ -248,7 +256,7 @@ class Tools
 		}
 		else
 		{
-			$error_msg.="Entêtes déjà envoyés ! Des erreurs dans le script ? Impossible d'envoyer le téléchargement<br />\n";
+			$error_msg.="Entï¿½tes dï¿½jï¿½ envoyï¿½s ! Des erreurs dans le script ? Impossible d'envoyer le tï¿½lï¿½chargement<br />\n";
 		}
 
 	}
@@ -447,7 +455,7 @@ class Tools
 					}
 				} else {
 					if ($t == '')  {
-						Tools::writeIdent($f, "chaîne vide", $idt);
+						Tools::writeIdent($f, "chaï¿½ne vide", $idt);
 					} else {
 						Tools::writeIdent($f, $t, $idt);
 					}
@@ -498,10 +506,10 @@ class Tools
 	function TimeSetVal($theDatabase,$theRefId,$theSessId,$theParam,$theVal)
 	{
 		if($theParam=="") return false;
-		Tools::Trace(__FUNCTION__."=>Définition de ".$theParam." à ".$theVal." avec id=".$theSessId." et refid=".$theRefId);
+		Tools::Trace(__FUNCTION__."=>Dï¿½finition de ".$theParam." ï¿½ ".$theVal." avec id=".$theSessId." et refid=".$theRefId);
 		if(!is_object($theDatabase))
 		{
-			Tools::Trace(__FUNCTION__."=> base de données non définie !!");
+			Tools::Trace(__FUNCTION__."=> base de donnï¿½es non dï¿½finie !!");
 			return false;
 		}
 		$myObj=null;
@@ -513,13 +521,13 @@ class Tools
 		}
 		$myObj->$theParam=$theVal;
 		$theDatabase->updateObject("page_statistics",$myObj,"id");
-		Tools::Trace(__FUNCTION__."=> requête : ".$theDatabase->getQuery());
+		Tools::Trace(__FUNCTION__."=> requï¿½te : ".$theDatabase->getQuery());
 		
 	}
 	
 	function DisplayTimeCounter()
 	{
-		echo "<div class=\"time_counter\">".getTranslation("Temps de génération de la page")." :".time_get_counter()."s</div>\n";
+		echo "<div class=\"time_counter\">".getTranslation("Temps de gï¿½nï¿½ration de la page")." :".time_get_counter()."s</div>\n";
 	}
 	
 	function TimeStoreCounter($theDatabase,$theStartTime,$theUserId,$theShowScript=false,$thePath="")
@@ -536,7 +544,7 @@ class Tools
 			
 			$theDatabase->insertObject("page_statistics",$myObj,"id");
 			Tools::Trace(__FUNCTION__."=> temps :".$theStartTime);
-			Tools::Trace(__FUNCTION__."=> requête : ".$theDatabase->getQuery());
+			Tools::Trace(__FUNCTION__."=> requï¿½te : ".$theDatabase->getQuery());
 			if($theShowScript)
 				echo "<script src=\"".$thePath."stats.php?sessid=".$myObj->id."&refid=".session_id()."\" type=\"text/javascript\"></script>";
 		}
@@ -622,7 +630,7 @@ class Tools
 	{
 		$debugtail=false;
 		
-		if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>début");
+		if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>dï¿½but");
 		if(session_id()=="")
 			session_start();
 		if(!isset($_SESSION["tail_file"]))
@@ -632,10 +640,10 @@ class Tools
 		if(!isset($_SESSION["tail_sess_name"])) $_SESSION["tail_sess_name"]=$_POST["tail"];
 		else
 		{
-			if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>fichier déjà chargé dans la session précédente");
+			if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>fichier dï¿½jï¿½ chargï¿½ dans la session prï¿½cï¿½dente");
 			if($_SESSION["tail_sess_name"]!=$_POST["tail"])
 			{
-				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>le fichier est différent, on réinitialise");
+				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>le fichier est diffï¿½rent, on rï¿½initialise");
 				$_SESSION["tail_sess_name"]=$_POST["tail"];
 				//$_POST["tail_action"]="reset";
 				$tail_file="";
@@ -653,24 +661,24 @@ class Tools
 			if(file_exists($tail_name))
 				$myNewFileContent=file_get_contents($tail_name);
 		}
-		if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>fichier chargé (".strlen($myNewFileContent).")");
+		if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>fichier chargï¿½ (".strlen($myNewFileContent).")");
 		if($myNewFileContent!="")
 		{
 			if($tail_file=="")
 			{
-				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>première itération");
+				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>premiï¿½re itï¿½ration");
 				$tail_file=$myNewFileContent;
 				$_SESSION["tail_file"]=$tail_file;
 				return $tail_file;
 			}
 			if(strlen($tail_file)<=strlen($myNewFileContent))
 			{
-				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>itérations suivantes");
+				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>itï¿½rations suivantes");
 				$myDiffBuff=substr($myNewFileContent,strlen($tail_file),strlen($myNewFileContent));
 				$tail_file=$myNewFileContent;
 				$_SESSION["tail_file"]=$myNewFileContent;
 				
-				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>itérations suivantes. Différence : (".strlen($myDiffBuff).") : ".$myDiffBuff);
+				if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>itï¿½rations suivantes. Diffï¿½rence : (".strlen($myDiffBuff).") : ".$myDiffBuff);
 				return $myDiffBuff;
 			}
 			else
@@ -751,13 +759,13 @@ class Tools
 		}
 		else
 			return false;
-		//echo "Téléchargement progressif du fichier ".$filename." soit sur le disque : ".$file."(exsite : ".file_exists($file).")";
+		//echo "Tï¿½lï¿½chargement progressif du fichier ".$filename." soit sur le disque : ".$file."(exsite : ".file_exists($file).")";
 	}
 
     function DL_Downloadheaders($name,$filesize)
     {
 		// get_contenttype.inc.php - PHProjekt Version 4.0
-		// copyright  ©  2000-2003 Albrecht Guenther  ag@phprojekt.com
+		// copyright  ï¿½  2000-2003 Albrecht Guenther  ag@phprojekt.com
 		// www.phprojekt.com
 		// Author: Albrecht Guenther
 		
@@ -797,7 +805,7 @@ class Tools
 			header("Content-Length: ".$filesize);	
 		}
 		
-		//echo "Fin de l'envoi des entêtes";
+		//echo "Fin de l'envoi des entï¿½tes";
 	}
 
 	function DL_Content_type($name)
@@ -832,7 +840,7 @@ class Tools
 		if(isset($contenttypes[$myExtension]))
 			$contenttype=$contenttypes[$myExtension];
 	   /*
-	   $name = ereg_replace("§"," ",$name);
+	   $name = ereg_replace("ï¿½"," ",$name);
 	   foreach ($contenttypes as $type_ext => $type_name)
 	   {
 	     if (preg_match ("/$type_ext$/i", $name)) { $contenttype = $type_name; }

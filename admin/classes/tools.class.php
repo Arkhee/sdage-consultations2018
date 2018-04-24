@@ -1234,6 +1234,16 @@ class Tools
 		/*
 		 * Formatage des donnees
 		 */
+		
+		/*
+		 * Vérification des données
+		 */
+		foreach($myArrayTable as $keyarray=> $curarray)
+		{
+			if(is_object($curarray)) $myArrayTable[$keyarray]=(array)$curarray;
+		}
+		//die(print_r($myArrayTable,true));
+		
 		if($theHasHeader)
 		{
 			$first=true;
@@ -1252,6 +1262,7 @@ class Tools
 			}
 			$headerLine="\"".Tools::arrayImplode("\"".$mySeparateurCSV."\"",$headers)."\"\r\n";
 		}
+		//die("Header : ".$headerLine);
 		//foreach($curarray as $keyval=>$curvalue)	{$myArrayTable[$keyarray][$keyval]=str_replace("\"","''",str_replace("\r\n","\n",$curvalue));}
 
 		/*
@@ -1259,10 +1270,11 @@ class Tools
 		 */
 		$tmpFileForDownload = tmpfile();
 		fwrite($tmpFileForDownload, $headerLine);
-		$myFileSize=0;
+		$myFileSize=strlen($headerLine);
 		foreach($myArrayTable as $keyarray=>$curarray)
 		{
 			$myLine= "\"".Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n";
+			//die("Ligne : ".$myLine);
 			$myFileSize+=strlen($myLine);
 			fwrite($tmpFileForDownload, $myLine);
 			$myCurLine++;

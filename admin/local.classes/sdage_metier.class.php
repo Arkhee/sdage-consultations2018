@@ -17,6 +17,7 @@ class sdage_metier
 	public static $pagination=20;
 	public static $extensions_autorisees=array("jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
 	var $TypesStructures=array(
+				array("id"=>"","value" => "(choisir un type de structure)"),
 				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
 				array("id"=>"Conseils régionaux","value" => "Conseils régionaux"),
 				array("id"=>"EPTB, structures locales de gestion de l'eau","value" => "EPTB, structures locales de gestion de l'eau"),
@@ -610,14 +611,14 @@ class sdage_metier
 				$obj->date_validation=date('Y-m-d H:i:s');
 				if(false) $avis=new mdtb_ae_avis();
 				$retour=$avis->recStore($obj);
-				file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee\r\n",FILE_APPEND);
+				//file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee\r\n",FILE_APPEND);
 				if($retour) {
 					//file_put_contents(__DIR__."/savepdf.log","Validation avis sauvegardee OK\r\n",FILE_APPEND);
 					/*
 					 * Sauvegarde du pdf et envoi du mail
 					 */
 					$this->params["id_avis"]=$avis->recKeyValue();
-					file_put_contents(__DIR__."/savepdf.log","Clef : ".$this->params["id_avis"]."\r\n",FILE_APPEND);
+					//file_put_contents(__DIR__."/savepdf.log","Clef : ".$this->params["id_avis"]."\r\n",FILE_APPEND);
 					$fichier=$this->handle_PDF(true);
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
@@ -708,18 +709,18 @@ class sdage_metier
 		$edl= mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
 		$nbEDLMaj=0;
 		
-		file_put_contents(__DIR__."/import.log","Import en cours ".date("Y-m-d H:i:s")."\r\n");
+		//file_put_contents(__DIR__."/import.log","Import en cours ".date("Y-m-d H:i:s")."\r\n");
 		foreach($csv as $curData)
 		{
 			$obj=new stdClass();
 			$edl->recSQLSearch("ae_edl_massesdeau.id_pression=".$curData["code_pression"]." AND ae_edl_massesdeau.id_massedeau=".$arrMassesDeau[$curData["code_masse_eau"]]);
-			file_put_contents(__DIR__."/import.log","Import pression ".$curData["code_pression"]." et mdo ".$arrMassesDeau[$curData["code_masse_eau"]]."... ",FILE_APPEND);
+			//file_put_contents(__DIR__."/import.log","Import pression ".$curData["code_pression"]." et mdo ".$arrMassesDeau[$curData["code_masse_eau"]]."... ",FILE_APPEND);
 			if($edl->recFirst())
 			{
-				file_put_contents(__DIR__."/import.log"," MISE A JOUR  ... ",FILE_APPEND);
+				//file_put_contents(__DIR__."/import.log"," MISE A JOUR  ... ",FILE_APPEND);
 				if(isset($this->params["skipupdate"]) && $this->params["skipupdate"]==="skip")
 				{
-					file_put_contents(__DIR__."/import.log"," skip \r\n",FILE_APPEND);
+					//file_put_contents(__DIR__."/import.log"," skip \r\n",FILE_APPEND);
 					continue;
 				}
 				$obj=$edl->recGetRecord();
@@ -727,7 +728,7 @@ class sdage_metier
 			}
 			else
 			{
-				file_put_contents(__DIR__."/import.log"," CREATION ... ",FILE_APPEND);
+				//file_put_contents(__DIR__."/import.log"," CREATION ... ",FILE_APPEND);
 				$edl->recNewRecord();
 				$obj->id_edl_massedeau=null;
 			}
@@ -751,13 +752,13 @@ class sdage_metier
 			$obj->impact_2019=$curData["impact_2019"];
 			$obj->rnaoe_2027=$curData["rnabe_2027"];
 			$obj->pression_origine_2027=$curData["pression_origine_risque_2027"];
-			file_put_contents(__DIR__."/import.log"," affectation valeurs ... ",FILE_APPEND);
+			//file_put_contents(__DIR__."/import.log"," affectation valeurs ... ",FILE_APPEND);
 			$retour=$edl->recStore($obj);
-			file_put_contents(__DIR__."/import.log"," sauvegarde : ".($retour?"ok":"erreur")."\r\n",FILE_APPEND);
+			//file_put_contents(__DIR__."/import.log"," sauvegarde : ".($retour?"ok":"erreur")."\r\n",FILE_APPEND);
 			//echo "Enregistrement objet.<pre>".print_r($obj,true)."</pre><br />";
 			$nbEDLMaj++;
 		}
-		file_put_contents(__DIR__."/import.log","IMPORT TERMINE\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/import.log","IMPORT TERMINE\r\n",FILE_APPEND);
 		$this->msg_info.="<br />Mise à jour terminée avec : ".$nbEDLMaj." enregistrements<br />";
 		//echo "Fichier ouvert, entetes : ".print_r($csv->getHeaders(),true)."<br />";
 	}
@@ -888,9 +889,9 @@ class sdage_metier
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
-		file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage().
+		/*file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage().
 			"\r\nRequête count : \r\n".$requeteMEChampsCount.$requeteME."\r\n"
-		);
+		);*/
 		// Requete count : 
     	$this->db->setQuery($requeteMEChampsListe.$requeteME);
     	$this->db->query();
@@ -904,7 +905,7 @@ class sdage_metier
 			$this->params["pagination"]=1;
 		}
 		$requeteMELimit=" LIMIT ".($curpage-1)*self::$pagination.",".self::$pagination;
-		file_put_contents(__DIR__."/derniere-recherche.log","Compte : ".$this->nbresultats."\r\nRequête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/derniere-recherche.log","Compte : ".$this->nbresultats."\r\nRequête resultats : \r\n".$requeteMEChampsListe.$requeteME.$requeteMELimit."\r\n",FILE_APPEND);
     	$this->db->setQuery($requeteMEChampsListe.$requeteME.$requeteMELimit);
     	$this->search_result=$this->db->loadObjectList();
 		
@@ -1066,10 +1067,19 @@ class sdage_metier
 		if($this->auth->user_Rank!=="coll") die("Vous n'avez pas les droits");
 		$requete="
 			SELECT 
+				a.id_user,
 				u.user_Name AS NomCreateur,
 				u.user_FirstName AS PrenomCreateur,
 				u.user_Structure AS TypeStructure,
 				u.user_NomStructure AS NomStructure,
+				u.user_Mail AS EMail,
+				a.id_avis,
+				a.id_massedeau,
+				a.id_pression,
+				a.impact_estime,
+				a.pression_cause_du_risque,
+				a.commentaires,
+				a.documents
 			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u
 			WHERE
 				a.date_validation!='0000-00-00 00:00:00'
@@ -1079,7 +1089,8 @@ class sdage_metier
 		";
 		$this->db->setQuery($requete);
 		$liste=$this->db->loadObjectList();
-		Tools::SendCSV("liste-avis-valides.csv", $liste);
+		//die("Requete : ".$requete." => ".print_r($liste,true));
+		Tools::SendCSV("liste-avis-valides.csv", $liste,true);
 		die();
 	}
 	public function handle_PDF($save=false)
