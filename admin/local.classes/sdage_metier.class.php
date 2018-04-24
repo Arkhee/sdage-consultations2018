@@ -23,6 +23,7 @@ class sdage_metier
 		"inscription_retour"=>"inscription_retour.tpl",
 		"connexion"=>"connexion.tpl",
 		"panneau"=>"panneau.tpl",
+		"panneaucollaborateur"=>"panneaucollaborateur.tpl",
 		"searchresult"=>"searchresult.tpl",
 		"searchresultlist"=>"searchresultlist.tpl",
 		"searchresultshortlist"=>"searchresultshortlist.tpl",
@@ -130,6 +131,9 @@ class sdage_metier
 				break;
 			case "pdf":
 				$this->handle_PDF();
+				break;
+			case "csv":
+				$this->handle_CSV();
 				break;
     		case "import":
     			$this->handle_Import();
@@ -1043,7 +1047,28 @@ class sdage_metier
         return $myContent;
     }
 
-	
+	public function handle_CSV()
+	{
+		if(!$this->auth->isLoaded()) die("Non authentifié");
+		if($this->auth->user_Rank!=="coll") die("Vous n'avez pas les droits");
+		$requete="
+			SELECT 
+				u.user_Name AS NomCreateur,
+				u.user_FirstName AS PrenomCreateur,
+				u.user_Structure AS TypeStructure,
+				u.user_NomStructure AS NomStructure
+			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u
+			WHERE
+				a.dave_validation!='0000-00-00 00:00:00'
+				AND a.id_massedeau=e.id_massedeau
+				AND a.id_pression=p.id_pression
+				AND a.id_user=u.user_ID
+		";
+		$this->db->setQuery($requete);
+		$liste=$this->db->loadObjectList();
+		Tools::SendCSV("liste-avis-valides.csv", $liste);
+		die();
+	}
 	public function handle_PDF($save=false)
 	{
 		global $ThePrefs;
@@ -1079,12 +1104,12 @@ class sdage_metier
 		GROUP BY ae_edl_massesdeau.id_pression";
 		//die($requeteSQL);
 		$this->db->setQuery($requeteSQL);
-		file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
 		$listeEdl=$this->db->loadObjectList();
 		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
 
 		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
-		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
+		//file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
 		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 		{
 			$arrPressions=$this->listePressions();
@@ -1409,41 +1434,52 @@ class sdage_metier
 	
 	public function sectionContent_Panneau()
 	{
-		//$this->SendMailTest();
-		$this->prepareForm();
-		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
-		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+		if($this->auth->user_Rank=="coll")
+		{
+			return $this->template->pparse("panneaucollaborateur",true);
+			
+		}
 		
-		$arrTypeStructure=array(
-			array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
-			array("id"=>"Conseils régionaux EPTB, structures locales de gestion de l'eau","value" => "Conseils régionaux EPTB, structures locales de gestion de l'eau"),
-			array("id"=>"Parcs nationaux et régionaux","value" => "Parcs nationaux et régionaux"),
-			array("id"=>"Chambres d’agriculture","value" => "Chambres d’agriculture"),
-			array("id"=>"Chambres de commerce et d’industrie","value" => "Chambres de commerce et d’industrie"),
-			array("id"=>"Chambres des métiers et de l’artisanat","value" => "Chambres des métiers et de l’artisanat"),
-			array("id"=>"Grands établissements industriels (EDF, CNR, BRL)","value" => "Grands établissements industriels (EDF, CNR, BRL)"),
-			array("id"=>"Fédérations pour la pêche et la protection du milieu aquatique","value" => "Fédérations pour la pêche et la protection du milieu aquatique"),
-			array("id"=>"Associations de protection de la nature, CREN et autres associations majeures éventuelles","value" => "Associations de protection de la nature, CREN et autres associations majeures éventuelles")
-		);
-		
-		
-		$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->auth->user_Structure);
-		
-		$this->handle_Search(true); // Création de la recherche sur les avis de l'utilisateur courant
-		$resultats=$this->sectionContent_Search(self::LISTMODE_SHORTLIST,true);
-		
-		$this->template->assign_vars(array(
-				"user_ID" => $this->auth->user_ID,
-				"user_name" => $this->auth->user_Name,
-				"user_firstname" => $this->auth->user_FirstName,
-				"user_email" => $this->auth->user_Mail,
-				"user_nomstructure" => $this->auth->user_NomStructure,
-				"resultats" => $resultats,
-				"CMB_TYPE_STRUCTURE"=>$cmbTypeStructure
-		));
-		
-		//print_r($this->search_result);
-        return $this->template->pparse("panneau",true);
+		if($this->auth->user_Rank=="crea")
+		{
+
+			//$this->SendMailTest();
+			$this->prepareForm();
+			$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
+			$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+
+			$arrTypeStructure=array(
+				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
+				array("id"=>"Conseils régionaux EPTB, structures locales de gestion de l'eau","value" => "Conseils régionaux EPTB, structures locales de gestion de l'eau"),
+				array("id"=>"Parcs nationaux et régionaux","value" => "Parcs nationaux et régionaux"),
+				array("id"=>"Chambres d’agriculture","value" => "Chambres d’agriculture"),
+				array("id"=>"Chambres de commerce et d’industrie","value" => "Chambres de commerce et d’industrie"),
+				array("id"=>"Chambres des métiers et de l’artisanat","value" => "Chambres des métiers et de l’artisanat"),
+				array("id"=>"Grands établissements industriels (EDF, CNR, BRL)","value" => "Grands établissements industriels (EDF, CNR, BRL)"),
+				array("id"=>"Fédérations pour la pêche et la protection du milieu aquatique","value" => "Fédérations pour la pêche et la protection du milieu aquatique"),
+				array("id"=>"Associations de protection de la nature, CREN et autres associations majeures éventuelles","value" => "Associations de protection de la nature, CREN et autres associations majeures éventuelles")
+			);
+
+
+			$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->auth->user_Structure);
+
+			$this->handle_Search(true); // Création de la recherche sur les avis de l'utilisateur courant
+			$resultats=$this->sectionContent_Search(self::LISTMODE_SHORTLIST,true);
+
+			$this->template->assign_vars(array(
+					"user_ID" => $this->auth->user_ID,
+					"user_name" => $this->auth->user_Name,
+					"user_firstname" => $this->auth->user_FirstName,
+					"user_email" => $this->auth->user_Mail,
+					"user_nomstructure" => $this->auth->user_NomStructure,
+					"resultats" => $resultats,
+					"CMB_TYPE_STRUCTURE"=>$cmbTypeStructure
+			));
+
+			//print_r($this->search_result);
+			return $this->template->pparse("panneau",true);
+			
+		}
 	}
 	
     public function sectionContent_Accueil()
