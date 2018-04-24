@@ -1054,7 +1054,7 @@ class sdage_metier
 			file_put_contents(__DIR__."/savepdf.log","ID OK\r\n",FILE_APPEND);
 			if(false) $objAvis=new mdtb_ae_avis();
 			$objAvis=mdtb_table::InitObject("mdtb_ae_avis");
-			file_put_contents(__DIR__."/savepdf.log","Chargement avis ".$this->params["id_avis"]." avec objet : ".print_r($objAvis,true)." ...\r\n",FILE_APPEND);
+			file_put_contents(__DIR__."/savepdf.log","Chargement avis ".$this->params["id_avis"]." ...\r\n",FILE_APPEND);
 			if(!$objAvis->recLoad((int)$this->params["id_avis"]))
 			{
 				file_put_contents(__DIR__."/savepdf.log","ERREUR Chargement avis ".$this->params["id_avis"]." ... : ".mdtb_table::$_latest_query."\r\n",FILE_APPEND);
@@ -1078,11 +1078,12 @@ class sdage_metier
 		GROUP BY ae_edl_massesdeau.id_pression";
 		//die($requeteSQL);
 		$this->db->setQuery($requeteSQL);
+		file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
 		$listeEdl=$this->db->loadObjectList();
 		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
 
 		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
-		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".$count($listeEdl)."\r\n",FILE_APPEND);
+		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
 		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 		{
 			$arrPressions=$this->listePressions();
