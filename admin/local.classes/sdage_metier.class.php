@@ -1146,8 +1146,11 @@ class sdage_metier
 		if($save)
 		{
 			$baseName="avis-valide-".$this->params["avis"].".pdf";
+			file_put_contents(__DIR__."/savepdf.log","Sauvegarde PDF : ".$baseName."\r\n",FILE_APPEND);
 			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
+			file_put_contents(__DIR__."/savepdf.log","Fichier : ".print_r($file,true)."\r\n",FILE_APPEND);
 			Tools::HTML2PDF($detailPressions,$file["path"],false);
+			file_put_contents(__DIR__."/savepdf.log","Retour HTML2PDF : ".(file_exists($file["path"])?"existe":"erreur")."\r\n",FILE_APPEND);
 			return $file;
 		}
 		else
