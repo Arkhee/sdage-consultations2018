@@ -1143,7 +1143,7 @@ class sdage_metier
 			$detailPressions=$this->template->pparse("detail-avis",true);
 		}
 		//die($detailPressions);
-		if($file)
+		if($save)
 		{
 			$baseName="avis-valide-".$this->params["avis"].".pdf";
 			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
