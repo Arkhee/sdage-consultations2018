@@ -1929,7 +1929,7 @@ class Tools
 		return mail($to, $subject, $message, $headers);
 	}
 		
-	public static function HTML2PDF($html,$file)
+	public static function HTML2PDF($html,$file,$download=true)
 	{
 		try {
 				$content = $html;
@@ -1937,7 +1937,8 @@ class Tools
 				//die("TRaitement contenu ...");
 				$html2pdf->setDefaultFont('Arial');
 				$html2pdf->writeHTML($content);
-				$html2pdf->output($file);
+				if($download) $html2pdf->output($file);
+				else return $html2pdf->output($file,"F");
 				
 			} catch (Html2PdfException $e) {
 				$html2pdf->clean();
@@ -1946,7 +1947,7 @@ class Tools
 			}
 	}
 	
-	public static function PHPMailer($to,$subject,$message)
+	public static function PHPMailer($to,$subject,$message,$pj=array())
 	{
 		global $ThePrefs;
 		/**
@@ -1999,6 +2000,13 @@ class Tools
 		//Replace the plain text body with one created manually
 		$mail->AltBody = strip_tags(str_replace("</p>","</p>\r\n",str_replace("<br","\r\n<br",$message)));
 		//Attach an image file
+		if(is_array($pj) && count($pj))
+		{
+			foreach($pj as $curPJ)
+			{
+				$mail->addAttachment($curPJ["path"],$curPJ["name"]);
+			}
+		}
 		//$mail->addAttachment('images/phpmailer_mini.png');
 		//send the message, check for errors
 		//die("User : ".$ThePrefs->SMTPUser.", Host : ".$ThePrefs->SMTPHost.", Port : ".$ThePrefs->SMTPPort."<pre>".print_r($mail,true)."</pre>");

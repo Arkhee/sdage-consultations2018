@@ -590,8 +590,18 @@ class sdage_metier
 			if($this->params["validerAvis"])
 			{
 				$obj->date_validation=date('Y-m-d H:i:s');
+				if(false) $avis=new mdtb_ae_avis();
 				$retour=$avis->recStore($obj);
 				if($retour) {
+					/*
+					 * Sauvegarde du pdf et envoi du mail
+					 */
+					$this->params["id_avis"]=$avis->recKeyValue();
+					$fichier=$this->handle_PDF(true);
+					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
+					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
+					Tools::PHPMailer($this->auth->user_Mail, $sujet, $message,array($fichier));
+					/* Finalisation des actions de confirmation */
 					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
 					$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
 				}
@@ -1029,8 +1039,9 @@ class sdage_metier
     }
 
 	
-	public function handle_PDF()
+	public function handle_PDF($save=false)
 	{
+		global $ThePrefs;
 		if(!$this->auth->isLoaded()) die("Non authentifié");
 		if(isset($this->params["id_avis"]) && $this->params["id_avis"]>0)
 		{
@@ -1132,7 +1143,24 @@ class sdage_metier
 			$detailPressions=$this->template->pparse("detail-avis",true);
 		}
 		//die($detailPressions);
-		Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["avis"].".pdf");
+		if($file)
+		{
+			$baseName="avis-valide-".$this->params["avis"].".pdf";
+			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
+			if(Tools::HTML2PDF($detailPressions,$file["path"]))
+			{
+				return $file;
+			}
+			else
+			{
+				die("Erreur lors de la génération du PDF");
+			}
+		}
+		else
+		{
+			Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["avis"].".pdf");
+			die();
+		}
 	}
 	
 	

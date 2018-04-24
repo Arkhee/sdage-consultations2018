@@ -25,6 +25,8 @@ $TheDatePref->ScanFormat="%d/%d/%d";
 $TheDatePref->ScanOrder="dmy";
 $TheDatePref->FunctionCheck="chkISODate"; // chkISODate
 if(!isset($ThePrefs)) $ThePrefs=new stdClass();
+
+$ThePrefs->TmpPdfDir=__DIR__."/../pdf/";
 $ThePrefs->style_box="";
 $ThePrefs->lang="fr";
 $ThePrefs->encoding="UTF-8";
