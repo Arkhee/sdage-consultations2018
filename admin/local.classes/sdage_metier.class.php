@@ -604,7 +604,7 @@ class sdage_metier
 					$fichier=$this->handle_PDF(true);
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
-					file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier,true)."\r\n",FILE_APPEND);
+					//file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier,true)."\r\n",FILE_APPEND);
 					Tools::PHPMailer($this->auth->user_Mail, $sujet, $message,array($fichier));
 					/* Finalisation des actions de confirmation */
 					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
@@ -1079,12 +1079,12 @@ class sdage_metier
 		GROUP BY ae_edl_massesdeau.id_pression";
 		//die($requeteSQL);
 		$this->db->setQuery($requeteSQL);
-		//file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
+		file_put_contents(__DIR__."/savepdf.log","Recherche des avis : ".$this->db->getQuery()."\r\n",FILE_APPEND);
 		$listeEdl=$this->db->loadObjectList();
 		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
 
 		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
-		//file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
+		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".count($listeEdl)."\r\n",FILE_APPEND);
 		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 		{
 			$arrPressions=$this->listePressions();
@@ -1161,7 +1161,7 @@ class sdage_metier
 		{
 			$baseName="avis-valide-".$this->params["id_avis"].".pdf";
 			//file_put_contents(__DIR__."/savepdf.log","Sauvegarde PDF : ".$baseName."\r\n",FILE_APPEND);
-			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
+			$file=array("name"=>$baseName,"path"=>$ThePrefs->TmpPdfDir.$baseName);
 			//file_put_contents(__DIR__."/savepdf.log","Fichier : ".print_r($file,true)."\r\n",FILE_APPEND);
 			Tools::HTML2PDF($detailPressions,$file["path"],false);
 			//file_put_contents(__DIR__."/savepdf.log","Retour HTML2PDF : ".(file_exists($file["path"])?"existe":"erreur")."\r\n",FILE_APPEND);
