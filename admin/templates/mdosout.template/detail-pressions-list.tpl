@@ -84,7 +84,7 @@
 
 												<label for="justification">Justification</label>
 												<textarea name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
-
+												<div class="compteurschars"><span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires</label>
 												{pressions.lien_documents}
 												<input type="file" name="documents" id="documents">

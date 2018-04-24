@@ -1,3 +1,4 @@
+<p><a href="csv.php">Télécharger tous vos avis déposés au format CSV</a></p>
 {TABLE_BEGIN}
 <table class="mdtb_form_table_searchresult shortlist" cellspacing="0" cellpadding="0" border="0" align="center">
 <thead>

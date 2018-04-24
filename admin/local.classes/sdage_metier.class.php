@@ -1064,28 +1064,56 @@ class sdage_metier
 	public function handle_CSV()
 	{
 		if(!$this->auth->isLoaded()) die("Non authentifié");
-		if($this->auth->user_Rank!=="coll") die("Vous n'avez pas les droits");
+		$filtreUser="";
+		if($this->auth->user_Rank!="coll") $filtreUser=" AND a.id_user=".$this->auth->user_ID;
+		/*
+		code_masse_eau txt
+		code_pression txt
+		impact_2016 numerique 1/2/3
+		valeur_forcee_2016 1/0 num
+		rnabe_2021 1/0 num
+		pression_origine_risque_2021 1/0 num
+		impact_2019 numerique
+		rnabe_2027 1/0 num
+		pression_origine_risque_2027 1/0 num
+		code_avis numerique
+		pression_cause_du_risque 1/0 num
+		impact_estime 1/2/3 num
+		structure txt
+		nom txt
+		prenom txt
+		date txt jj/mm/aaaa
+		commentaire txt
+		nom_piece_jointe TXT
+		url_piece_jointe TXT
+		*/
 		$requete="
 			SELECT 
-				a.id_user,
+				e.code_me AS code_masse_eau,
+				p.id_pression AS code_pression,
+				edl.impact_2016,
+				edl.impact_valeur_forcee AS valeur_forcee_2016,
+				edl.rnaoe_2021 AS rnabe_2021,
+				edl.pression_origine_2021 AS pression_origine_risque_2021,
+				a.id_avis AS code_avis,
+				a.pression_cause_du_risque,
+				a.impact_estime,
+				u.user_NomStructure AS NomStructure,
 				u.user_Name AS NomCreateur,
 				u.user_FirstName AS PrenomCreateur,
 				u.user_Structure AS TypeStructure,
-				u.user_NomStructure AS NomStructure,
-				u.user_Mail AS EMail,
-				a.id_avis,
-				a.id_massedeau,
-				a.id_pression,
-				a.impact_estime,
-				a.pression_cause_du_risque,
+				CONCAT(DAY(a.date_validation),'/',MONTH(a.date_validation),'/',YEAR(a.date_validation)) AS validation,
 				a.commentaires,
 				a.documents
-			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u
+			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u,ae_edl_massesdeau AS edl
 			WHERE
 				a.date_validation!='0000-00-00 00:00:00'
+				AND edl.id_massedeau=a.id_massedeau
+				AND edl.id_pression=a.id_pression
 				AND a.id_massedeau=e.id_massedeau
 				AND a.id_pression=p.id_pression
 				AND a.id_user=u.user_ID
+				".$filtreUser."
 		";
 		$this->db->setQuery($requete);
 		$liste=$this->db->loadObjectList();
@@ -1229,7 +1257,10 @@ class sdage_metier
     	$this->prepareForm();
     	if(!is_array($this->search_result) || count($this->search_result)<=0)
     	{
-    		return $this->template->pparse("accueil",true);
+			if($listmode==self::LISTMODE_NORMAL)
+				return $this->template->pparse("accueil",true);
+			else
+				return "Aucun résultat";
     	}
     	else
     	{
@@ -1359,6 +1390,7 @@ class sdage_metier
 								"icone_avis"=>$icone_avis,
 								"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
 								"justification"=>$objAvis->commentaires,
+								"justification_length"=>strlen($objAvis->commentaires),
 								"lien_documents"=>$objAvis->lien_documents,
 								"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
 								"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
