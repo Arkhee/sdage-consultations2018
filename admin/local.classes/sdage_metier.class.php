@@ -1147,14 +1147,8 @@ class sdage_metier
 		{
 			$baseName="avis-valide-".$this->params["avis"].".pdf";
 			$file=array("name"=>"avis-valide-".$this->params["avis"].".pdf","path"=>$ThePrefs->TmpPdfDir.$baseName);
-			if(Tools::HTML2PDF($detailPressions,$file["path"]))
-			{
-				return $file;
-			}
-			else
-			{
-				die("Erreur lors de la génération du PDF");
-			}
+			Tools::HTML2PDF($detailPressions,$file["path"],false);
+			return $file;
 		}
 		else
 		{
