@@ -1046,19 +1046,25 @@ class sdage_metier
 	public function handle_PDF($save=false)
 	{
 		global $ThePrefs;
+		file_put_contents(__DIR__."/savepdf.log","Demarrage génération PDF\r\n",FILE_APPEND);
 		if(!$this->auth->isLoaded()) die("Non authentifié");
+		file_put_contents(__DIR__."/savepdf.log","Authentifié\r\n",FILE_APPEND);
 		if(isset($this->params["id_avis"]) && $this->params["id_avis"]>0)
 		{
+			file_put_contents(__DIR__."/savepdf.log","ID OK\r\n",FILE_APPEND);
 			if(false) $objAvis=new mdtb_ae_avis();
 			$objAvis=mdtb_table::InitObject("mdtb_ae_avis");
+			file_put_contents(__DIR__."/savepdf.log","Chargement avis ...\r\n",FILE_APPEND);
 			if(!$objAvis->load($this->params["id_avis"]))
 			{
 				die("ID Incorrect");
 			}
+			file_put_contents(__DIR__."/savepdf.log","Chargement OK\r\n",FILE_APPEND);
 			if($objAvis->recGetValue("id_user")!=$this->auth->user_ID)
 			{
 				die("Vous n'avez pas les droits");
 			}
+			file_put_contents(__DIR__."/savepdf.log","User OK pour avis\r\n",FILE_APPEND);
 		}
 		
 		$joinAvis=" RIGHT JOIN ae_avis ON (ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) ";
@@ -1075,6 +1081,7 @@ class sdage_metier
 		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
 
 		$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
+		file_put_contents(__DIR__."/savepdf.log","Requete de recherche de l'avis  : nb de résultats : ".$count($listeEdl)."\r\n",FILE_APPEND);
 		if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
 		{
 			$arrPressions=$this->listePressions();
