@@ -10,6 +10,6 @@
 </ul>
 <p>
 	Vous pouvez maintenant vous connecter et débuter la saisie de vos avis sur l'état des masses d'eau en cliquant sur ce lien :<br />
-	<a href="connexion.php">Connexion</a>
+	<a href="connexion.php">Déposer un avis</a>
 </p>
 

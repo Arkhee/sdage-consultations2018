@@ -37,7 +37,7 @@ $(document).ready(function() {  $("#tabs").tabs(); } );
 					</table>
 				</blockquote>
 				</li>
-				<li><strong>Type de masse d'eau souterraine :</strong> {type_me}</li>
+				<li><strong>Catégorie de masse d'eau souterraine :</strong> {type_me}</li>
 				<li><strong>Superficie* de l'aide d'extension (km2) :</strong> (* surface estim&eacute;e)
 					<blockquote>
 						<table width="350" border="0" cellspacing="0" cellpadding="5" class="mdtb_form_table">

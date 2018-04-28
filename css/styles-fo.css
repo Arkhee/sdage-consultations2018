@@ -178,3 +178,4 @@ div.avis_valide div.avis_ecriture { display:none;}
 div.compteurschars { float:right; width:280px; text-align:right;}
 div.compteurschars .longueur_max { display:none; font-weight: bold; color:#990000; }
 div.compteurschars.max .longueur_max { display:inline; }
+div.conteneurBoutonAffiner { text-align: center;}

@@ -1,11 +1,11 @@
-<p align="justify">Ce référentiel a été réalisé pour l'état des lieux du SDAGE 2016-2021.</p>
+<p align="justify">Ce référentiel a été réalisé pour l'état des lieux du SDAGE 2022-2027.</p>
 
 <form id="formRecherche" name="formRecherche" method="post" action="{FORM_PAGE}">
 	<div class='texteRecherche'>
 		<input type="text" name="txtRecherche" placeholder="Saisissez un code ou libellé de masse d'eau" id="txtRecherche" value="{texte_recherche}" /><br />
 		<input type="submit" name="cmdOk" value="Recherche" />
 	</div>
-	<div class="blocfiltre typesmdo"><label placeholder="Sélectionnez un type de masse d'eau">Type de masse d'eau :</label>{CMB_TYPEMDO}</div>
+	<div class="blocfiltre typesmdo"><label placeholder="Sélectionnez une catégorie de masse d'eau">Catégorie de masse d'eau :</label>{CMB_TYPEMDO}</div>
 	<!-- <span onclick="jQuery('#rechercheavancee').toggle();" style="cursor:pointer;text-decoration: underline;"><i class="fas fa-plus-square"></i>Recherche avancée</span> -->
 	<div id="rechercheavancee" style="display:flex;">
 		<div class="blocfiltre"><label placeholder="Sélectionnez une sous-unité">Sous-unité territoriale :</label>{CMB_SS_UT}</div>

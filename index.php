@@ -30,7 +30,7 @@ $myBaseGestion=new stdClass();
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- InstanceBeginEditable name="doctitle" -->
-<title>Masses d'eau souterraines - Fiches de caract&eacute;risation</title>
+<title>Impact des pressions sur les masses d'eau</title>
 <!-- InstanceEndEditable -->
 	<meta name="Description" content="Le Portail du bassin Rh&ocirc;ne-M&eacute;diterran&eacute;e, regroupe les services de l'Etat et organismes publics producteurs d'informations sur l'eau et les milieux aquatiques des r&eacute;gions Bourgogne (pour partie), Franche-Comt&eacute;, Languedoc-Roussillon, Provence-Alpes-C&ocirc;te-d'Azur et Rh&ocirc;ne-Alpes." />
 <?php echo Util::insertJSHeaders(); ?>
@@ -87,7 +87,7 @@ $myBaseGestion=new stdClass();
 							<ul class="dropdown-menu" role="menu">
 								  <li><a href="index.php">Recherche de masses d'eau</a></li>
 								  <li><a href="programme.php">Le programme de mesure</a></li>
-								  <li><a href="connexion.php"><?php echo ($auth->isLoaded()?"Votre espace":"Connexion"); ?></a></li>
+								  <li><a href="connexion.php"><?php echo ($auth->isLoaded()?"Votre espace":"Déposer un avis"); ?></a></li>
 							</ul>
 						</li>
 					</ul>
@@ -107,7 +107,7 @@ $myBaseGestion=new stdClass();
 		}
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
-        <h1 align="center">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
+        <h1 align="center">Impact des pressions sur les masses d'eau</h1>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>
