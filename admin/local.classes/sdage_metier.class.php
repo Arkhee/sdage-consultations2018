@@ -15,7 +15,7 @@ class sdage_metier
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
-	public static $extensions_autorisees=array("jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
+	public static $extensions_autorisees=array("pdf","zip"); //jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
 	var $TypesStructures=array(
 				array("id"=>"","value" => "(choisir un type de structure)"),
 				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
@@ -580,6 +580,8 @@ class sdage_metier
 			$obj->pression_cause_du_risque=$this->params["pression_cause_du_risque"];
 			$obj->commentaires=$this->params["justification"];
 			if(!isset($obj->documents)) $obj->documents="";
+			$fichierTelecharge="";
+			$nomDeBaseFichierTelecharge="";
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
 				$path_parts=pathinfo($this->params["documents"]["name"]);
@@ -588,6 +590,8 @@ class sdage_metier
 				{
 					//file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 					// Traitement du fichier téléchargé
+					$fichierTelecharge=$ThePrefs->DocumentsFolder."/".$newFileName;
+					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
 					$obj->documents=$newFileName;
@@ -603,7 +607,26 @@ class sdage_metier
 			if($this->params["sauverAvis"])
 			{
 				$retour=$avis->recStore($obj);
-				if($retour) $action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+				if($retour)
+				{
+					if($fichierTelecharge!="" && $nomDeBaseFichierTelecharge!="")
+					{
+						$newobj=$avis->recGetRecord();
+						$newobj->document=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
+						if(rename($fichierTelecharge,$newobj->document))
+						{
+							$avis->recStore($newobj,$ThePrefs->DocumentsFolder."/".$newobj->document);
+						}
+					}
+					$action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+				}
+				else
+				{
+					if($fichierTelecharge!="")
+					{
+						unlink($fichierTelecharge);
+					}
+				}
 			}
 			if($this->params["validerAvis"])
 			{

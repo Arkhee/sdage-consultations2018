@@ -54,7 +54,7 @@
 									</table>
 									<div class="formulaire_avis {pressions.avis_valide}">
 										<div class='avis_lecture'>
-											<h3>Votre avis validé sur le risque estimé</h3>
+											<h3>Votre avis sur le niveau d'impact estimé</h3>
 											<label for="pression_cause_du_risque">Pression cause du risque</label>
 											<p>{pressions.pression_cause_du_risque}</p>
 											<label for="impact_estime">Impact estimé</label>
@@ -65,7 +65,7 @@
 											<p>{pressions.lien_documents}</p>
 										</div>
 										<div class='avis_ecriture'>
-											<h3>Donnez votre avis sur le risque estimé</h3>
+											<h3>Donnez votre avis sur le niveau d'impact estimé</h3>
 											<form method="post" action="#" 
 												  onsubmit="return frontCtl.testFormulaireAvis(this);"
 												  id="formAvisPression_{pressions.id_pression}_{pressions.id_massedeau}" 
@@ -85,7 +85,7 @@
 												<label for="justification">Justification</label>
 												<textarea name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
 												<div class="compteurschars"><span class="nbchars">{pressions.justification_length}</span> / 3000</div>
-												<label for="documents">Documents complémentaires</label>
+												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
 												{pressions.lien_documents}
 												<input type="file" name="documents" id="documents">
 
@@ -93,7 +93,7 @@
 													<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
 													<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
 													<label class="sauvegarde validationok">Votre avis a bien été validé</label>
-													<input type="submit" name="sauverAvis" class='boutonaction' id="sauverAvis" value="Sauver mon avis"/>
+													<input type="submit" name="sauverAvis" class='boutonaction' id="sauverAvis" value="Sauvegarder mon avis"/>
 													<input type="submit" name="validerAvis" class='boutonaction' id="validerAvis" value="Valider mon avis" onclick='return confirm("Etes-vous sûr de valider cet avis ? La validation est définitive et ne peut être annulée")'/>
 												</div>
 											</form>
