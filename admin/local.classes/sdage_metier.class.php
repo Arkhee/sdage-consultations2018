@@ -1353,8 +1353,17 @@ class sdage_metier
 						for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 						$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
 						$icone_avis="fa-plus-circle";
-						if($objAvis->avis_valide=="avis_valide") $icone_avis="fa-check-circle";
-						elseif($objAvis->impact_estime!="") $icone_avis="fa-edit";
+						$tooltip_avis="Vous n'avez pas encore donné votre avis sur cette pression";
+						if($objAvis->avis_valide=="avis_valide")
+						{
+							$icone_avis="fa-check-circle";
+							$tooltip_avis="Vous avez validé l'avis donné sur cette pression";
+						}
+						elseif($objAvis->impact_estime!="")
+						{
+							$icone_avis="fa-edit";
+							$tooltip_avis="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé";
+						}
 						//die("Boucle sur edl : ".print_r($listeEdl,true));
 						$this->template->assign_block_vars
 						(
