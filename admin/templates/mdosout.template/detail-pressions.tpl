@@ -5,9 +5,9 @@
 						<th align='center' class='valeur_forcee'>Valeur forcée impact SDAGE 2016</th>
 						<th align='center'>RNABE 2021</th>
 						<th align='center'>Pression origine du risque 2021</th>
-						<th align='center'>Impact 2019</th>
-						<th align='center'>RNABE 2027</th>
-						<th align='center'>Pression origine du risque 2027</th>
+						<th class="enteteimportant" align='center'>Impact 2019</th>
+						<th class="enteteimportant" align='center'>RNABE 2027</th>
+						<th class="enteteimportant" align='center'>Pression origine du risque 2027</th>
 						<th align='center'>&nbsp;</th>
 						<th align='center' class='avis'>Avis</th>
 					</tr>

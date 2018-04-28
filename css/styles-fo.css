@@ -38,7 +38,8 @@ table.mdtb_form_table_searchresult table td { padding:5px;}
 
 table.mdtb_form_table_searchresult th {height:26px;}
 
-table.listepressions th{ text-align: center; border-bottom:1px #666 dotted;}
+table.listepressions th{ text-align: center; border-bottom:1px #666 dotted; font-weight: normal;}
+table.listepressions th.enteteimportant { font-weight: bold;}
 table.listepressions th ,table.listepressions td { text-align: center;}
 table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left;}
 table.listepressions tr:nth-child(even)  { background-color: lightblue; }
@@ -76,10 +77,14 @@ table.detailMdoEtPression td + td
 
 table.detailPression table.detailGroupe td 
 {
-	font-weight: bold;
+	font-weight: normal;
 	border-right:1px solid #AAA;
 	width:60%;
 	padding:5px;
+}
+table.detailPression table.detailGroupe td.enteteimportant
+{
+	font-weight:bold;
 }
 label.erreur
 {
