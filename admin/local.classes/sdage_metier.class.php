@@ -1408,6 +1408,7 @@ class sdage_metier
 								"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
 								"impact_estime"=>$objAvis->impact_estime,
 								"icone_avis"=>$icone_avis,
+								"tooltip_avis"=>$tooltip_avis,
 								"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
 								"justification"=>$objAvis->commentaires,
 								"justification_length"=>strlen($objAvis->commentaires),
