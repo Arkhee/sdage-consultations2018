@@ -37,7 +37,7 @@
 										<tr>
 											<td valign="top">
 												<table class="detailGroupe">
-													<tr><td>Classe d'impact SDAGE 2016</td><td>{pressions.impact_2016}</td></tr>
+													<tr><td>Classe d'impact 2016</td><td>{pressions.impact_2016}</td></tr>
 													<tr class='valeur_forcee'><td>Valeur forcée impact SDAGE 2016</td><td>{pressions.impact_valeur_forcee}</td></tr>
 													<tr><td>RNABE 2021</td><td>{pressions.rnaoe_2021}</td></tr>
 													<tr><td>Pression à l'origine du risque 2021</td><td>{pressions.pression_origine_2021}</td></tr>
@@ -45,7 +45,7 @@
 											</td>
 											<td valign="top">
 												<table class="detailGroupe">
-													<tr><td class="enteteimportant">Classe d'impact EdL2019</td><td>{pressions.impact_2019}</td></tr>
+													<tr><td class="enteteimportant">Classe d'impact 2019</td><td>{pressions.impact_2019}</td></tr>
 													<tr><td class="enteteimportant">RNABE 2027</td><td>{pressions.rnaoe_2027}</td></tr>
 													<tr><td class="enteteimportant">Pression à l'origine du risque 2027</td><td>{pressions.pression_origine_2027}</td></tr>
 												</table>
