@@ -36,9 +36,9 @@
 											</td>
 											<td valign="top">
 												<table class="detailGroupe">
-													<tr><td>Classe d'impact EdL2019</td><td>{pressions.impact_2019}</td></tr>
-													<tr><td>RNABE 2027</td><td>{pressions.rnaoe_2027}</td></tr>
-													<tr><td>Pression à l'origine du risque 2027</td><td>{pressions.pression_origine_2027}</td></tr>
+													<tr><td class="enteteimportant">Classe d'impact EdL2019</td><td>{pressions.impact_2019}</td></tr>
+													<tr><td class="enteteimportant">RNABE 2027</td><td>{pressions.rnaoe_2027}</td></tr>
+													<tr><td class="enteteimportant">Pression à l'origine du risque 2027</td><td>{pressions.pression_origine_2027}</td></tr>
 												</table>
 											</td>
 										</tr>
