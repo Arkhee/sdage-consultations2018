@@ -21,9 +21,9 @@
 						<td align='center'>{pressions.impact_2019}</td>
 						<td align='center'>{pressions.rnaoe_2027}</td>
 						<td align='center'>{pressions.pression_origine_2027}</td>
-						<td align='center'><a href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
+						<td align='center'><span class="icone_avis"><a href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
 								<i class="fas {pressions.icone_avis}"></i>
-							</a>
+								</a></span>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
 									<table class="detailPression">

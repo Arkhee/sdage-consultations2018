@@ -12,9 +12,9 @@
 						<td align='center'>{pressions.date_modification}</td>
 						<td align='center'><a target=exit_blank" href="pdf.php?id_avis={pressions.id_avis}" title="Télécharger le certificat">{pressions.lbl_avis_valide}</a></td>
 						<td align='center'>{pressions.date_validation}</td>
-						<td align='center'><a href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
+						<td align='center'><span class="icone_avis"><a href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
 								<i class="fas {pressions.icone_avis}"></i>
-							</a>
+							</a></span>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
 									<table class="detailPression">
