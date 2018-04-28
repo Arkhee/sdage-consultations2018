@@ -573,6 +573,7 @@ class sdage_metier
 				$avis->recNewRecord();
 			}
 			
+			
 			$obj->id_massedeau=$this->params["id_massedeau"];
 			$obj->id_pression=$this->params["id_pression"]; //$arrPressions[$curData["Pression"]];
 			$obj->id_user=$this->auth->user_ID; //$arrPressions[$curData["Pression"]];
