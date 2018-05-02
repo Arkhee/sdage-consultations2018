@@ -17,8 +17,8 @@ var frontCtl = {
 			{
 				$(selectel).select2({placeholder:ph,width: 'resolve',
 					matcher: function(params,data) {
-						if(typeof(params.term)=="undefined" && $(data.element).closest("div").attr("data")=="ss_ut") return true;
-						return false;
+						if(typeof(params.term)=="undefined" && $(data.element).closest("div").attr("data")=="ss_ut") return data;
+						return null;
 					}});
 				/*
 				$(selectel).on("change",function(){
