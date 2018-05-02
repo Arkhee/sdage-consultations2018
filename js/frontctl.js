@@ -15,6 +15,9 @@ var frontCtl = {
 			}
 			else
 			{
+				$(selectel).on("change",function(){
+					console.log("liste "+$(this).attr("id")+" a changé");
+				});
 				frontCtl.renduListe(selectel);
 			}
 		});
@@ -60,10 +63,6 @@ var frontCtl = {
 		if($(el).attr("data")=="ssbv") donneesListe=frontCtl.prepareDonneesSSBV();
 		if($(el).attr("data")=="ss_ut") donneesListe=frontCtl.prepareDonneesSSUT();
 		$(el).select2({placeholder:ph,width: 'resolve',data: donneesListe });
-		$(el).off("change");
-		$(el).on("change",function(){
-			console.log("liste "+$(this).attr("id")+" a changé");
-		});
 	},
 	
 	prepareDonneesSSBV:function()
