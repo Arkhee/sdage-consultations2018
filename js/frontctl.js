@@ -15,22 +15,8 @@ var frontCtl = {
 			}
 			else
 			{
-				var dataLien=$(this).attr("data");
-				$(selectel).select2(
-					{
-						placeholder:ph,
-						width: 'resolve',
-					    minimumInputLength: 3,
-						ajax: {
-							url: function (params) {
-								return 'ajax.php?data='+dataLien+'&q=' + params.term;
-							  },
-							dataType: 'json'
-						}
-					});
-				/*
 				$(selectel).select2({placeholder:ph,width: 'resolve',
-					matcher: function(term, text, option) {
+					matcher: function(params,data) {
 						var blocFiltre=$(option).closest("div.blocfiltre");
 						var dataLien=$(blocFiltre).attr("data-lien");
 						if(typeof(dataLien)==="undefined") return true;
