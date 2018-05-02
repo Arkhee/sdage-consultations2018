@@ -1,3 +1,7 @@
+<script>
+	var donneesListeSS_UT={DONNEES_LISTE_SS_UT};
+	var donneesListeSSBV={DONNEES_LISTE_SSBV};
+</script>
 <form id="formRecherche" name="formRecherche" method="post" action="{FORM_PAGE}">
 	<div class='texteRecherche'>
 		<input type="text" name="txtRecherche" placeholder="Saisissez un code ou libellé de masse d'eau" id="txtRecherche" value="{texte_recherche}" /><br />

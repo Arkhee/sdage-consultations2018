@@ -1846,6 +1846,20 @@ class mdtb_table extends mosDBTable
 		return false;
 	}
 	
+	public function recGetAllRecordsAssArrayOfObjects($theSQLSearch="1")
+	{
+		$arrRecords=array();
+		$this->recSQLSearch($theSQLSearch);
+		if($this->recFirst())
+		{
+			do
+			{
+				$arrRecords[]=$this->recGetRecord();
+			} while($this->recNext());
+		}
+		return $arrRecords;
+	}
+	
 	public function htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array(),$theSetDefText=true,$theDefText="",$theClass="",$theParams="")
 	{
 		$myComboList=array();

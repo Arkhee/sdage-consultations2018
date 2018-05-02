@@ -1517,10 +1517,12 @@ class sdage_metier
 		// htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array()
 		$comboSSUT=$ssut->htmlGetComboMultiple("liste_ss_ut","code_ss_ut","code_ss_ut,libelle_ss_ut","1",$this->params["liste_ss_ut"]);
     	$this->template->assign_vars(array("CMB_SS_UT"=>$comboSSUT));
+    	$this->template->assign_vars(array("DONNEES_LISTE_SS_UT"=>json_encode($ssut->recGetAllRecordsAssArrayOfObjects())));
 		
 		$ssbv= mdtb_table::InitObject("mdtb_ae_ssbv");
 		$comboSSBV=$ssbv->htmlGetComboMultiple("liste_ssbv","code_ssbv","code_ssbv,libelle_ssbv","1",$this->params["liste_ssbv"]);
     	$this->template->assign_vars(array("CMB_SSBV"=>$comboSSBV));
+		$this->template->assign_vars(array("DONNEES_LISTE_SSBV"=>json_encode($ssbv->recGetAllRecordsAssArrayOfObjects())));
 		
 		$pressions= mdtb_table::InitObject("mdtb_ae_pressions");
 		$comboPressions=$pressions->htmlGetComboMultiple("liste_pressions","id_pression","libelle_pression","1",$this->params["liste_pressions"]);
