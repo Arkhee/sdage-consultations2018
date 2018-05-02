@@ -12,6 +12,8 @@ class sdage_metier
 	const LISTMODE_NORMAL="";
 	const LISTMODE_LIST="list";
 	const LISTMODE_SHORTLIST="shortlist";
+	const MESSAGE_MEMO_CONNEXION="MESSAGE_MEMO_CONNEXION";
+	const MESSAGE_DSI_RGPD="MESSAGE_DSI_RGPD";
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
@@ -1088,8 +1090,18 @@ class sdage_metier
 	public function handle_CSV()
 	{
 		if(!$this->auth->isLoaded()) die("Non authentifié");
-		$filtreUser="";
-		if($this->auth->user_Rank!="coll") $filtreUser=" AND a.id_user=".$this->auth->user_ID;
+		if($this->auth->user_Rank!="coll")
+		{
+			$filtreUser=" a.date_validation!='0000-00-00 00:00:00' AND edl.id_pression=a.id_pression AND a.id_user=".$this->auth->user_ID;
+		}
+		else
+		{
+			$filtreUser=" a.date_validation!='0000-00-00 00:00:00' AND a.id_avis IS NOT NULL AND edl.id_pression=a.id_pression ";
+			if(isset($this->params["mdo"]) && $this->params["mdo"]=="1")
+			{
+				$filtreUser="";
+			}
+		}
 		/*
 		code_masse_eau txt
 		code_pression txt
@@ -1130,14 +1142,12 @@ class sdage_metier
 				a.commentaires,
 				a.documents,
 				CONCAT('http://".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"])."/documents/',a.documents) AS url_document
-			FROM ae_avis AS a,ae_massesdeau AS e,ae_pressions AS p, mdtb_users AS u,ae_edl_massesdeau AS edl
+			FROM ae_massesdeau AS e
+			LEFT JOIN ae_avis AS a ON a.id_massedeau=e.id_massedeau
+			LEFT JOIN ae_pressions AS p ON a.id_pression=p.id_pression
+			LEFT JOIN mdtb_users AS u ON a.id_user=u.user_ID
+			LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=e.id_massedeau
 			WHERE
-				a.date_validation!='0000-00-00 00:00:00'
-				AND edl.id_massedeau=a.id_massedeau
-				AND edl.id_pression=a.id_pression
-				AND a.id_massedeau=e.id_massedeau
-				AND a.id_pression=p.id_pression
-				AND a.id_user=u.user_ID
 				".$filtreUser."
 		";
 		$this->db->setQuery($requete);
@@ -1581,6 +1591,8 @@ class sdage_metier
 	
     public function sectionContent_Inscription()
     {
+		$this->template->assign_var("MESSAGE_MEMO_CONNEXION",self::MESSAGE_MEMO_CONNEXION);
+		$this->template->assign_var("MESSAGE_DSI_RGPD",self::MESSAGE_DSI_RGPD);
 		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
 		{
 			$this->msg_error="Clef incorrecte"; // : <pre>".$requeteME."</pre>";
@@ -1709,7 +1721,12 @@ class sdage_metier
 		"<b>Date inscription :</b>".date("d/m/Y");
 		$message=$message.$messagePourCreateur;
 		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCreateur;
-		$messagePourCreateur=$messagePourCreateur."<br/>\r\nPour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a>";
+		$messagePourCreateur=
+			$messagePourCreateur."<br />\r\n".
+			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
+			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
+			self::MESSAGE_MEMO_CONNEXION;
+		
 		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
 		if(false) $objUsers=new mdtb_users();
