@@ -7,9 +7,12 @@ var frontCtl = {
 			$( "#tabs" ).tabs();
 		}
 		$(".blocfiltre").each(function(){
-			var ph=$(this).find("label").attr("placeholder");
-			var selectel=$(this).find("select");
-			$(selectel).select2({placeholder:ph,width: 'resolve' });
+			if(!$(this).hasClass("manuel"))
+			{
+				var ph=$(this).find("label").attr("placeholder");
+				var selectel=$(this).find("select");
+				$(selectel).select2({placeholder:ph,width: 'resolve' });
+			}
 		});
 		$("a.fancybox").fancybox();
 		/*
