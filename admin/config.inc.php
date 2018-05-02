@@ -81,3 +81,5 @@ if($ThePrefs->UseAuth)
 	$auth=new users($database,$path_pre."local.data/create-users-structure.sql");
 	$auth->start();
 }
+
+define("LIB_EXCLUDE_SELECT2",true);

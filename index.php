@@ -34,6 +34,7 @@ $myBaseGestion=new stdClass();
 <!-- InstanceEndEditable -->
 	<meta name="Description" content="Le Portail du bassin Rh&ocirc;ne-M&eacute;diterran&eacute;e, regroupe les services de l'Etat et organismes publics producteurs d'informations sur l'eau et les milieux aquatiques des r&eacute;gions Bourgogne (pour partie), Franche-Comt&eacute;, Languedoc-Roussillon, Provence-Alpes-C&ocirc;te-d'Azur et Rh&ocirc;ne-Alpes." />
 <?php echo Util::insertJSHeaders(); ?>
+<?php require_once("specific_js.php"); ?>
 <link href="/includes/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="/site.css" rel="stylesheet" type="text/css" />
 <script defer src="js/fontawesome-all.min.js"></script>
