@@ -849,7 +849,8 @@ class sdage_metier
 			$joinCreateur=" RIGHT JOIN ae_avis AS avis ON (avis.id_user=".$this->auth->user_ID." AND avis.id_massedeau=mdo.id_massedeau AND avis.id_pression=edl.id_pression) ";
 		}
 		$requeteMEChampsListe="
-			SELECT COUNT(*) AS nboccme,mdo.*,ssbv.*,ssut.*,
+			SELECT COUNT(*) AS nboccme,
+			(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=mdo.id_massedeau) AS code_me_nb_avis,mdo.*,ssbv.*,ssut.*,
 				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut,
 				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut_sort";
 		$requeteMEChampsCount="SELECT COUNT(*) AS nboccme ";
@@ -1480,6 +1481,7 @@ class sdage_metier
 	                array
 	                (
 	                	'code_me' => $curme->code_me,
+	                	'code_me_nb_avis' => $curme->code_me_nb_avis,
 						'line_odd_even' => "parite".$indexparite++%2,
 	                	'libelle_me' => $curme->libelle_me,
 	                	'categorie_me' => $curme->categorie_me,
