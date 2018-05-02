@@ -1614,7 +1614,13 @@ class sdage_metier
 		$this->template->assign_var("user_firstname",$this->params["user_firstname"]);
 		$this->template->assign_var("user_email",$this->params["user_email"]);
 		$this->template->assign_var("user_nomstructure",$this->params["user_nomstructure"]);
-		$this->template->assign_var("type_structure",$this->params["type_structure"]);
+		//$this->template->assign_var("type_structure",$this->params["type_structure"]);
+		
+		
+		$arrTypeStructure=$this->TypesStructures;
+		$cmbTypeStructure= mdtb_forms::combolist("type_structure",$arrTypeStructure,$this->params["type_structure"]);
+		$this->template->assign_var("CMB_TYPE_STRUCTURE",$cmbTypeStructure);
+		
 		if($retourTest!="")
 		{
 			$this->template->assign_var("MSG_ERREUR","<div class='msg_erreur'>".$retourTest."</div>");

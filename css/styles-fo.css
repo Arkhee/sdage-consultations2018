@@ -152,6 +152,9 @@ div.texteRecherche select#liste_typesmdo { height:26px; margin-right:5px; }
 {
 	width:180px;
 }
+
+#formInscription input { width:350px;}
+
 #msg_erreur_inscription,.msg_erreur { border:1px solid #9A0000; margin:5px; padding:10px;}
 #msg_erreur_inscription  { display:none; }
 #formInscription .erreur,

@@ -1,4 +1,3 @@
-<h2>Merci de votre intérêt pour le programme de mesure</h2>
 <p>Avant de pouvoir donner votre avis, merci de vous inscrire via le formulaire ci-dessous</p>
 <em>Notez que votre email sera utilisé en tant qu'identifiant pour la connexion au service</em>
 <div id="msg_erreur_inscription"></div>
