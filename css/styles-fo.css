@@ -43,6 +43,8 @@ table.listepressions th.enteteimportant { font-weight: bold;}
 table.listepressions th ,table.listepressions td { text-align: center; width:17%}
 table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left; width:49%}
 table.listepressions tr:nth-child(even)  { background-color: lightblue; }
+table.mdtb_form_table_searchresult tr.mdtb_content_row:nth-child(even)  { background-color: lightgray; }
+tr.parite0 { background-color: #DDD; }
 table.listepressions tr .avis  { display:none; }
 table.listepressions tr .valeur_forcee,
 table.listepressions tr.valeur_forcee,

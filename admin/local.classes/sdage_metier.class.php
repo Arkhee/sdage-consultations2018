@@ -1315,6 +1315,7 @@ class sdage_metier
 	
     function sectionContent_Search($listmode=self::LISTMODE_NORMAL,$currentuser=false)
     {
+		$indexparite=0;
     	$this->prepareForm();
     	if(!is_array($this->search_result) || count($this->search_result)<=0)
     	{
@@ -1479,6 +1480,7 @@ class sdage_metier
 	                array
 	                (
 	                	'code_me' => $curme->code_me,
+						'line_odd_even' => "parite".$indexparite++%2,
 	                	'libelle_me' => $curme->libelle_me,
 	                	'categorie_me' => $curme->categorie_me,
 						'code_ssbv' => $curme->code_ssbv,
@@ -1556,6 +1558,7 @@ class sdage_metier
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+		$this->template->assign_vars(array("MESSAGE_MEMO_CONNEXION"=>self::MESSAGE_MEMO_CONNEXION));
 		
 		
         return $this->template->pparse("connexion",true);

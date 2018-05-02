@@ -1,3 +1,4 @@
+<p>{MESSAGE_MEMO_CONNEXION}</p>
 {MSG_ERREUR}
 <form id="formConnexion" name="formConnexion" method="post" action="{FORM_CONNEXION_PAGE}">
 	<label for='login'>Identifiant :</label><input type='text' name='user_Login' id="login" value="" /><br />

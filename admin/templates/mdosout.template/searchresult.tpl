@@ -54,7 +54,7 @@
 <tbody>
     <!-- BEGIN tablecontent -->
 		<!-- onclick="location.href='{FORM_PAGE}?section=fiche&{QUERY_PARAMS}&code_me={tablecontent.code_me}';" -->
-        <tr class="mdtb_content_row" onclick="frontCtl.toggleLigneResultat(this);">
+        <tr class="mdtb_content_row {tablecontent.line_odd_even}" onclick="frontCtl.toggleLigneResultat(this);">
             <td class="mdtb_displaymore_cell" >
 				<i class="fas fa-angle-right icon"></i>
 				<i class="fas fa-angle-down icon icon-on" style="display:none;"></i>
