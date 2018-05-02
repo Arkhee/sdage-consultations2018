@@ -17,16 +17,8 @@ var frontCtl = {
 			{
 				$(selectel).select2({placeholder:ph,width: 'resolve',
 					matcher: function(params,data) {
-						var blocFiltre=$(option).closest("div.blocfiltre");
-						var dataLien=$(blocFiltre).attr("data-lien");
-						if(typeof(dataLien)==="undefined") return true;
-						if($("#"+dataLien).length==0) return true;
-						if($("#"+dataLien+" option:selected").length==0) return true;
-						var found=false;
-						$("#"+dataLien+" option:selected").each(function(){
-							if(option.hasClass($(this).val())) found=true;
-						});
-						return found;
+						if(typeof(params.term)=="undefined" && $(data.element).closest("div").attr("data")=="ss_ut") return true;
+						return false;
 					}});
 				/*
 				$(selectel).on("change",function(){
