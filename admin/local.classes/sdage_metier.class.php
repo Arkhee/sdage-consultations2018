@@ -1090,9 +1090,11 @@ class sdage_metier
 	public function handle_CSV()
 	{
 		$nomFichier="liste-avis-valides.csv";
+		$isColl=false;
 		if(!$this->auth->isLoaded()) die("Non authentifié");
 		if($this->auth->user_Rank!="coll")
 		{
+			$isColl=true;
 			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND edl.id_pression=a.id_pression AND a.id_user=".$this->auth->user_ID;
 		}
 		else
@@ -1128,11 +1130,17 @@ class sdage_metier
 		$requete="
 			SELECT 
 				e.code_me AS code_masse_eau,
+				e.code_ssbv AS code_sous_bassin,
+				s.code_ss_ut AS code_sous_unite,
 				p.id_pression AS code_pression,
+				p.libelle_pression AS nom_pression,
 				edl.impact_2016,
-				edl.impact_valeur_forcee AS valeur_forcee_2016,
+				".($isColl?"edl.impact_valeur_forcee AS valeur_forcee_2016,":"")."
 				edl.rnaoe_2021 AS rnabe_2021,
 				edl.pression_origine_2021 AS pression_origine_risque_2021,
+				edl.impact_2016 AS impact_2019,
+				edl.rnaoe_2027 AS rnabe_2027,
+				edl.pression_origine_2027 AS pression_origine_risque_2027,
 				a.id_avis AS code_avis,
 				a.pression_cause_du_risque,
 				a.impact_estime,
@@ -1145,6 +1153,7 @@ class sdage_metier
 				a.documents,
 				CONCAT('http://".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"])."/documents/',a.documents) AS url_document
 			FROM ae_massesdeau AS e
+			LEFT JOIN ae_ssbv AS s ON s.code_ssbv=e.code_ssbv
 			LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=e.id_massedeau
 			LEFT JOIN ae_pressions AS p ON edl.id_pression=p.id_pression
 			LEFT JOIN ae_avis AS a ON a.id_massedeau=e.id_massedeau
