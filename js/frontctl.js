@@ -78,8 +78,9 @@ var frontCtl = {
 		var arrListeSSUT=new Array();
 		$("#liste_ss_ut option:selected").each(function(){arrListeSSUT.push($(this).val());});
 		var arrSSBV=new Array();
-		for(objSSBV in donneesListeSSBV)
+		for(var i=0;i<donneesListeSSBV.length;i++)
 		{
+			var objSSBV=donneesListeSSBV[i];
 			if(arrListeSSUT.length==0 || arrListeSSUT.indexOf(objSSBV.code_ss_ut)>=0)
 			{
 				var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
@@ -92,8 +93,10 @@ var frontCtl = {
 	prepareDonneesSSUT:function()
 	{
 		var arrSSUT=new Array();
-		for(objSSUT in donneesListeSS_UT)
+		
+		for(var i=0;i<donneesListeSS_UT.length;i++)
 		{
+			var objSSUT=donneesListeSS_UT[i];
 			var curSSUT={"id":objSSUT.id_ss_ut,text:objSSUT.code_ss_ut+" - "+objSSUT.libelle_ss_ut};
 			arrSSUT.push(curSSUT);
 		}
