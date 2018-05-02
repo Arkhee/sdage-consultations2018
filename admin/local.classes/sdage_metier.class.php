@@ -1681,6 +1681,18 @@ class sdage_metier
 		}
 	}
 	
+	public function getUrlConnexion($absolute=true)
+	{
+		if($absolute)
+		{
+			return "https://".$_SERVER["HTTP_HOST"]."/".basename($_SERVER["SCRIPT_NAME"])."/connexion.php";
+		}
+		else
+		{
+			return "/".basename($_SERVER["SCRIPT_NAME"])."/connexion.php";
+		}
+	}
+	
 	private function SendMailInscriptionCreateur($user)
 	{
 		global $ThePrefs;
@@ -1697,6 +1709,7 @@ class sdage_metier
 		"<b>Date inscription :</b>".date("d/m/Y");
 		$message=$message.$messagePourCreateur;
 		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCreateur;
+		$messagePourCreateur=$messagePourCreateur."<br/>\r\nPour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a>";
 		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
 		if(false) $objUsers=new mdtb_users();
