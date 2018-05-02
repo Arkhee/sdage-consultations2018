@@ -17,9 +17,9 @@ var frontCtl = {
 			{
 				$(selectel).on("change",function(){
 					console.log("liste "+$(this).attr("id")+" a changé");
-					if($(this).attr("data-lien")!="")
+					if(typeof($(this).closest("div.blocfiltre").attr("data-lien"))!=="undefined" && $(this).closest("div.blocfiltre").attr("data-lien")!="")
 					{
-						var dataLien=$(this).attr("data-lien");
+						var dataLien=$(this).closest("div.blocfiltre").attr("data-lien");
 						if($("#"+dataLien).length)
 						{
 							frontCtl.renduListe(dataLien);
