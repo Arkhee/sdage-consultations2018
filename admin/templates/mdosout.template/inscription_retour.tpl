@@ -1,4 +1,3 @@
-<h2>Merci de votre intérêt pour le programme de mesure</h2>
 <p>Votre compte a été créé avec succès avec les paramètres suivants :</p>
 <ul>
 	<li>Nom : {user_name}</li>

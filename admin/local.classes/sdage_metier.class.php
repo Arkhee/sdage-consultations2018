@@ -1687,14 +1687,17 @@ class sdage_metier
 		$mailFrom=$ThePrefs->From; //="webmaster@rhone-mediterranee.eaufrance.fr";
 		$nameFrom=$ThePrefs->FromName; //="Webmaster SIE";
 		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
+		$subjectPourCreateur="Consultations 2018 : Confirmation de création de votre compte";
 		$message="<b>Inscription d'un nouveau créateur :</b><br />\r\n".
-		"<b>Nom : </b>".$user->user_Name."<br />\r\n".
+		$messagePourCreateur="<b>Nom : </b>".$user->user_Name."<br />\r\n".
 		"<b>Prénom :</b>".$user->user_FirstName."<br />\r\n".
 		"<b>Email :</b>".$user->user_Mail."<br />\r\n".
 		"<b>Type de structure :</b>".$user->user_Structure."<br />\r\n".
 		"<b>Nom de la structure :</b>".$user->user_NomStructure."<br />\r\n".
 		"<b>Date inscription :</b>".date("d/m/Y");
-		
+		$message=$message.$messagePourCreateur;
+		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCreateur;
+		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
 		if(false) $objUsers=new mdtb_users();
 		$objUsers=mdtb_table::InitObject("mdtb_users");

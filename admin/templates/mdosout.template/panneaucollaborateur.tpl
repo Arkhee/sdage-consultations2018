@@ -1,3 +1,4 @@
+<a href="index.php"><button>Accéder aux données</button></a>
 <form style="display: inline; float:right;" action="admin/index.php" method="get">
 	<input type="hidden" name="redir" value="referer" />
 	<input type="hidden" name="_tablename" value="%23__mdtb_users" />
