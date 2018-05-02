@@ -40,8 +40,8 @@ table.mdtb_form_table_searchresult th {height:26px;}
 
 table.listepressions th{ text-align: center; border-bottom:1px #666 dotted; font-weight: normal;}
 table.listepressions th.enteteimportant { font-weight: bold;}
-table.listepressions th ,table.listepressions td { text-align: center;}
-table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left;}
+table.listepressions th ,table.listepressions td { text-align: center; width:17%}
+table.listepressions th:first-of-type,table.listepressions td:first-of-type { text-align: left; width:49%}
 table.listepressions tr:nth-child(even)  { background-color: lightblue; }
 table.listepressions tr .avis  { display:none; }
 table.listepressions tr .valeur_forcee,
