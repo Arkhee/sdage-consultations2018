@@ -68,8 +68,8 @@ var frontCtl = {
 	{
 		var donneesListe=new Array();
 		var ph=$(el).prev("label").attr("placeholder");
-		if($(el).attr("data")=="ssbv") donneesListe=frontCtl.prepareDonneesSSBV();
-		if($(el).attr("data")=="ss_ut") donneesListe=frontCtl.prepareDonneesSSUT();
+		if($(el).closest("div.blocfiltre").attr("data")=="ssbv") donneesListe=frontCtl.prepareDonneesSSBV();
+		if($(el).closest("div.blocfiltre").attr("data")=="ss_ut") donneesListe=frontCtl.prepareDonneesSSUT();
 		$(el).select2({placeholder:ph,width: 'resolve',data: donneesListe });
 	},
 	
