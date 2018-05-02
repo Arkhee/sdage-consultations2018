@@ -198,3 +198,8 @@ body.connecte_crea span.icone_avis { display:inline;}
 	float: right;
     width: 360px;
 }
+
+.select2-container .select2-selection--multiple .select2-selection__rendered
+{
+	white-space: normal;
+}
