@@ -8,13 +8,27 @@ var frontCtl = {
 		}
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
-			if(!$(this).hasClass("manuel"))
+			var ph=$(this).find("label").attr("placeholder");
+			if(!$(this).hasClass("matcher"))
 			{
-				var ph=$(this).find("label").attr("placeholder");
 				$(selectel).select2({placeholder:ph,width: 'resolve' });
 			}
 			else
 			{
+				$(selectel).select2({placeholder:ph,width: 'resolve',
+					matcher: function(term, text, option) {
+						var blocFiltre=$(option).closest("div.blocfiltre");
+						var dataLien=$(blocFiltre).attr("data-lien");
+						if(typeof(dataLien)==="undefined") return true;
+						if($("#"+dataLien).length==0) return true;
+						if($("#"+dataLien+" option:selected").length==0) return true;
+						var found=false;
+						$("#"+dataLien+" option:selected").each(function(){
+							if(option.hasClass($(this).val())) found=true;
+						});
+						return found;
+					}});
+				/*
 				$(selectel).on("change",function(){
 					console.log("liste "+$(this).attr("id")+" a changé");
 					if(typeof($(this).closest("div.blocfiltre").attr("data-lien"))!=="undefined" && $(this).closest("div.blocfiltre").attr("data-lien")!="")
@@ -27,6 +41,7 @@ var frontCtl = {
 					}
 				});
 				frontCtl.renduListe(selectel);
+				*/
 			}
 		});
 		

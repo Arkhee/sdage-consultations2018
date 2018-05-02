@@ -1860,7 +1860,7 @@ class mdtb_table extends mosDBTable
 		return $arrRecords;
 	}
 	
-	public function htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array(),$theSetDefText=true,$theDefText="",$theClass="",$theParams="")
+	public function htmlGetComboMultiple($theName,$theKey,$theVal,$theSQLSearch,$theValues=array(),$theSetDefText=true,$theDefText="",$theClass="",$theParams="",$optionclass="")
 	{
 		$myComboList=array();
 		$myFieldsList=$this->recGetFieldsList();
@@ -1869,7 +1869,7 @@ class mdtb_table extends mosDBTable
 		if(in_array($theKey,$myFieldsList) /* && in_array($theVal,$myFieldsList) */)
 		{
 			if($theSetDefText)
-				$myComboList[]=array("id"=>"","value"=>$theDefText);
+				$myComboList[]=array("id"=>"","value"=>$theDefText,"optionclass"=>"");
 			$this->recSQLSearch($theSQLSearch);
 			if($this->recFirst())
 			{
@@ -1883,7 +1883,9 @@ class mdtb_table extends mosDBTable
 							$lblValue.=($lblValue!=""?" - ":"").$this->recGetValue($curVal);
 						}
 					}
-					if($lblValue!="") $myComboList[]=array("id"=>$this->recGetValue($theKey),"value"=>$lblValue);
+					$optionClassValue="";
+					if($optionclass!="") $optionClassValue=$this->recGetValue($optionclass);
+					if($lblValue!="") $myComboList[]=array("id"=>$this->recGetValue($theKey),"value"=>$lblValue,"optionclass"=>$optionClassValue);
 				} while($this->recNext());
 			}
 			//echo "Liste des valeurs : ".Tools::Display($myComboList);
@@ -4661,6 +4663,8 @@ class mdtb_forms
 		if(count($theList)>0)
 			foreach($theList as $curoption)
 			{
+				$optionclass="";
+				if($curoption["optionclass"]!=="") $optionclass='class="'.$curoption["optionclass"].'"';
 				$myCombo.= "<option value=\"".$curoption["id"]."\" ".((in_array((string)$curoption["id"],$theDefaults)?"selected":""))." >".$curoption["value"]."</option>\n";
 			}
 		$myCombo.= "</select>";
