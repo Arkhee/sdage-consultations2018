@@ -9,7 +9,7 @@ var frontCtl = {
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
 			var ph=$(this).find("label").attr("placeholder");
-			if(!$(this).hasClass("ajax"))
+			if(!$(this).hasClass("matcher"))
 			{
 				$(selectel).select2({placeholder:ph,width: 'resolve' });
 			}
