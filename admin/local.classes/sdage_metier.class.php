@@ -1145,14 +1145,17 @@ class sdage_metier
 				a.documents,
 				CONCAT('http://".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"])."/documents/',a.documents) AS url_document
 			FROM ae_massesdeau AS e
-			LEFT JOIN ae_avis AS a ON a.id_massedeau=e.id_massedeau
-			LEFT JOIN ae_pressions AS p ON a.id_pression=p.id_pression
-			LEFT JOIN mdtb_users AS u ON a.id_user=u.user_ID
 			LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=e.id_massedeau
-			
-				".$filtreUser."
+			LEFT JOIN ae_pressions AS p ON edl.id_pression=p.id_pression
+			LEFT JOIN ae_avis AS a ON a.id_massedeau=e.id_massedeau
+			LEFT JOIN mdtb_users AS u ON a.id_user=u.user_ID
+			".$filtreUser."
 		";
 		$this->db->setQuery($requete);
+		if(isset($this->params["sql"]) && $this->params["sql"]=="debug")
+		{
+			die($this->db->getQuery());
+		}
 		$liste=$this->db->loadObjectList();
 		//die("Requete : ".$requete." => ".print_r($liste,true));
 		Tools::SendCSV($nomFichier, $liste,true);
