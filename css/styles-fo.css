@@ -190,3 +190,9 @@ div.conteneurBoutonAffiner { text-align: center;}
 
 span.icone_avis { display:none;}
 body.connecte_crea span.icone_avis { display:inline;}
+
+.notemethode
+{
+	float: right;
+    width: 360px;
+}
