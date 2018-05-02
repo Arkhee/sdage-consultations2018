@@ -17,6 +17,14 @@ var frontCtl = {
 			{
 				$(selectel).on("change",function(){
 					console.log("liste "+$(this).attr("id")+" a changé");
+					if($(this).attr("data-lien")!="")
+					{
+						var dataLien=$(this).attr("data-lien");
+						if($("#"+dataLien).length)
+						{
+							frontCtl.renduListe(dataLien);
+						}
+					}
 				});
 				frontCtl.renduListe(selectel);
 			}
@@ -67,11 +75,16 @@ var frontCtl = {
 	
 	prepareDonneesSSBV:function()
 	{
+		var arrListeSSUT=new Array();
+		$("#liste_ss_ut option:selected").each(function(){arrListeSSUT.push($(this).val());});
 		var arrSSBV=new Array();
 		for(objSSBV in donneesListeSSBV)
 		{
-			var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
-			arrSSBV.push(curSSBV);
+			if(arrListeSSUT.length==0 || arrListeSSUT.indexOf(objSSBV.code_ss_ut)>=0)
+			{
+				var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
+				arrSSBV.push(curSSBV);
+			}
 		}
 		return arrSSBV;
 	},
