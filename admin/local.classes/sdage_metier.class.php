@@ -1453,6 +1453,7 @@ class sdage_metier
 								"nbavis" => $edl->nbavis,
 								"avis_valide"=>$objAvis->avis_valide,
 								"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"En cours d'édition",
+								"lien_avis_valide"=>$objAvis->avis_valide=="avis_valide"?("pdf.php?id_avis=".$objAvis->id_avis):"#",
 								"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
 								"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
 								"impact_estime"=>$objAvis->impact_estime,
