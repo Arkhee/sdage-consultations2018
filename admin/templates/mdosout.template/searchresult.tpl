@@ -60,7 +60,7 @@
 				<i class="fas fa-angle-down icon icon-on" style="display:none;"></i>
 			</td>
 			<td class="mdtb_content_cell">
-                {tablecontent.code_me}
+                {tablecontent.code_me}{tablecontent.lbl_nb_avis_mdo}
             </td>
             <td class="mdtb_content_cell">
                 {tablecontent.libelle_me}

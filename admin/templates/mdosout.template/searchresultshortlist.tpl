@@ -35,7 +35,7 @@
 		<!-- onclick="location.href='{FORM_PAGE}?section=fiche&{QUERY_PARAMS}&code_me={tablecontent.code_me}';" -->
         <tr class="mdtb_content_row ligne-active {tablecontent.line_odd_even}">
             <td class="mdtb_content_cell">
-                {tablecontent.code_me}
+                {tablecontent.code_me}{tablecontent.lbl_nb_avis_mdo}
             </td>
             <td class="mdtb_content_cell">
                 {tablecontent.libelle_me}
