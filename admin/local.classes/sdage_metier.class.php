@@ -41,6 +41,7 @@ class sdage_metier
 		"connexion"=>"connexion.tpl",
 		"panneau"=>"panneau.tpl",
 		"panneaucollaborateur"=>"panneaucollaborateur.tpl",
+		"formulaire-recherche"=>"formulaire-recherche.tpl",
 		"searchresult"=>"searchresult.tpl",
 		"searchresultlist"=>"searchresultlist.tpl",
 		"searchresultshortlist"=>"searchresultshortlist.tpl",
@@ -1321,7 +1322,9 @@ class sdage_metier
     	if(!is_array($this->search_result) || count($this->search_result)<=0)
     	{
 			if($listmode==self::LISTMODE_NORMAL)
+			{
 				return $this->template->pparse("accueil",true);
+			}
 			else
 				return "Aucun résultat";
     	}
@@ -1336,6 +1339,7 @@ class sdage_metier
 			$arrPages=array();
 			for($i=1;$i<=$nb_pages;$i++) $arrPages[]=array("id"=>$i,"value"=>$i);
 			$cmbPagination= mdtb_forms::combolist("pagination",$arrPages,$this->params["pagination"],"","onchange='form.submit();'");
+			$cmbPagination='<div class="pagination_resultat">Page&nbsp;:&nbsp;'.$cmbPagination.'&nbsp;/&nbsp;'.$nb_pages.'</div>';
 			$this->template->assign_var("CMB_PAGINATION", $cmbPagination);
 			$this->template->assign_var("nb_pages", $nb_pages);
 			$this->template->assign_var("MESSAGE_SAISIE_NOTE_METHODE", self::MESSAGE_SAISIE_NOTE_METHODE);
@@ -1497,6 +1501,8 @@ class sdage_metier
     			//echo "Code : ".$curme->code_me.", Libellé : ".$curme->libelle_me.", Secteur : ".$curme->secteur_be_caracterisation.BR;
     		}
     		//echo Tools::Display($this->search_result);
+			$formulaireRecherche=$this->template->pparse("formulaire-recherche",true);
+			$this->template->assign_var("FORMULAIRE_RECHERCHE",$formulaireRecherche);
     		return $this->template->pparse("searchresult".$listmode,true);
     		
     	}
@@ -1554,6 +1560,8 @@ class sdage_metier
 		$this->template->assign_vars(array("QUERY_PARAMS"=>$queryParams));
 		$this->template->assign_vars(array("texte_recherche"=>$this->params["txtRecherche"]));
 		//echo "<pre>".print_r($this->params,true)."</pre>";
+		$formulaireRecherche=$this->template->pparse("formulaire-recherche",true);
+		$this->template->assign_var("FORMULAIRE_RECHERCHE",$formulaireRecherche);		
 	}
 	
 	public function sectionContent_Connexion()
