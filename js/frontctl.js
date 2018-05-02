@@ -9,12 +9,26 @@ var frontCtl = {
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
 			var ph=$(this).find("label").attr("placeholder");
-			if(!$(this).hasClass("matcher"))
+			if(!$(this).hasClass("ajax"))
 			{
 				$(selectel).select2({placeholder:ph,width: 'resolve' });
 			}
 			else
 			{
+				var dataLien=$(this).attr("data");
+				$(selectel).select2(
+					{
+						placeholder:ph,
+						width: 'resolve',
+					    minimumInputLength: 3,
+						ajax: {
+							url: function (params) {
+								return 'ajax.php?data='+dataLien+'&q=' + params.term;
+							  },
+							dataType: 'json'
+						}
+					});
+				/*
 				$(selectel).select2({placeholder:ph,width: 'resolve',
 					matcher: function(term, text, option) {
 						var blocFiltre=$(option).closest("div.blocfiltre");

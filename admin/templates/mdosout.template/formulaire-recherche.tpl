@@ -9,8 +9,8 @@
 	<div class="blocfiltre typesmdo"><label placeholder="Sélectionnez une catégorie de masse d'eau">Catégorie de masse d'eau :</label>{CMB_TYPEMDO}</div>
 	<!-- <span onclick="jQuery('#rechercheavancee').toggle();" style="cursor:pointer;text-decoration: underline;"><i class="fas fa-plus-square"></i>Recherche avancée</span> -->
 	<div id="rechercheavancee" style="display:flex;">
-		<div class="blocfiltre matcher" data='ss_ut' data-lien="liste_ssbv"><label placeholder="Sélectionnez une sous-unité">Sous-unité territoriale :</label>{CMB_SS_UT}</div>
-		<div class="blocfiltre matcher" data='ssbv' data-lien="liste_ss_ut"><label placeholder="Sélectionnez un sous-bassin">Sous-bassin versant :</label>{CMB_SSBV}</div>
+		<div class="blocfiltre ajax" data='ss_ut' data-lien="liste_ssbv"><label placeholder="Sélectionnez une sous-unité">Sous-unité territoriale :</label>{CMB_SS_UT}</div>
+		<div class="blocfiltre ajax" data='ssbv' data-lien="liste_ss_ut"><label placeholder="Sélectionnez un sous-bassin">Sous-bassin versant :</label>{CMB_SSBV}</div>
 		<div class="blocfiltre"><label placeholder="Sélectionnez une pression">Pressions :</label>{CMB_PRESSIONS}</div>
 		<div class="blocfiltre"><label placeholder="Sélectionnez un niveau d'impact">Impact :</label>{CMB_IMPACT}</div>
 	</div>
