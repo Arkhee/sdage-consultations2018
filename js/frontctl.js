@@ -19,9 +19,25 @@ var frontCtl = {
 					matcher: function(params,data) {
 						if(typeof(params.term)=="undefined" /*  && $(data.element).closest("div").attr("data")=="ss_ut" */)
 						{
-							return data;
+							var arrListeSSUT=new Array();
+							if($(data.element).closest("div").attr("data")=="ssbv")
+							{
+								$("#liste_ss_ut option:selected").each(function(){arrListeSSUT.push($(this).val());});
+							}
+							if(arrListeSSUT.length==0) return data;
+							var found=false;
+							for(var i=0;i<arrListeSSUT.length;i++)
+							{
+								for(var j=0;j<donneesListeSSBV.length;j++)
+								{
+									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i]) found=true;
+								}
+							}
+							if(!found) return null;
 						}
-						if (data.text.indexOf(params.term) > -1) {
+						var curDataStr = data.text.toLowerCase();
+						var curTerm=params.term.toLowerCase();
+						if (curDataStr.indexOf(curTerm) > -1) {
 							var modifiedData = $.extend({}, data, true);
 							//modifiedData.text += ' (matched)';
 
