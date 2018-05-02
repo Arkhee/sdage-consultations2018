@@ -12,7 +12,7 @@
   </ul>
   <div id="tabs-avis">
 	  <p><a href="csv.php">Télécharger tous les avis déposés au format CSV</a></p>
-	  <p><a href="csv.php?mdo=1">Télécharger tous les avis déposés au format CSV</a></p>
+	  <p><a href="csv.php?mdo=1">Télécharger toutes les masses d'eau ainsi que les avis</a></p>
   </div>
 </div>
 <a href="index.php"><button>Accéder aux données</button></a>

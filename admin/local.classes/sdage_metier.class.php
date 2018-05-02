@@ -1089,16 +1089,18 @@ class sdage_metier
 
 	public function handle_CSV()
 	{
+		$nomFichier="liste-avis-valides.csv";
 		if(!$this->auth->isLoaded()) die("Non authentifié");
 		if($this->auth->user_Rank!="coll")
 		{
-			$filtreUser=" a.date_validation!='0000-00-00 00:00:00' AND edl.id_pression=a.id_pression AND a.id_user=".$this->auth->user_ID;
+			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND edl.id_pression=a.id_pression AND a.id_user=".$this->auth->user_ID;
 		}
 		else
 		{
-			$filtreUser=" a.date_validation!='0000-00-00 00:00:00' AND a.id_avis IS NOT NULL AND edl.id_pression=a.id_pression ";
+			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND a.id_avis IS NOT NULL AND edl.id_pression=a.id_pression ";
 			if(isset($this->params["mdo"]) && $this->params["mdo"]=="1")
 			{
+				$nomFichier="liste-masses-deau-et-avis.csv";
 				$filtreUser="";
 			}
 		}
@@ -1147,13 +1149,13 @@ class sdage_metier
 			LEFT JOIN ae_pressions AS p ON a.id_pression=p.id_pression
 			LEFT JOIN mdtb_users AS u ON a.id_user=u.user_ID
 			LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=e.id_massedeau
-			WHERE
+			
 				".$filtreUser."
 		";
 		$this->db->setQuery($requete);
 		$liste=$this->db->loadObjectList();
 		//die("Requete : ".$requete." => ".print_r($liste,true));
-		Tools::SendCSV("liste-avis-valides.csv", $liste,true);
+		Tools::SendCSV($nomFichier, $liste,true);
 		die();
 	}
 	public function handle_PDF($save=false)
