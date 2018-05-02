@@ -7,18 +7,15 @@ var frontCtl = {
 			$( "#tabs" ).tabs();
 		}
 		$(".blocfiltre").each(function(){
-			var ph=$(this).find("label").attr("placeholder");
 			var selectel=$(this).find("select");
 			if(!$(this).hasClass("manuel"))
 			{
+				var ph=$(this).find("label").attr("placeholder");
 				$(selectel).select2({placeholder:ph,width: 'resolve' });
 			}
 			else
 			{
-				var donneesListe=new Array();
-				if($(this).attr("data")=="ssbv") donneesListe=prepareDonneesSSBV();
-				if($(this).attr("data")=="ss_ut") donneesListe=prepareDonneesSSUT();
-				$(selectel).select2({placeholder:ph,width: 'resolve',data: donneesListe });
+				frontCtl.renduListe(selectel);
 			}
 		});
 		
@@ -31,27 +28,7 @@ var frontCtl = {
 		var donneesListeSSBV=[{"id_ssbv":"1","code_ssbv":"AG_14_01","libelle_ssbv":"Ard\u00e8che","code_ss_ut":"FRD_GARD"}];
 			$("#e10").select2({ data: sampleArray });
 		 */
-		function prepareDonneesSSBV()
-		{
-			var arrSSBV=new Array();
-			for(objSSBV in donneesListeSSBV)
-			{
-				var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
-				arrSSBV.push(curSSBV);
-			}
-			return arrSSBV;
-		}
 		
-		function prepareDonneesSSUT()
-		{
-			var arrSSUT=new Array();
-			for(objSSUT in donneesListeSS_UT)
-			{
-				var curSSUT={"id":objSSUT.id_ss_ut,text:objSSUT.code_ss_ut+" - "+objSSUT.libelle_ss_ut};
-				arrSSUT.push(curSSUT);
-			}
-			return arrSSUT;
-		}
 		
 		$("a.fancybox").fancybox();
 		/*
@@ -75,6 +52,41 @@ var frontCtl = {
 		*/
 		
 	},
+	
+	renduListe:function(el)
+	{
+		var donneesListe=new Array();
+		var ph=$(el).prev("label").attr("placeholder");
+		if($(el).attr("data")=="ssbv") donneesListe=frontCtl.prepareDonneesSSBV();
+		if($(el).attr("data")=="ss_ut") donneesListe=frontCtl.prepareDonneesSSUT();
+		$(el).select2({placeholder:ph,width: 'resolve',data: donneesListe });
+		$(el).off("change");
+		$(el).on("change",function(){
+			console.log("liste "+$(this).attr("id")+" a changé");
+		});
+	},
+	
+	prepareDonneesSSBV:function()
+	{
+		var arrSSBV=new Array();
+		for(objSSBV in donneesListeSSBV)
+		{
+			var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
+			arrSSBV.push(curSSBV);
+		}
+		return arrSSBV;
+	},
+
+	prepareDonneesSSUT:function()
+	{
+		var arrSSUT=new Array();
+		for(objSSUT in donneesListeSS_UT)
+		{
+			var curSSUT={"id":objSSUT.id_ss_ut,text:objSSUT.code_ss_ut+" - "+objSSUT.libelle_ss_ut};
+			arrSSUT.push(curSSUT);
+		}
+		return arrSSUT;
+	}
 	
 	checkLengthOnChange:function(el)
 	{
