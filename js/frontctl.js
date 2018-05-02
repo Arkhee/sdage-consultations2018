@@ -30,7 +30,36 @@ var frontCtl = {
 							{
 								for(var j=0;j<donneesListeSSBV.length;j++)
 								{
-									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i]) found=true;
+									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
+									{
+										return data;
+									}
+								}
+							}
+							return null;
+						}
+						else
+						{
+							var arrListeSSUT=new Array();
+							if($(data.element).closest("div").attr("data")=="ssbv")
+							{
+								$("#liste_ss_ut option:selected").each(function(){arrListeSSUT.push($(this).val());});
+							}
+							if(arrListeSSUT.length==0) return data;
+							var found=false;
+							for(var i=0;i<arrListeSSUT.length;i++)
+							{
+								for(var j=0;j<donneesListeSSBV.length;j++)
+								{
+									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
+									{
+										found=true;
+										break;
+									}
+								}
+								if(found)
+								{
+									break;
 								}
 							}
 							if(!found) return null;
