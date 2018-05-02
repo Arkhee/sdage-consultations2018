@@ -30,7 +30,7 @@ var frontCtl = {
 							{
 								for(var j=0;j<donneesListeSSBV.length;j++)
 								{
-									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
+									if(data.element.value==donneesListeSSBV[j].code_ssbv && donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
 									{
 										return data;
 									}
@@ -51,7 +51,7 @@ var frontCtl = {
 							{
 								for(var j=0;j<donneesListeSSBV.length;j++)
 								{
-									if(donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
+									if(data.element.value==donneesListeSSBV[j].code_ssbv && donneesListeSSBV[j].code_ss_ut==arrListeSSUT[i])
 									{
 										found=true;
 										break;
