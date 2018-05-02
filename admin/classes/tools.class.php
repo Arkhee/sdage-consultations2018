@@ -1524,7 +1524,7 @@ class Tools
 		if($_POST["tail_action"]=="reset") $tail_file="";
 		$myNewFileContent="";
 		if($debugtail) Tools::Trace(__METHOD__."@".__LINE__."=>Fin init");
-		if(substr($tail_name,0,7)=="http://")
+		if(substr($tail_name,0,7)=="http://" || substr($tail_name,0,8)=="https://")
 		{
 			$myNewFileContent=file_get_contents($tail_name);
 		}

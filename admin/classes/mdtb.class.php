@@ -1458,6 +1458,7 @@ class mdtb_table extends mosDBTable
 		}
 		if($debug) echo __LINE__." => Redirection vers : ".$myRedir."<br>\n";
 		$myBeginUrl=strtolower(substr($myRedir,0,7));
+		if($myBeginUrl=="https:/") $myBeginUrl=strtolower(substr($myRedir,0,8));
 		if($debug) echo "Début url : ".$myBeginUrl."<br>\n";
 		if($myBeginUrl!="http://" && $myBeginUrl!="https://")
 			$myRedir="http://".$myRedir;

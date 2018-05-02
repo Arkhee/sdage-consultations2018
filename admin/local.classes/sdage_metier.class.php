@@ -1685,7 +1685,7 @@ class sdage_metier
 	{
 		if($absolute)
 		{
-			return "https://".$_SERVER["HTTP_HOST"]."/".basename($_SERVER["SCRIPT_NAME"])."/connexion.php";
+			return "https://".$_SERVER["HTTP_HOST"]."/". dirname($_SERVER["SCRIPT_NAME"])."/connexion.php";
 		}
 		else
 		{

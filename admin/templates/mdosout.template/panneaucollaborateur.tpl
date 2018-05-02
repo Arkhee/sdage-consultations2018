@@ -14,3 +14,4 @@
 	  <p><a href="csv.php">Télécharger tous les avis déposés au format CSV</a></p>
   </div>
 </div>
+<a href="index.php"><button>Accéder aux données</button></a>

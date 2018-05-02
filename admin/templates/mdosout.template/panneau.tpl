@@ -15,8 +15,7 @@
 	{resultats}
   </div>
   <div id="tabs-compte">
-    <p>Informations personnelles : nom, prénom, mail ...</p>
-	<form id="formMiseAJour" name="formMiseAJour" method="post" action="" onsubmit='return frontCtl.testFormulaireInscription(this);'>
+    <form id="formMiseAJour" name="formMiseAJour" method="post" action="" onsubmit='return frontCtl.testFormulaireInscription(this);'>
 		<label for='user_firstname'>Votre Prénom :</label><input type='text' name='user_firstname' id="user_firstname" value="{user_firstname}" /><br />
 		<label for='user_name'>Votre Nom :</label><input type='text' name='user_name' id="user_name" value="{user_name}" /><br />
 		<label for='type_structure'>Votre type de structure :</label>{CMB_TYPE_STRUCTURE}<br />
@@ -31,3 +30,4 @@
 	</form>
   </div>
 </div>
+<a href="index.php"><button>Accéder aux données</button></a>
