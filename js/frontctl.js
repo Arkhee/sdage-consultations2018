@@ -83,7 +83,7 @@ var frontCtl = {
 			var objSSBV=donneesListeSSBV[i];
 			if(arrListeSSUT.length==0 || arrListeSSUT.indexOf(objSSBV.code_ss_ut)>=0)
 			{
-				var curSSBV={"id":objSSBV.id_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
+				var curSSBV={"id":objSSBV.code_ssbv,text:objSSBV.code_ssbv+" - "+objSSBV.libelle_ssbv};
 				arrSSBV.push(curSSBV);
 			}
 		}
@@ -97,7 +97,7 @@ var frontCtl = {
 		for(var i=0;i<donneesListeSS_UT.length;i++)
 		{
 			var objSSUT=donneesListeSS_UT[i];
-			var curSSUT={"id":objSSUT.id_ss_ut,text:objSSUT.code_ss_ut+" - "+objSSUT.libelle_ss_ut};
+			var curSSUT={"id":objSSUT.code_ss_ut,text:objSSUT.code_ss_ut+" - "+objSSUT.libelle_ss_ut};
 			arrSSUT.push(curSSUT);
 		}
 		return arrSSUT;
