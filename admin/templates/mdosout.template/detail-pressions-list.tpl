@@ -84,18 +84,18 @@
 												{pressions.CMB_IMPACT_ESTIME}<br />
 
 												<label for="justification">Justification</label>
-												<textarea name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
+												<textarea name="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
 												<div class="compteurschars"><span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
 												{pressions.lien_documents}
-												<input type="file" name="documents" id="documents">
+												<input type="file" name="documents">
 
 												<div class="blocValidationFormulaire">
 													<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
 													<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
 													<label class="sauvegarde validationok">Votre avis a bien été validé</label>
-													<input type="submit" name="sauverAvis" class='boutonaction' id="sauverAvis" value="Sauvegarder mon avis"/>
-													<input type="submit" name="validerAvis" class='boutonaction' id="validerAvis" value="Valider mon avis" onclick='return confirm("Etes-vous sûr de valider cet avis ? La validation est définitive et ne peut être annulée")'/>
+													<input type="submit" name="sauverAvis" class='boutonaction' value="Sauvegarder mon avis"/>
+													<input type="submit" name="validerAvis" class='boutonaction' value="Valider mon avis" onclick='return confirm("Etes-vous sûr de valider cet avis ? La validation est définitive et ne peut être annulée")'/>
 												</div>
 											</form>
 										</div>
