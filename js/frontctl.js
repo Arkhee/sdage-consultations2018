@@ -22,7 +22,7 @@ var frontCtl = {
 						var dataLien=$(this).closest("div.blocfiltre").attr("data-lien");
 						if($("#"+dataLien).length)
 						{
-							frontCtl.renduListe(dataLien);
+							frontCtl.renduListe($("#"+dataLien));
 						}
 					}
 				});
