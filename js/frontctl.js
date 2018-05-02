@@ -17,7 +17,18 @@ var frontCtl = {
 			{
 				$(selectel).select2({placeholder:ph,width: 'resolve',
 					matcher: function(params,data) {
-						if(typeof(params.term)=="undefined" && $(data.element).closest("div").attr("data")=="ss_ut") return data;
+						if(typeof(params.term)=="undefined" /*  && $(data.element).closest("div").attr("data")=="ss_ut" */)
+						{
+							return data;
+						}
+						if (data.text.indexOf(params.term) > -1) {
+							var modifiedData = $.extend({}, data, true);
+							//modifiedData.text += ' (matched)';
+
+							// You can return modified objects from here
+							// This includes matching the `children` how you want in nested data sets
+							return modifiedData;
+						  }
 						return null;
 					}});
 				/*
