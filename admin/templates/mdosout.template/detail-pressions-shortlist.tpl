@@ -57,6 +57,7 @@
 										</div>
 										<div class='avis_ecriture'>
 											<h3>Donnez votre avis sur le niveau d'impact estimé</h3>
+											<div class='notemethode'>{MESSAGE_SAISIE_NOTE_METHODE}</div>
 											<form method="post" action="#" 
 												  onsubmit="return frontCtl.testFormulaireAvis(this);"
 												  id="formAvisPression_{pressions.id_pression}_{pressions.id_massedeau}" 

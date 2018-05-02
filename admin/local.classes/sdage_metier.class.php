@@ -12,6 +12,7 @@ class sdage_metier
 	const LISTMODE_NORMAL="";
 	const LISTMODE_LIST="list";
 	const LISTMODE_SHORTLIST="shortlist";
+	const MESSAGE_SAISIE_NOTE_METHODE="MESSAGE_SAISIE_NOTE_METHODE";
 	const MESSAGE_MEMO_CONNEXION="MESSAGE_MEMO_CONNEXION";
 	const MESSAGE_DSI_RGPD="MESSAGE_DSI_RGPD";
 	public $auth=null;
@@ -1335,6 +1336,7 @@ class sdage_metier
 			$cmbPagination= mdtb_forms::combolist("pagination",$arrPages,$this->params["pagination"],"","onchange='form.submit();'");
 			$this->template->assign_var("CMB_PAGINATION", $cmbPagination);
 			$this->template->assign_var("nb_pages", $nb_pages);
+			$this->template->assign_var("MESSAGE_SAISIE_NOTE_METHODE", self::MESSAGE_SAISIE_NOTE_METHODE);
 			
 			$nbaffiche=0;
     		foreach($this->search_result as $curme)
