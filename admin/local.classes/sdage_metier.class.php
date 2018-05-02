@@ -1482,7 +1482,7 @@ class sdage_metier
 	                (
 	                	'code_me' => $curme->code_me,
 	                	'code_me_nb_avis' => $curme->code_me_nb_avis,
-	                	'lbl_nb_avis_mdo' => ($curme->code_me_nb_avis>0?("(".$curme->code_me_nb_avis."&nbsp;avis)"):""),
+	                	'lbl_nb_avis_mdo' => ( ($curme->code_me_nb_avis>0 && $this->authIsCollaborateur())?("&nbsp;(".$curme->code_me_nb_avis."&nbsp;avis)"):""),
 						'line_odd_even' => "parite".$indexparite++%2,
 	                	'libelle_me' => $curme->libelle_me,
 	                	'categorie_me' => $curme->categorie_me,
