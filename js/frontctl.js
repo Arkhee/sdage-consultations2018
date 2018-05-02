@@ -86,7 +86,7 @@ var frontCtl = {
 			arrSSUT.push(curSSUT);
 		}
 		return arrSSUT;
-	}
+	},
 	
 	checkLengthOnChange:function(el)
 	{
