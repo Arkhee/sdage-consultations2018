@@ -2,7 +2,7 @@
 	<tr><td colspan="2">
 			<table class="detailMdoEtPression" style="border:1px solid #666; margin-bottom:5px;width:1000px;">
 				<tr><td style="font-weight:bold">Masse d'eau</td><td>{code_me} - {libelle_me} - {categorie_me}</td></tr>
-				<tr><td style="font-weight:bold">Sous-bassin versant</td><td>{code_ssbv}&nbsp;-&nbsp;{libelle_ssbv}</td></tr>
+				<tr><td style="font-weight:bold">Sous-bassin</td><td>{code_ssbv}&nbsp;-&nbsp;{libelle_ssbv}</td></tr>
 				<tr><td style="font-weight:bold">Pression</td><td>{libelle_pression}</td></tr>
 			</table>
 	</td></tr>

@@ -16,7 +16,7 @@ class presentation
 				"postcode"=>array("label"=>"le Code postal : ","zone_code"=>"","select_action"=>SELECT_ACTION,"fields"=>array("Code_Postal","Nom_Commune")),
 				"insee"=>array("label"=>"le N° insee : ","zone_code"=>"","select_action"=>SELECT_ACTION,"fields"=>array("Code_INSEE","Nom_Commune")),
 				"townname"=>array("label"=>"la Commune : ","zone_code"=>"","select_action"=>SELECT_ACTION,"fields"=>array("Nom_Commune")),
-				"ssbv"=>array("label"=>"le sous-bassin versant :<br>\n","zone_code"=>"Code_SSBV","select_action"=>OBJECTIFS_ACTION,"fields"=>array("Nom_SSBV", "Code_SSBV")),
+				"ssbv"=>array("label"=>"le sous-bassin :<br>\n","zone_code"=>"Code_SSBV","select_action"=>OBJECTIFS_ACTION,"fields"=>array("Nom_SSBV", "Code_SSBV")),
 				"mdosout"=>array("label"=>"la masse d'eau souterraine :<br>\n","zone_code"=>"Code_MDO","select_action"=>OBJECTIFS_ACTION,"fields"=>array("Nom_MDO", "Code_MDO")),
 				"mdosup"=>array("label"=>"la masse d'eau superficielle :<br>\n","zone_code"=>"Code_MDO","select_action"=>OBJECTIFS_ACTION,"fields"=>array("Nom_MDO", "Code_MDO"))
 				);
@@ -433,7 +433,7 @@ class presentation
 			$ssbv=new ssbv($this->_db);
 			if($ssbv->loadCode($this->zoneCode))
 			{
-				echo "Sous-bassin versant : <h4>".utf8_decode($ssbv->Nom_SSBV)."&nbsp;(".$this->zoneCode.")</h4>\n";
+				echo "Sous-bassin : <h4>".utf8_decode($ssbv->Nom_SSBV)."&nbsp;(".$this->zoneCode.")</h4>\n";
 			}
 			else
 				echo "Le bassin ".$this->zoneCode." n'a pas été trouvé";

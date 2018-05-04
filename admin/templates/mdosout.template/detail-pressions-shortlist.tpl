@@ -21,7 +21,7 @@
 										<tr><td colspan="2">
 												<table class="detailMdoEtPression">
 													<tr><td>Masse d'eau</td><td>{pressions.code_me} - {pressions.libelle_me} - {pressions.categorie_me}</td></tr>
-													<tr><td>Sous-bassin versant</td><td>{pressions.code_ssbv}&nbsp;-&nbsp;{pressions.libelle_ssbv}</td></tr>
+													<tr><td>Sous-bassin</td><td>{pressions.code_ssbv}&nbsp;-&nbsp;{pressions.libelle_ssbv}</td></tr>
 													<tr><td>Pression</td><td>{pressions.libelle_pression}</td></tr>
 												</table>
 										</td></tr>

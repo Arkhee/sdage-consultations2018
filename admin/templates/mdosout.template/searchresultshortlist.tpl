@@ -19,7 +19,7 @@
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=categorie_me&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
-            Sous-bassin versant
+            Sous-bassin
             <a href="{FORM_PAGE}?section=search&ssfield=ssbv.code_ssbv&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
 			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=ssbv.code_ssbv&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
         </th>

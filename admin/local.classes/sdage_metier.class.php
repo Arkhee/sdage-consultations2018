@@ -256,7 +256,7 @@ class sdage_metier
     			break;
     		case "ssbv_RM":
     		case "ssbv2_RM":
-    			$this->zoneDetail->titre="Informations sur le sous-bassin versant";
+    			$this->zoneDetail->titre="Informations sur le sous-bassin";
     			$this->zoneDetail->zoneRequete="SELECT Code_SSBV,Nom_SSBV FROM lexique_ssbv WHERE Code_SSBV='".$this->params["zoneCode"]."';";
     			$this->zoneDetail->secteurs=false;
     			$this->zoneDetail->entites_hydro=false;
