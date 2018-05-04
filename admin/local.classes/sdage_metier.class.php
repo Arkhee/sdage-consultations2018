@@ -1529,7 +1529,7 @@ class sdage_metier
 		$comboPressions=$pressions->htmlGetComboMultiple("liste_pressions","id_pression","libelle_pression","1",$this->params["liste_pressions"]);
     	$this->template->assign_vars(array("CMB_PRESSIONS"=>$comboPressions));
     	$arrImpacts=array(); //array("id"=>"","value"=>""));
-		for($i=0;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+		for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 		$listeImpacts=mdtb_forms::combolistmultiple("liste_impacts",$arrImpacts,$this->params["liste_impacts"]);
 		$this->template->assign_vars(array("CMB_IMPACT"=>$listeImpacts));
 		
