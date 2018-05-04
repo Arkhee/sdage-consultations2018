@@ -12,7 +12,7 @@ class sdage_metier
 	const LISTMODE_NORMAL="";
 	const LISTMODE_LIST="list";
 	const LISTMODE_SHORTLIST="shortlist";
-	const MESSAGE_SAISIE_NOTE_METHODE="<p>Indiquer qu'une pression est cause du risque implique une valeur d'impact de 2 ou 3</p>";
+	const MESSAGE_SAISIE_NOTE_METHODE="<p><i class=\"fas fa-exclamation-circle\"></i>Indiquer qu'une pression est cause du risque implique une valeur d'impact de 2 ou 3</p>";
 	const MESSAGE_MEMO_CONNEXION="MESSAGE_MEMO_CONNEXION";
 	const MESSAGE_DSI_RGPD="MESSAGE_DSI_RGPD";
 	public $auth=null;
