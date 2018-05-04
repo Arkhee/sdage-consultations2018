@@ -1,6 +1,5 @@
 <p>Avant de pouvoir donner votre avis, merci de vous inscrire via le formulaire ci-dessous</p>
 <em>Notez que votre email sera utilisé en tant qu'identifiant pour la connexion au service</em>
-<p>{MESSAGE_MEMO_CONNEXION}</p>
 <div id="msg_erreur_inscription"></div>
 {MSG_ERREUR}
 <form id="formInscription" name="formInscription" method="post" action="{FORM_INSCRIPTION_PAGE}" onsubmit='return frontCtl.testFormulaireInscription(this);'>

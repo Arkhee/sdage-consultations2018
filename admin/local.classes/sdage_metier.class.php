@@ -1572,7 +1572,7 @@ class sdage_metier
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
-		$this->template->assign_vars(array("MESSAGE_MEMO_CONNEXION"=>self::MESSAGE_MEMO_CONNEXION));
+		//$this->template->assign_vars(array("MESSAGE_MEMO_CONNEXION"=>self::MESSAGE_MEMO_CONNEXION));
 		
 		
         return $this->template->pparse("connexion",true);
@@ -1626,7 +1626,7 @@ class sdage_metier
 	
     public function sectionContent_Inscription()
     {
-		$this->template->assign_var("MESSAGE_MEMO_CONNEXION",self::MESSAGE_MEMO_CONNEXION);
+		//$this->template->assign_var("MESSAGE_MEMO_CONNEXION",self::MESSAGE_MEMO_CONNEXION);
 		$this->template->assign_var("MESSAGE_DSI_RGPD",self::MESSAGE_DSI_RGPD);
 		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
 		{
@@ -1759,8 +1759,7 @@ class sdage_metier
 		$messagePourCreateur=
 			$messagePourCreateur."<br />\r\n".
 			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
-			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
-			self::MESSAGE_MEMO_CONNEXION;
+			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n";
 		
 		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
