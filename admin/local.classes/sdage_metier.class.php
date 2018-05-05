@@ -1627,7 +1627,7 @@ class sdage_metier
     public function sectionContent_Inscription()
     {
 		//$this->template->assign_var("MESSAGE_MEMO_CONNEXION",self::MESSAGE_MEMO_CONNEXION);
-		$this->template->assign_var("MESSAGE_DSI_RGPD",file_get_contents(_APP_ROOT_DIR_."/".self::MESSAGE_DSI_RGPD));
+		$this->template->assign_var("MESSAGE_DSI_RGPD",file_get_contents(_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"])."/".self::MESSAGE_DSI_RGPD));
 		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
 		{
 			$this->msg_error="Clef incorrecte"; // : <pre>".$requeteME."</pre>";
@@ -1762,7 +1762,7 @@ class sdage_metier
 		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCommun."<br />\r\n".
 			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
 			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
-			"<hr />".file_get_contents(_APP_ROOT_DIR_."/contenu_avertissement_saisie.php");
+			"<hr />".file_get_contents(_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"])."/contenu_avertissement_saisie.php");
 		
 		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
