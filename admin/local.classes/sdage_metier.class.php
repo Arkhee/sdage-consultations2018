@@ -595,9 +595,9 @@ class sdage_metier
 				{
 					//file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 					// Traitement du fichier téléchargé
-					$fichierTelecharge=$ThePrefs->DocumentsFolder."/".$newFileName;
 					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
+					$fichierTelecharge=$ThePrefs->DocumentsFolder."/".$newFileName;
 					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
 					$obj->documents=$newFileName;
 				}
