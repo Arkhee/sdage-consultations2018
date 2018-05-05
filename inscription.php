@@ -73,7 +73,7 @@ $myBaseGestion=new stdClass();
 	
 	<div id="content" class="container pageSetup">
 		<div id="contentHeader" class="row">
-			<div id="accueilBandeChemin" class="col-md-8"><!-- InstanceBeginEditable name="chemin" --><a href="index.php">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</a><!-- InstanceEndEditable --></div>
+			<div id="accueilBandeChemin" class="col-md-8"><!-- InstanceBeginEditable name="chemin" --><a href="index.php">Impact des pressions sur les masses d'eau</a><!-- InstanceEndEditable --></div>
 			<div class="col-md-4">
 				<?php echo Util::affRecherche(); ?>
 			</div>			
@@ -97,7 +97,7 @@ $myBaseGestion=new stdClass();
 		}
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
-        <h1 align="center">Etat des masses d'eau dans le cadre du SDAGE 2016-2021</h1>
+        <h1 align="center">Impact des pressions sur les masses d'eau</h1>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>

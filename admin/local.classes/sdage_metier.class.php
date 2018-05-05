@@ -14,7 +14,7 @@ class sdage_metier
 	const LISTMODE_SHORTLIST="shortlist";
 	const MESSAGE_SAISIE_NOTE_METHODE="<p><i style=\"color:#993300;\" class=\"fas fa-exclamation-circle\"></i>&nbsp;Indiquer qu'une pression est cause du risque implique une valeur d'impact de 2 ou 3</p>";
 	const MESSAGE_MEMO_CONNEXION="MESSAGE_MEMO_CONNEXION";
-	const MESSAGE_DSI_RGPD="MESSAGE_DSI_RGPD";
+	const MESSAGE_DSI_RGPD="message_rgpd.php";
 	public $auth=null;
 	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
@@ -1627,7 +1627,7 @@ class sdage_metier
     public function sectionContent_Inscription()
     {
 		//$this->template->assign_var("MESSAGE_MEMO_CONNEXION",self::MESSAGE_MEMO_CONNEXION);
-		$this->template->assign_var("MESSAGE_DSI_RGPD",self::MESSAGE_DSI_RGPD);
+		$this->template->assign_var("MESSAGE_DSI_RGPD",file_get_contents(_APP_ROOT_DIR_."/".self::MESSAGE_DSI_RGPD));
 		if(!isset($this->params["clef"]) || $this->params["clef"]!==_CLEF_INSCRIPTION_)
 		{
 			$this->msg_error="Clef incorrecte"; // : <pre>".$requeteME."</pre>";
@@ -1746,20 +1746,23 @@ class sdage_metier
 		$mailFrom=$ThePrefs->From; //="webmaster@rhone-mediterranee.eaufrance.fr";
 		$nameFrom=$ThePrefs->FromName; //="Webmaster SIE";
 		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
+		
 		$subjectPourCreateur="Consultations 2018 : Confirmation de création de votre compte";
-		$message="<b>Inscription d'un nouveau créateur :</b><br />\r\n".
-		$messagePourCreateur="<b>Nom : </b>".$user->user_Name."<br />\r\n".
+		
+		$messagePourCommun="<b>Nom : </b>".$user->user_Name."<br />\r\n".
 		"<b>Prénom :</b>".$user->user_FirstName."<br />\r\n".
 		"<b>Email :</b>".$user->user_Mail."<br />\r\n".
 		"<b>Type de structure :</b>".$user->user_Structure."<br />\r\n".
 		"<b>Nom de la structure :</b>".$user->user_NomStructure."<br />\r\n".
 		"<b>Date inscription :</b>".date("d/m/Y");
-		$message=$message.$messagePourCreateur;
-		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCreateur;
-		$messagePourCreateur=
-			$messagePourCreateur."<br />\r\n".
+		
+		$message="<b>Inscription d'un nouveau créateur :</b><br />\r\n".
+		$message=$message.$messagePourCommun;
+		
+		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCommun."<br />\r\n".
 			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
-			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n";
+			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
+			"<hr />".file_get_contents(_APP_ROOT_DIR_."/contenu_avertissement_saisie.php");
 		
 		Tools::PHPMailer($user->user_Mail,$subjectPourCreateur,$messagePourCreateur);
 		//echo __LINE__." => Mail test ...";
