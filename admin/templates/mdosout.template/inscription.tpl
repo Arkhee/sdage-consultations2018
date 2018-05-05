@@ -16,5 +16,5 @@
 	<input type="hidden" name="_tablename" id="_tablename" value="#__mdtb_users" />
 	<input type="hidden" name="redir" id="redir" value="{FORM_RETURN_URL}" />
 </form>
-<span onclick="$('#rgpd').toggle();">Afficher les conditions générales et politique de confidentialité RGPD</span>
+<span onclick="$('#rgpd').toggle();" style="margin-top:10px;text-decoration: underline; color:darkblue; font-weight: bold;pointer:cursor;">Afficher les conditions générales et politique de confidentialité RGPD</span>
 <p id="rgpd" style="display:none;">{MESSAGE_DSI_RGPD}</p>
