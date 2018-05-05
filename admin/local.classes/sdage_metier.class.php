@@ -862,7 +862,7 @@ class sdage_metier
 			FROM ae_massesdeau AS mdo
 			LEFT JOIN ae_ssbv AS ssbv ON ssbv.code_ssbv=mdo.code_ssbv
 			LEFT JOIN rel_me_sout_ss_ut AS rsoutssut ON mdo.code_me=rsoutssut.code_me
-			LEFT JOIN ae_ss_ut AS ssut ON (ssbv.code_ss_ut=ssut.code_ss_ut OR rel_me_sout_ss_ut.code_ss_ut=ssut.code_ss_ut)
+			LEFT JOIN ae_ss_ut AS ssut ON (ssbv.code_ss_ut=ssut.code_ss_ut OR rsoutssut.code_ss_ut=ssut.code_ss_ut)
 			".$joinImpactOuPression."
 			".$joinCreateur."
 			WHERE mdo.id_massedeau IS NOT NULL
@@ -944,7 +944,7 @@ class sdage_metier
 		
     	if(!is_array($this->search_result) || count($this->search_result)<=0 || $this->search_result[0]->nboccme==0 )
 		{
-			$this->msg_info="Votre recherche n'a fourni aucun résultat<div style='display:none'>".$requeteME."</div>";
+			$this->msg_info="Votre recherche n'a fourni aucun résultat<div style='display:none'>".$requeteMEChampsListe.$requeteME."</div>";
 		}
 		if(is_array($this->search_result) && count($this->search_result)>self::$pagination)
 		{
