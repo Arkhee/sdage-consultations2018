@@ -618,9 +618,9 @@ class sdage_metier
 					{
 						$newobj=$avis->recGetRecord();
 						$newobj->document=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
-						if(rename($fichierTelecharge,$newobj->document))
+						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder."/".$newobj->document))
 						{
-							$avis->recStore($newobj,$ThePrefs->DocumentsFolder."/".$newobj->document);
+							$avis->recStore($newobj);
 						}
 					}
 					$action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
