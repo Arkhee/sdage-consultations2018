@@ -1,3 +1,4 @@
+<div class="panneau" >
 <a href="index.php"><button>Accéder aux données</button></a>
 <form style="display: inline; float:right;" action="admin/index.php" method="get">
 	<input type="hidden" name="redir" value="referer" />
@@ -29,5 +30,6 @@
 		<input type="hidden" name="_tablename" id="_tablename" value="#__mdtb_users" />
 	</form>
   </div>
-</div>
+</div><br />
 <a href="index.php"><button>Accéder aux données</button></a>
+</div>
