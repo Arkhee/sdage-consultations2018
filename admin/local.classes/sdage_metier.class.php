@@ -1752,17 +1752,17 @@ class sdage_metier
 		
 		$subjectPourCreateur="Consultations 2018 : Confirmation de création de votre compte";
 		
-		$messagePourCommun="<b>Nom : </b>".$user->user_Name."<br />\r\n".
-		"<b>Prénom :</b>".$user->user_FirstName."<br />\r\n".
-		"<b>Email :</b>".$user->user_Mail."<br />\r\n".
-		"<b>Type de structure :</b>".$user->user_Structure."<br />\r\n".
-		"<b>Nom de la structure :</b>".$user->user_NomStructure."<br />\r\n".
-		"<b>Date inscription :</b>".date("d/m/Y");
+		$messagePourCommun="<ul><li><b>Nom : </b>".$user->user_Name."</li>\r\n".
+		"<li><b>Prénom :</b>".$user->user_FirstName."</li>\r\n".
+		"<li><b>Email :</b>".$user->user_Mail."</li>\r\n".
+		"<li><b>Type de structure :</b>".$user->user_Structure."<</li>\r\n".
+		"<li><b>Nom de la structure :</b>".$user->user_NomStructure."</li>\r\n".
+		"<li><b>Date inscription :</b>".date("d/m/Y")."</li></ul>";
 		
 		$message="<b>Inscription d'un nouveau créateur :</b><br />\r\n".
 		$message=$message.$messagePourCommun;
 		
-		$messagePourCreateur="<b>Confirmation de création de compte : </b>".$messagePourCommun."<br />\r\n".
+		$messagePourCreateur="<b>Confirmation de création de compte : </b><br />\r\n".$messagePourCommun."<br />\r\n".
 			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
 			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
 			"<hr />".file_get_contents(_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"])."/contenu_avertissement_saisie.php");
