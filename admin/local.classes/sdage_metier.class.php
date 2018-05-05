@@ -851,15 +851,18 @@ class sdage_metier
 		}
 		$requeteMEChampsListe="
 			SELECT COUNT(*) AS nboccme,
-			(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=mdo.id_massedeau) AS code_me_nb_avis,mdo.*,ssbv.*,ssut.*,
+			(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=mdo.id_massedeau) AS code_me_nb_avis,
+			mdo.*,
+			ssbv.*,
+			ssut.*,
 				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut,
 				IF(rsoutssut.code_ss_ut IS NOT NULL,rsoutssut.code_ss_ut,ssut.code_ss_ut) AS code_ss_ut_sort";
 		$requeteMEChampsCount="SELECT COUNT(*) AS nboccme ";
 		$requeteME="
 			FROM ae_massesdeau AS mdo
 			LEFT JOIN ae_ssbv AS ssbv ON ssbv.code_ssbv=mdo.code_ssbv
-			LEFT JOIN ae_ss_ut AS ssut ON ssbv.code_ss_ut=ssut.code_ss_ut
 			LEFT JOIN rel_me_sout_ss_ut AS rsoutssut ON mdo.code_me=rsoutssut.code_me
+			LEFT JOIN ae_ss_ut AS ssut ON (ssbv.code_ss_ut=ssut.code_ss_ut OR rel_me_sout_ss_ut.code_ss_ut=ssut.code_ss_ut)
 			".$joinImpactOuPression."
 			".$joinCreateur."
 			WHERE mdo.id_massedeau IS NOT NULL
