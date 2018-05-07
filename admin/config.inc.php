@@ -42,7 +42,7 @@ $ThePrefs->SMTPUser="webmaster@rhone-mediterranee.eaufrance.fr";
 $ThePrefs->SMTPPassword="errc69c0ba37b";
 
 $ThePrefs->AdminGroupPourAlertesMails=3;
-$ThePrefs->BaseFolder=_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_FILENAME"]);
+$ThePrefs->BaseFolder=_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"]);
 $ThePrefs->DocumentsFolder=$ThePrefs->BaseFolder."/documents/";
 if(!file_exists($ThePrefs->DocumentsFolder)) 
 {
