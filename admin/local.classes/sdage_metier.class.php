@@ -621,9 +621,9 @@ class sdage_metier
 					{
 						$newobj=$avis->recGetRecord();
 						$newobj->documents=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
-						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->document."\r\n",FILE_APPEND);
-						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->document."\r\n",FILE_APPEND);
-						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->document))
+						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->documents."\r\n",FILE_APPEND);
+						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->documents."\r\n",FILE_APPEND);
+						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->documents))
 						{
 							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename OK\r\n",FILE_APPEND);
 							$retourMAJDocument=$avis->recStore($newobj);
