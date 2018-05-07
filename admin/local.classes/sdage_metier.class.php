@@ -611,7 +611,7 @@ class sdage_metier
 			
 			if($this->params["sauverAvis"])
 			{
-				$debug=$this->getParam("debug",false);
+				$debug=isset($this->param["debug"])?(bool)$this->param["debug"]:0;
 				$retour=$avis->recStore($obj);
 				if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","Retour : \r\n".print_r($obj,true));
 				if($retour)
