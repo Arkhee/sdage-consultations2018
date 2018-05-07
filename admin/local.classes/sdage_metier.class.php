@@ -597,8 +597,8 @@ class sdage_metier
 					// Traitement du fichier téléchargé
 					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
-					$fichierTelecharge=$ThePrefs->DocumentsFolder."/".$newFileName;
-					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder."/".$newFileName);
+					$fichierTelecharge=$ThePrefs->DocumentsFolder.$newFileName;
+					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder.$newFileName);
 					$obj->documents=$newFileName;
 				}
 				else
@@ -622,10 +622,17 @@ class sdage_metier
 						$newobj=$avis->recGetRecord();
 						$newobj->document=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->document."\r\n",FILE_APPEND);
-						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder."/".$newobj->document."\r\n",FILE_APPEND);
-						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder."/".$newobj->document))
+						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->document."\r\n",FILE_APPEND);
+						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->document))
 						{
-							$avis->recStore($newobj);
+							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename OK\r\n",FILE_APPEND);
+							$retourMAJDocument=$avis->recStore($newobj);
+							$newobj2=$avis->recGetRecord();
+							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","retour rename : ".print_r($retourMAJDocument,true)."\r\nObjet : ".print_r($newobj2,true),FILE_APPEND);
+						}
+						else
+						{
+							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename ERREUR\r\n",FILE_APPEND);
 						}
 					}
 					$action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
