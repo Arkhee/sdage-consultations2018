@@ -611,7 +611,7 @@ class sdage_metier
 			
 			if($this->params["sauverAvis"])
 			{
-				$debug=true; //isset($this->param["debug"])?(bool)$this->param["debug"]:0;
+				$debug=defined("_DEBUG_UPLOAD_FICHIERS_")?_DEBUG_UPLOAD_FICHIERS_:false; //isset($this->param["debug"])?(bool)$this->param["debug"]:0;
 				$retour=$avis->recStore($obj);
 				if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","Retour : \r\n".print_r($obj,true));
 				if($retour)
@@ -620,7 +620,7 @@ class sdage_metier
 					if($fichierTelecharge!="" && $nomDeBaseFichierTelecharge!="")
 					{
 						$newobj=$avis->recGetRecord();
-						$newobj->document=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
+						$newobj->documents=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->document."\r\n",FILE_APPEND);
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->document."\r\n",FILE_APPEND);
 						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->document))
