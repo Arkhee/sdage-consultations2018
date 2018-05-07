@@ -213,7 +213,7 @@ class Tools
 				foreach($myArrayTable[0] as $keyval=>$headvalue)
 				{
 					if(!isset($curarray[$keyval])) $curarray[$keyval]="";							
-					$myArrayTable[$keyarray][$keyval]=str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval]));
+					$myArrayTable[$keyarray][$keyval]=str_replace("\"","\"\"",str_replace("\r\n","\n",$curarray[$keyval]));
 				}
 			}
 		}
