@@ -44,7 +44,13 @@ $ThePrefs->SMTPPassword="errc69c0ba37b";
 $ThePrefs->AdminGroupPourAlertesMails=3;
 $ThePrefs->BaseFolder=_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_FILENAME"]);
 $ThePrefs->DocumentsFolder=$ThePrefs->BaseFolder."/documents/";
-if(!file_exists($ThePrefs->DocumentsFolder)) mkdir($ThePrefs->DocumentsFolder);
+if(!file_exists($ThePrefs->DocumentsFolder)) 
+{
+	if(!mkdir($ThePrefs->DocumentsFolder))
+	{
+		echo "Erreur de création du dossier de stockage des médias : ".$ThePrefs->DocumentsFolder."<br />";
+	}
+}
 $TheArrayModules=array(
 						"index"=>"MDTB",
 						
