@@ -690,7 +690,7 @@ class sdage_metier
 		global $db_user,$db_pass,$db_name,$db_host;
 		if(file_exists($ThePrefs->DumpsFolder) && is_dir($ThePrefs->DumpsFolder) && is_writable($ThePrefs->DumpsFolder))
 		{
-			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-H-i-s.sql");
+			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-H-i-s").".sql";
 			return shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
 		}
 		return false;
