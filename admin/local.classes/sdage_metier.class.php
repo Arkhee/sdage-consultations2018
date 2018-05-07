@@ -660,6 +660,11 @@ class sdage_metier
 					$this->params["id_avis"]=$avis->recKeyValue();
 					//file_put_contents(__DIR__."/savepdf.log","Clef : ".$this->params["id_avis"]."\r\n",FILE_APPEND);
 					$fichier=$this->handle_PDF(true);
+					
+					/*
+					 * Dump avis après validation
+					 */
+					$this->dumpBaseAvis();
 					$sujet = "Votre avis validé le ".date("d/m/Y")." sur la masse d'eau "." et la pression "."";
 					$message = "Vous trouverez ci-joint le récipissé de validation d'avis ci-joint";
 					//file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier,true)."\r\n",FILE_APPEND);
@@ -677,6 +682,19 @@ class sdage_metier
 			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
 			return false;
 		}
+	}
+	
+	private function dumpBaseAvis()
+	{
+		global $ThePrefs;
+		global $db_user,$db_pass,$db_name,$db_host;
+		if(file_exists($ThePrefs->DumpsFolder) && is_dir($ThePrefs->DumpsFolder) && is_writable($ThePrefs->DumpsFolder))
+		{
+			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-H-i-s.sql");
+			return shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
+		}
+		return false;
+			
 	}
 	
 	public function handle_Inscription()

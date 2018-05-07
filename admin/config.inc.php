@@ -44,11 +44,19 @@ $ThePrefs->SMTPPassword="errc69c0ba37b";
 $ThePrefs->AdminGroupPourAlertesMails=3;
 $ThePrefs->BaseFolder=_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"]);
 $ThePrefs->DocumentsFolder=$ThePrefs->BaseFolder."/documents/";
+$ThePrefs->DumpsFolder=$ThePrefs->BaseFolder."/dumps/";
 if(!file_exists($ThePrefs->DocumentsFolder)) 
 {
 	if(!mkdir($ThePrefs->DocumentsFolder))
 	{
 		echo "Erreur de création du dossier de stockage des médias : ".$ThePrefs->DocumentsFolder."<br />";
+	}
+}
+if(!file_exists($ThePrefs->DumpsFolder)) 
+{
+	if(!mkdir($ThePrefs->DumpsFolder))
+	{
+		echo "Erreur de création du dossier de dumps : ".$ThePrefs->DumpsFolder."<br />";
 	}
 }
 $TheArrayModules=array(
