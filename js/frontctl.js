@@ -131,7 +131,7 @@ var frontCtl = {
 	triggerEventsValidation:function(avisId)
 	{
 		$(document).trigger("sauvegardeok",avisId);
-		$(document).trigger("validerAvis",avisId);
+		$(document).trigger("valideravis",avisId);
 	},
 	sauvegardeOk:function(event,avisId)
 	{
