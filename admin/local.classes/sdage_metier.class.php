@@ -741,9 +741,11 @@ class sdage_metier
 					//file_put_contents(__DIR__."/savepdf.log","Preparation envoi de mail :\r\nSujet : ".$sujet."\r\nFichiers : ".print_r($fichier,true)."\r\n",FILE_APPEND);
 					Tools::PHPMailer($this->auth->user_Mail, $sujet, $message,array($fichier));
 					/* Finalisation des actions de confirmation */
-					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
-					$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
-					$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
+					//window.parent.$(document).trigger('complete');
+					$action="window.parent.$(document).trigger('valideravis','#".$this->params["id_form_avis"]."');";
+					//$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
+					//$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
+					//$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
 				}
 			}
 			$this->msg_info.="<script>

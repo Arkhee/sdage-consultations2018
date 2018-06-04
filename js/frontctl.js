@@ -6,6 +6,7 @@ var frontCtl = {
 		{
 			$( "#tabs" ).tabs();
 		}
+		$(document).on("valideravis",frontCtl.validerAvis);
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
 			var ph=$(this).find("label").attr("placeholder");
@@ -126,7 +127,10 @@ var frontCtl = {
 		*/
 		
 	},
-	
+	validerAvis:function(avisId)
+	{
+		
+	},
 	renduListe:function(el)
 	{
 		var donneesListe=new Array();
