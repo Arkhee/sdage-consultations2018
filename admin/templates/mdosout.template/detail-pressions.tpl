@@ -17,9 +17,23 @@
 						<td align='center'>{pressions.pression_origine_2021}</td>
 						<td align='center'>{pressions.impact_2019}</td>
 						<td align='center'>{pressions.pression_origine_2027}</td>
-						<td align='center'><span class="icone_avis"><a title="{pressions.tooltip_avis}" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
-								<i class="fas {pressions.icone_avis}"></i>
-								</a></span>
+						<td align='center'>
+							<span class="icone_avis">
+								<a class='avisacreer fancybox' title="Vous n'avez pas encore donné votre avis sur cette pression" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
+									<i class="fas fa-plus-circle"></i>
+								</a>
+								<a class='avisedition fancybox' title="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class='avisvalide fancybox' title="Vous avez validé l'avis donné sur cette pression" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
+									<i class="fas fa-check-circle"></i>
+								</a>
+							</span>
+							<span class="icone_avis">
+								<a title="{pressions.tooltip_avis}" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
+									<i class="fas {pressions.icone_avis}"></i>
+								</a>
+							</span>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
 									<table class="detailPression">

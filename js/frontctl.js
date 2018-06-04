@@ -139,15 +139,16 @@ var frontCtl = {
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
 		$(avisId+" label.sauvegardeok").show();
+		var divAvisId=$(avisId).closest("div.formAvis").attr("id");
+		$("a[href='#"+divAvisId+"']").closest("tr.ligneavis").addClass("edition");
 		//$(document).trigger("sauvegardeok",avisId);
 	},
 	triggerEventsSauvegardeErreur:function(formAvisId)
 	{
 		//$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();
 		///$(document).trigger("sauvegardeok",avisId);
+		$(avisId+" label.sauvegarde").hide();
 		$(formAvisId+" label.sauvegardeerreur").show();
-		var avisId=$(formAvisId).closest("div.formAvis").attr("id");
-		$("a[href='#"+avisId+"']").closest("tr.ligneavis").addClass("edition");
 	},
 	validerAvis:function(event,formAvisId)
 	{
