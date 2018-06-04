@@ -1273,7 +1273,7 @@ class sdage_metier
 			die($this->db->getQuery());
 		}
 		$liste=$this->db->loadObjectList();
-		if(isset($this->params["dbgsql"])  && $this->params["mdo"]==1) die("Requete : ".$requete." => ".print_r($liste,true));
+		if(isset($this->params["dbgsql"])  && $this->params["dbgsql"]==1) die("Requete : ".$requete." => ".print_r($liste,true));
 		$format=isset(self::$formats_export[$this->auth->user_Rank])?self::$formats_export[$this->auth->user_Rank]:self::$formats_export["default"];
 		Tools::SendCSV($nomFichier, $liste,true,";",$format,true);
 		die();
