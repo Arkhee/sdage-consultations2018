@@ -1399,6 +1399,10 @@ class sdage_metier
 			} //while($edl->recNext());
 			$detailPressions=$this->template->pparse("detail-avis",true);
 		}
+		if($this->params["html"]==1)
+		{
+			die($detailPressions);
+		}
 		//die($detailPressions);
 		if($save)
 		{
