@@ -1868,6 +1868,7 @@ class sdage_metier
 		
 		$messagePourCreateur="<b>Confirmation de création de compte : </b><br />\r\n".$messagePourCommun."<br />\r\n".
 			"Pour déposer un avis, rendez-vous sur le lien suivant : <a href='".$this->getUrlConnexion()."'>Déposer un avis</a><br />\r\n".
+			"Utilisez l'adresse e-mail utilisée en tant qu'identifiant pour accéder au service : <b>".$user->user_Mail."</b><br />\r\n".
 			"En cas de problème lors de votre connexion contactez Fabienne Barratier à l'adresse <a href='mailto:Fabienne.BARRATIER@eaurmc.fr'>Fabienne.BARRATIER@eaurmc.fr</a><br />\r\n===========<br />\r\n".
 			"<hr />".file_get_contents(_APP_ROOT_DIR_.dirname($_SERVER["SCRIPT_NAME"])."/contenu_avertissement_saisie.php");
 		
