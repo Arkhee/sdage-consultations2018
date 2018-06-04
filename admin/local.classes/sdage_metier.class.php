@@ -1363,7 +1363,7 @@ class sdage_metier
 				(
 					array
 					(
-						
+						'user_rank' => $this->auth->user_Rank,
 						'id_avis' =>  $objAvis->id_avis,
 						'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
 						'id_massedeau' =>  $edl->id_massedeau,
