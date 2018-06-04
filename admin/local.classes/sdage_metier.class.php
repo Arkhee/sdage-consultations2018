@@ -51,7 +51,7 @@ class sdage_metier
 					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
 					"nom_pression"=> array("libelle"=>"Nom pression","format"=>"text","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
 					"impact_2016"=> array("libelle"=>"Impact SDAGE 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
-					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
+					//"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
 					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
 					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
 					"impact_2019"=> array("libelle"=>"Impact EDL 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
