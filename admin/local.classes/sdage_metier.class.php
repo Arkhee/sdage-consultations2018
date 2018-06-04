@@ -930,7 +930,7 @@ class sdage_metier
 		
 		if(!in_array($this->params["ssorder"],array("ASC","DESC")))
 			$this->params["ssorder"]="ASC";
-		if(!in_array($this->params["ssfield"],array("categorie_me","code_ssbv","libelle_me","code_me","code_ss_ut")))
+		if(!in_array($this->params["ssfield"],array("categorie_me","code_ssbv","libelle_me","code_me","code_ss_ut","code_ss_ut_sort")))
 			$this->params["ssfield"]="code_me";
 		$mySQLOrder=" ORDER BY ".$this->params["ssfield"]." ".$this->params["ssorder"];
 		$joinImpactOuPression="";
