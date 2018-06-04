@@ -1030,7 +1030,7 @@ class sdage_metier
 		
 		$curpage=isset($this->params["pagination"])?intval($this->params["pagination"]):1;
 		$curpage=($curpage<=0)?1:$curpage;
-		if($curpage*self::$pagination>$this->nbresultats)
+		if(($curpage-1)*self::$pagination>$this->nbresultats)
 		{
 			$curpage=1;
 			$this->params["pagination"]=1;
