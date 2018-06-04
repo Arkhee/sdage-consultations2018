@@ -259,3 +259,7 @@ div#leftMenu .identification
 
 div#leftMenu nav { margin-top:25px;}
 .search div#leftMenu nav { margin-top:0px;}
+
+.avisvalide { display:none;}
+tr.ligneavis.valide .avisvalide { display:block; }
+tr.ligneavis.valide .avisedition { display:none; }

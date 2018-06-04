@@ -562,43 +562,7 @@ class sdage_metier
 		}
 		return $arrPressions;
 	}
-	/*
-	public function chargePressionsDeCSVEtConsolideListeAvecBase($csv)
-	{
-		
-		//die("Enregistrements actuels dans les pressions : ".print_r($arrPressions,true));
-		$listePressionsDansFichier=array();
-		$nbAjouts=0;
-		foreach($csv as $curData)
-		{
-			$listePressionsDansFichier[$curData["Pression"]]=$curData["Pression"];
-			if(isset($arrPressions[$curData["Pression"]]))
-			{
-				$listePressionsDansFichier[$arrPressions[$curData["Pression"]]]=$curData["Pression"];
-				unset($listePressionsDansFichier[$curData["Pression"]]);
-			}
-		}
-		
-		foreach($listePressionsDansFichier as $keyCurPression => $valLblPression)
-		{
-			if($keyCurPression === $valLblPression)
-			{
-				$obj=new stdClass();
-				$obj->id_pression=null;
-				$obj->libelle_pression=$valLblPression;
-				$pressions=mdtb_table::InitObject("mdtb_ae_pressions");
-				$pressions->recNewRecord();
-				$pressions->recStore($obj);
-				$newId=$pressions->recKeyValue();
-				$listePressionsDansFichier[$newId]=$valLblPression;
-				unset($listePressionsDansFichier[$valLblPression]);
-			}
-		}
-		
-		$arrPressions=$this->chargePressions();
-		return $arrPressions;
-	}
-	*/
+	
 	public function handle_Avis()
 	{
 		global $ThePrefs;
@@ -1388,7 +1352,7 @@ class sdage_metier
 						"nbavis" => $edl->nbavis,
 						"avis_valide"=>$objAvis->avis_valide,
 						"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"",
-						"lien_avis_valide"=>$objAvis->avis_valide=="avis_valide"?("pdf.php?id_avis=".$objAvis->id_avis):"#",
+						"lien_avis_valide"=>("pdf.php?id_avis=".$objAvis->id_avis),
 						"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
 						"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
 						"impact_estime"=>$objAvis->impact_estime,
@@ -1424,6 +1388,126 @@ class sdage_metier
 			Tools::HTML2PDF($detailPressions,"avis-valide-".$this->params["id_avis"].".pdf");
 			die();
 		}
+	}
+	
+	
+	public function getUneLignePression()
+	{
+		// NON FINI ! NE PAS UTILISER
+		//$edl=mdtb_table::InitObject("mdtb_ae_edl_massesdeau");
+		$arrMassesDeau=$this->listeMassesDeau();
+		$arrSSBV=$this->listeSSBV("code");
+		$joinAvis="";
+		$countAvis="(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis"; 
+		if($this->auth->isLoaded())
+		{
+			$joinAvis=" RIGHT JOIN ae_avis ON (ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) ";
+			$countAvis="(SELECT COUNT(*) FROM ae_avis WHERE ae_avis.id_user=".$this->auth->user_ID." AND ae_avis.id_massedeau=ae_edl_massesdeau.id_massedeau AND ae_avis.id_pression=ae_edl_massesdeau.id_pression) AS nbavis"; 
+		}
+		//$edl->recSQLSearch($requeteSearch);
+		$requeteSQL="
+		SELECT ae_edl_massesdeau.*,
+		".$countAvis."
+		FROM ae_edl_massesdeau 
+		".$joinAvis."
+		WHERE ".$requeteSearch."
+		GROUP BY ae_edl_massesdeau.id_pression";
+		//die($requeteSQL);
+		$this->db->setQuery($requeteSQL);
+		$listeEdl=$this->db->loadObjectList();
+		$detailPressions="Aucune pression pour cette masse d'eau"; //.$requeteSQL;
+
+		foreach($this->search_result as $curme)
+		{
+
+
+
+
+			$mdtbAvis= mdtb_table::InitObject("mdtb_ae_avis");
+			if(is_array($listeEdl) && count($listeEdl)) //($edl->recFirst())
+			{
+				$arrPressions=$this->listePressions();
+				$this->template->clear_block_var("pressions");
+				foreach($listeEdl as $edl)  //do
+				{
+					if(!$this->authIsCollaborateur())
+					{
+						$edl->nbavis="-";
+						$edl->impact_valeur_forcee="-";
+					}
+					else
+					{
+						$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"Oui":"Non";
+					}
+
+					$objAvis=$mdtbAvis->getAvisPourPressionMdo($edl->id_pression,$edl->id_massedeau);
+
+					$arrpression_cause_du_risque=array();
+					$arrpression_cause_du_risque[]=array("id"=>"","value"=>"");
+					$arrpression_cause_du_risque[]=array("id"=>"1","value"=>"Oui");
+					$arrpression_cause_du_risque[]=array("id"=>"0","value"=>"Non");
+					$CMB_PRESSION_CAUSE_DU_RISQUE=mdtb_forms::combolist("pression_cause_du_risque",$arrpression_cause_du_risque,$objAvis->pression_cause_du_risque);
+					//die("cmb pression  : ".print_r($CMB_PRESSION_CAUSE_DU_RISQUE,true));
+					$arrImpacts=array(); //array("id"=>"","value"=>""));
+					$arrImpacts[]=array("id"=>"","value"=>"");
+					for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
+					$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
+					$icone_avis="fa-plus-circle";
+					$tooltip_avis="Vous n'avez pas encore donné votre avis sur cette pression";
+					if($objAvis->avis_valide=="avis_valide")
+					{
+						$icone_avis="fa-check-circle";
+						$tooltip_avis="Vous avez validé l'avis donné sur cette pression";
+					}
+					elseif($objAvis->impact_estime!="")
+					{
+						$icone_avis="fa-edit";
+						$tooltip_avis="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé";
+					}
+					//die("Boucle sur edl : ".print_r($listeEdl,true));
+					$this->template->assign_vars
+					(
+						array
+						(
+
+							'id_avis' =>  $objAvis->id_avis,
+							'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
+							'id_massedeau' =>  $edl->id_massedeau,
+							'libelle_me' => $arrMassesDeau[$edl->id_massedeau]->libelle_me,
+							'categorie_me' => $arrMassesDeau[$edl->id_massedeau]->categorie_me,
+							'code_ssbv' => $arrMassesDeau[$edl->id_massedeau]->code_ssbv,
+							'libelle_ssbv' => $arrSSBV[$arrMassesDeau[$edl->id_massedeau]->code_ssbv]->libelle_ssbv,
+							'id_pression' => $edl->id_pression,
+							'libelle_pression' => $arrPressions[$edl->id_pression],
+							'impact_2016' => $edl->impact_2016,
+							'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"Oui":"Non",
+							'impact_2019' => $edl->impact_2019,
+							'rnaoe_2021' => $edl->rnaoe_2021?"Oui":"Non",
+							'pression_origine_2021' => $edl->pression_origine_2021?"Oui":"Non",
+							'rnaoe_2027' => $edl->rnaoe_2021?"Oui":"Non",
+							'pression_origine_2027'=> $edl->pression_origine_2027?"Oui":"Non",
+							"nbavis" => $edl->nbavis,
+							"avis_valide"=>$objAvis->avis_valide,
+							"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"En cours d'édition",
+							"lien_avis_valide"=>$objAvis->avis_valide=="avis_valide"?("pdf.php?id_avis=".$objAvis->id_avis):"#",
+							"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
+							"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
+							"impact_estime"=>$objAvis->impact_estime,
+							"icone_avis"=>$icone_avis,
+							"tooltip_avis"=>$tooltip_avis,
+							"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque,
+							"justification"=>$objAvis->commentaires,
+							"justification_length"=>strlen($objAvis->commentaires),
+							"lien_documents"=>$objAvis->lien_documents,
+							"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
+							"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
+						)
+					);
+				}
+				$detailPressions=$this->template->pparse("ligne-pression.tpl",true);
+			}
+		}
+				
 	}
 	
 	

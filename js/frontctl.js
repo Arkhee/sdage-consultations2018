@@ -127,13 +127,16 @@ var frontCtl = {
 		*/
 		
 	},
-	validerAvis:function(avisId)
+	validerAvis:function(retourajax)
 	{
+		var avisId=typeof(retourajax.avisId)!=="undefined"?retourajax.avisId:"";
+		var htmlLigneAvis=typeof(retourajax.htmlLigneAvis)!=="undefined"?retourajax.htmlLigneAvis:"";
 		$(avisId+" label.validationok").show();
 		$(avisId+" input.boutonaction").remove();
-		$(avisId+" input").disable();
-		$(avisId+" select").disable();
-		$(avisId+" disable").disable();
+		$(avisId+" input").prop('disabled', true);
+		$(avisId+" select").prop('disabled', true);
+		$(avisId+" disable").prop('disabled', true);
+		$(avisId).closest("tr.ligneavis").addClass("valide");
 		//$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
 		//$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
 		//$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";

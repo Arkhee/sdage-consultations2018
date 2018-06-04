@@ -7,14 +7,23 @@
 						<th align='center' class='avis'>Avis</th>
 					</tr>
 					<!-- BEGIN pressions -->
-					<tr>
+					<tr class="ligneavis">
 						<td>{pressions.libelle_pression}</td>
 						<td align='center'>{pressions.date_modification}</td>
-						<td align='center'><a target=exit_blank" href="{pressions.lien_avis_valide}" title="Télécharger le certificat">{pressions.lbl_avis_valide}</a></td>
+						<td align='center'>
+							<a class="avisvalide" target="_blank" href="{pressions.lien_avis_valide}" title="Télécharger le certificat">Avis validé</a>
+							<span class="avisedition">En cours d'édition</span>
+						</td>
 						<td align='center'>{pressions.date_validation}</td>
-						<td align='center'><span class="icone_avis"><a title="{pressions.tooltip_avis}" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
-								<i class="fas {pressions.icone_avis}"></i>
-							</a></span>
+						<td align='center'>
+							<span class="icone_avis">
+								<a title="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='avisedition fancybox'>
+									<i class="fas fa-edit"></i>
+								</a>
+								<a title="Vous avez validé l'avis donné sur cette pression" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='avisvalide fancybox'>
+									<i class="fas fa-check-circle"></i>
+								</a>
+							</span>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
 									<table class="detailPression">
