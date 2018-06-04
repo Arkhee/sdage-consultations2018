@@ -1351,6 +1351,7 @@ class sdage_metier
 						'pression_origine_2027'=> $edl->pression_origine_2027?"Oui":"Non",
 						"nbavis" => $edl->nbavis,
 						"avis_valide"=>$objAvis->avis_valide,
+						"class_avis_valide"=>$objAvis->avis_valide?"valide":"",
 						"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"",
 						"lien_avis_valide"=>("pdf.php?id_avis=".$objAvis->id_avis),
 						"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),

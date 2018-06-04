@@ -7,7 +7,7 @@
 						<th align='center' class='avis'>Avis</th>
 					</tr>
 					<!-- BEGIN pressions -->
-					<tr class="ligneavis">
+					<tr class="ligneavis {pressions.class_avis_valide}">
 						<td>{pressions.libelle_pression}</td>
 						<td align='center'>{pressions.date_modification}</td>
 						<td align='center'>
