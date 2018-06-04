@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			<label for="justification" style="font-weight:bold">Justification</label>
-			<div >{justification}</div>
+			<div style="word-wrap:break-word; ">{justification}</div>
 			<label for="documents" style="font-weight:bold">Documents joints</label>
 			<p>{lien_documents}</p>	
 		</td></tr>
