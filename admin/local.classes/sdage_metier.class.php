@@ -1201,11 +1201,11 @@ class sdage_metier
 		if(!$this->auth->isLoaded()) die("Non authentifié");
 		if($this->auth->user_Rank!="coll")
 		{
-			$isColl=true;
 			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND edl.id_pression=a.id_pression AND a.id_user=".$this->auth->user_ID;
 		}
 		else
 		{
+			$isColl=true;
 			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND a.id_avis IS NOT NULL AND edl.id_pression=a.id_pression ";
 			if(isset($this->params["mdo"]) && $this->params["mdo"]=="1")
 			{
@@ -1273,7 +1273,7 @@ class sdage_metier
 			die($this->db->getQuery());
 		}
 		$liste=$this->db->loadObjectList();
-		//die("Requete : ".$requete." => ".print_r($liste,true));
+		if(isset($this->params["dbgsql"])  && $this->params["mdo"]==1) die("Requete : ".$requete." => ".print_r($liste,true));
 		$format=isset(self::$formats_export[$this->auth->user_Rank])?self::$formats_export[$this->auth->user_Rank]:self::$formats_export["default"];
 		Tools::SendCSV($nomFichier, $liste,true,";",$format,true);
 		die();
