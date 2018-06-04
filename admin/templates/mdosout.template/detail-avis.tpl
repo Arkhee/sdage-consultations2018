@@ -26,23 +26,6 @@
 				</table>
 			</td>
 		</tr>
-		<tr><td>
-			<div class="formulaire_avis {avis_valide}" style="width:1000px;">
-				<div class='avis_lecture'>
-					<h3>Votre avis validé sur le risque estimé</h3>
-					<label for="date_de_validation" style="font-weight:bold">Date de validation</label>
-					<p>{date_validation}</p>
-					<label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label>
-					<p>{pression_cause_du_risque}</p>
-					<label for="impact_estime" style="font-weight:bold">Impact estimé</label>
-					<p>{impact_estime}</p>
-				</div>
-			</div>
-			<label for="justification" style="font-weight:bold">Justification</label>
-			<div style="word-wrap:break-word; ">{justification}</div>
-			<label for="documents" style="font-weight:bold">Documents joints</label>
-			<p>{lien_documents}</p>	
-		</td></tr>
 	</table>
 	<div class="formulaire_avis {avis_valide}" style="width:1000px;">
 		<div class='avis_lecture'>
@@ -54,7 +37,7 @@
 			<label for="impact_estime" style="font-weight:bold">Impact estimé</label>
 			<p>{impact_estime}</p>
 			<label for="justification" style="font-weight:bold">Justification</label>
-			<p width="400px">{justification}</p>
+			<p  style="word-wrap:break-word;">{justification}</p>
 			<label for="documents" style="font-weight:bold">Documents joints</label>
 			<p>{lien_documents}</p>
 		</div>
