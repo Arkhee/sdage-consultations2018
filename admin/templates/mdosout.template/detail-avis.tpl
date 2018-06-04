@@ -37,7 +37,7 @@
 			<label for="impact_estime" style="font-weight:bold">Impact estimé</label>
 			<p>{impact_estime}</p>
 			<label for="justification" style="font-weight:bold">Justification</label>
-			<p width="500px">{justification}</p>
+			<p width="400px">{justification}</p>
 			<label for="documents" style="font-weight:bold">Documents joints</label>
 			<p>{lien_documents}</p>
 		</div>
