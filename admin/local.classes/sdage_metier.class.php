@@ -743,6 +743,7 @@ class sdage_metier
 					/* Finalisation des actions de confirmation */
 					$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
 					$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
+					$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
 				}
 			}
 			$this->msg_info.="<script>
