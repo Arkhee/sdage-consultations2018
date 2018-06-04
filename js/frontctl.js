@@ -7,6 +7,7 @@ var frontCtl = {
 			$( "#tabs" ).tabs();
 		}
 		$(document).on("valideravis",frontCtl.validerAvis);
+		$(document).on("sauvegardeok",frontCtl.sauvegardeOk);
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
 			var ph=$(this).find("label").attr("placeholder");
@@ -126,6 +127,11 @@ var frontCtl = {
 		});
 		*/
 		
+	},
+	sauvegardeOk:function(avisId)
+	{
+		$(avisId).addClass("sauvegardeok");
+		$(avisId+" label.sauvegarde").hide();
 	},
 	validerAvis:function(avisId)
 	{

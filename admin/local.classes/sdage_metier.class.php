@@ -713,11 +713,12 @@ class sdage_metier
 				}
 			}
 			$this->msg_info.="<script>
+				window.parent.$(document).trigger('sauvegardeok','#".$this->params["id_form_avis"]."');
 				$('#".$this->params["id_form_avis"]."', window.parent.document).addClass('sauvegardeok');
 				$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
 				".$action."	
 			 </script>";
-			die();
+			die($this->msg_info);
 			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
 			return false;
 		}
