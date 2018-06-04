@@ -261,6 +261,7 @@ div#leftMenu nav { margin-top:25px;}
 .search div#leftMenu nav { margin-top:0px;}
 
 .avisvalide.avisedition { display:none;}
+tr.ligneavis.acreer .avisedition,tr.ligneavis.acreer .avisvalide { display:none;}
 tr.ligneavis.valide .avisvalide { display:block; }
 tr.ligneavis.valide .avisedition { display:none; }
 tr.ligneavis.edition .avisedition { display:block; }
