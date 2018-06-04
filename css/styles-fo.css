@@ -228,3 +228,16 @@ Styles spécifiques pour gérer un sous-menu horizontalisé en page de recherche
 {
 	float:right;
 }
+
+
+.search  #leftMenu > ul.dropdown-menu {
+    border:1px solid #3C679E;
+}
+.search  #leftMenu > ul.dropdown-menu ul {
+    border:none;
+}
+
+
+.search div#leftMenu {
+    top: -7px;
+}
