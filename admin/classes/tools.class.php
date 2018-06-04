@@ -1252,7 +1252,11 @@ class Tools
 			{
 				foreach($myArrayTable[0] as $keyval=>$headvalue)
 				{
-					if(is_array($formats) && count($formats) && !isset($formats[$keyval])) unset($curarray[$keyval]);
+					if(is_array($formats) && count($formats) && !isset($formats[$keyval]))
+					{
+						unset($curarray[$keyval]);
+						continue;
+					}
 					if($first)
 					{
 						$lblHeader=$keyval;
