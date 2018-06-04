@@ -92,7 +92,12 @@
 												<textarea onchange="frontCtl.checkLengthOnChange(this);" onkeyup="frontCtl.checkLengthOnChange(this);" onkeydown="frontCtl.checkLengthOnKeyPress(this);" name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
 												<div class="compteurschars"><span class="longueur_max">Longueur maximale atteinte</span>&nbsp;<span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
-												{pressions.lien_documents}
+												<span class='{pressions.class_documents}'>
+													{pressions.lien_documents}
+													<button type='submit' name='supprimerPJ' class='boutonSupprimerPJ' value='Supprimer le document'>
+														<i class="fa fa-trash" aria-hidden="true"></i>
+													</button>
+												</span>
 												<input type="file" name="documents" id="documents">
 
 												<div class="blocValidationFormulaire">
