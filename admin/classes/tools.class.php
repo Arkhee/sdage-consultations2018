@@ -1241,7 +1241,15 @@ class Tools
 		 */
 		foreach($myArrayTable as $keyarray=> $curarray)
 		{
-			if(is_object($curarray)) $myArrayTable[$keyarray]=(array)$curarray;
+			if(is_object($curarray)) $curarray=(array)$curarray;
+			foreach($curarray as $keyval=>$value)
+			{
+				if(is_array($formats) && count($formats) && !isset($formats[$keyval]))
+				{
+					unset($curarray[$keyval]);
+				}
+			}
+			$myArrayTable[$keyarray]=(array)$curarray;
 		}
 		//die(print_r($myArrayTable,true));
 		
