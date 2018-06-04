@@ -1252,7 +1252,7 @@ class Tools
 			{
 				foreach($myArrayTable[0] as $keyval=>$headvalue)
 				{
-					if(is_array($formats) && count($formats) && !isset($formats[$keyval])) continue;
+					if(is_array($formats) && count($formats) && !isset($formats[$keyval])) unset($curarray[$keyval]);
 					if($first)
 					{
 						$lblHeader=$keyval;
@@ -1265,26 +1265,24 @@ class Tools
 						$headers[]=$lblHeader;
 					}
 					if(!isset($curarray[$keyval])) $curarray[$keyval]="";
-					//if(!$first)
+					switch($headerFormats[$keyval]["format"])
 					{
-						switch($headerFormats[$keyval]["format"])
-						{
-							case "default":
-							default:
-								if(is_string($curarray[$keyval])) $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
-								break;
-							case "text":
-								$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
-								break;
-							case "int":
-								$curarray[$keyval]=intval($curarray[$keyval]);
-								break;
-							case "bool":
-								$curarray[$keyval]=intval($curarray[$keyval]);
-								$curarray[$keyval]=$curarray[$keyval]?"1":"0";
-								break;
-						}
+						case "default":
+						default:
+							if(is_string($curarray[$keyval])) $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							break;
+						case "text":
+							$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							break;
+						case "int":
+							$curarray[$keyval]=intval($curarray[$keyval]);
+							break;
+						case "bool":
+							$curarray[$keyval]=intval($curarray[$keyval]);
+							$curarray[$keyval]=$curarray[$keyval]?"1":"0";
+							break;
 					}
+					
 					$myArrayTable[$keyarray][$keyval]=$curarray[$keyval]; //str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval]));
 				}
 				$first=false;
