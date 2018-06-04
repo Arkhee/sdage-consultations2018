@@ -127,10 +127,8 @@ var frontCtl = {
 		*/
 		
 	},
-	validerAvis:function(retourajax)
+	validerAvis:function(avisId)
 	{
-		var avisId=typeof(retourajax.avisId)!=="undefined"?retourajax.avisId:"";
-		var htmlLigneAvis=typeof(retourajax.htmlLigneAvis)!=="undefined"?retourajax.htmlLigneAvis:"";
 		$(avisId+" label.validationok").show();
 		$(avisId+" input.boutonaction").remove();
 		$(avisId+" input").prop('disabled', true);
