@@ -36,11 +36,11 @@
 			<p>{pression_cause_du_risque}</p>
 			<label for="impact_estime" style="font-weight:bold">Impact estimé</label>
 			<p>{impact_estime}</p>
-			<label for="justification" style="font-weight:bold">Justification</label>
-			<p  style="word-wrap:break-word;">{justification}</p>
-			<label for="documents" style="font-weight:bold">Documents joints</label>
-			<p>{lien_documents}</p>
 		</div>
 
 	</div>
+	<label for="justification" style="font-weight:bold">Justification</label>
+	<p  style="word-wrap:break-word;">{justification}</p>
+	<label for="documents" style="font-weight:bold">Documents joints</label>
+	<p>{lien_documents}</p>
 </div>
