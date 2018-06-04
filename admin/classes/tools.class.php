@@ -1264,7 +1264,7 @@ class Tools
 						}
 						$headers[]=$lblHeader;
 					}
-					if(!isset($curarray[$keyval])) $curarray[$keyval]="";
+					if(!isset($curarray[$keyval]) && is_array($formats) && count($formats) && isset($formats[$keyval])) $curarray[$keyval]="";
 					switch($headerFormats[$keyval]["format"])
 					{
 						case "default":
