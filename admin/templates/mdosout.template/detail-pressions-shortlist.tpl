@@ -11,7 +11,7 @@
 						<td>{pressions.libelle_pression}</td>
 						<td align='center'>{pressions.date_modification}</td>
 						<td align='center'>
-							<a class="avisvalide" target="_blank" href="{pressions.lien_avis_valide}" title="Télécharger le certificat">Avis validé</a>
+							<a class="avisvalide" target="_blank" href="{pressions.lien_avis_valide}" title="Télécharger le certificat">Avis validé &nbsp;<i class="far fa-file-pdf"></i></a>
 							<span class="avisedition">En cours d'édition</span>
 						</td>
 						<td align='center'>{pressions.date_validation}</td>
