@@ -139,15 +139,16 @@ var frontCtl = {
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
 	},
-	validerAvis:function(event,avisId)
+	validerAvis:function(event,formAvisId)
 	{
 		console.log("Trigger : validerAvis avec avis "+avisId);
-		$(avisId+" label.validationok").show();
-		$(avisId+" input.boutonaction").remove();
-		$(avisId+" input").prop('disabled', true);
-		$(avisId+" select").prop('disabled', true);
-		$(avisId+" textarea").prop('disabled', true);
-		$(avisId).closest("tr").addClass("valide");
+		$(formAvisId+" label.validationok").show();
+		$(formAvisId+" input.boutonaction").remove();
+		$(formAvisId+" input").prop('disabled', true);
+		$(formAvisId+" select").prop('disabled', true);
+		$(formAvisId+" textarea").prop('disabled', true);
+		var avisId=$(formAvisId).closest("div.formAvis").attr("id");
+		$("a[href='#"+avisId+"']").closest("tr.ligneavis").addClass("valide");
 		//$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
 		//$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
 		//$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
