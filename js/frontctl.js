@@ -146,7 +146,7 @@ var frontCtl = {
 		$(avisId+" input.boutonaction").remove();
 		$(avisId+" input").prop('disabled', true);
 		$(avisId+" select").prop('disabled', true);
-		$(avisId+" disable").prop('disabled', true);
+		$(avisId+" textarea").prop('disabled', true);
 		$(avisId).closest("tr.ligneavis").addClass("valide");
 		//$action="$('#".$this->params["id_form_avis"]." label.validationok', window.parent.document).show();";
 		//$action.="$('#".$this->params["id_form_avis"]." input.boutonaction', window.parent.document).remove();";
