@@ -262,8 +262,10 @@ div#leftMenu nav { margin-top:25px;}
 
 .avisvalide.avisedition { display:none;}
 tr.ligneavis.acreer .avisedition,tr.ligneavis.acreer .avisvalide { display:none;}
+tr.ligneavis.edition .avisvalide { display:none; }
+tr.ligneavis.edition .avisedition { display:block; }
 tr.ligneavis.valide .avisvalide { display:block; }
 tr.ligneavis.valide .avisedition { display:none; }
-tr.ligneavis.edition .avisedition { display:block; }
-tr.ligneavis.edition .avisvalide { display:none; }
+tr.ligneavis.valide.edition .avisedition { display:none; }
+tr.ligneavis.valide.edition .avisvalide { display:block; }
 tr.ligneavis.valide .avisacreer, tr.ligneavis.edition .avisacreer {display:none;}
