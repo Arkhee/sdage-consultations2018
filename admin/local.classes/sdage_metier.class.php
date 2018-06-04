@@ -717,6 +717,7 @@ class sdage_metier
 				$('#".$this->params["id_form_avis"]." label.sauvegarde', window.parent.document).hide();
 				".$action."	
 			 </script>";
+			die();
 			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
 			return false;
 		}
