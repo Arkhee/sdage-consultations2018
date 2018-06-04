@@ -1390,7 +1390,7 @@ class sdage_metier
 						"icone_avis"=>$icone_avis,
 						"tooltip_avis"=>$tooltip_avis,
 						"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque==1?"Oui":"Non",
-						"justification"=>$objAvis->commentaires,
+						"justification"=>str_replace("\r\n","<br />\r\n",$objAvis->commentaires),
 						"lien_documents"=>$objAvis->lien_documents,
 						"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
 						"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
