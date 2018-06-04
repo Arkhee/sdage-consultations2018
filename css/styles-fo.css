@@ -208,3 +208,14 @@ body.connecte_crea span.icone_avis { display:inline;}
 {
 	margin-bottom:4px;
 }
+
+/*
+Styles spécifiques pour gérer un sous-menu horizontalisé en page de recherche
+*/
+.search div#leftMenu nav > ul > li > a {
+    display: none;
+}
+
+.search div#leftMenu nav > ul > li > ul li {
+	float:right;
+}
