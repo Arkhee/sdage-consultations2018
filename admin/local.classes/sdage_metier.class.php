@@ -566,7 +566,8 @@ class sdage_metier
 	public function handle_Avis()
 	{
 		global $ThePrefs;
-		$action="$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();";
+		//$action="$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();";
+		$action="window.parent.frontCtl.triggerEventsSauvegardeErreur('#".$this->params["id_form_avis"]."');";
 		$this->params["id_pression"]=intval($this->params["id_pression"]);
 		$this->params["id_massedeau"]=intval($this->params["id_massedeau"]);
 		$this->params["justification"]=trim($this->params["justification"]);
@@ -670,7 +671,7 @@ class sdage_metier
 							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename ERREUR\r\n",FILE_APPEND);
 						}
 					}
-					$action="$('#".$this->params["id_form_avis"]." label.sauvegardeok', window.parent.document).show();";
+					$action="window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');";
 				}
 				else
 				{
@@ -714,7 +715,7 @@ class sdage_metier
 				}
 			}
 			$this->msg_info.="<script>
-				window.parent.$(document).trigger('sauvegardeok','#".$this->params["id_form_avis"]."');
+				window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
 				".$action."	
 			 </script>";
 			die($this->msg_info);
@@ -1617,14 +1618,17 @@ class sdage_metier
 						for($i=1;$i<=3;$i++) { $arrImpacts[]=array("id"=>$i,"value"=>$i); }
 						$CMB_IMPACT_ESTIME=mdtb_forms::combolist("impact_estime",$arrImpacts,$objAvis->impact_estime);
 						$icone_avis="fa-plus-circle";
+						$classe_avis="acreer";
 						$tooltip_avis="Vous n'avez pas encore donné votre avis sur cette pression";
 						if($objAvis->avis_valide=="avis_valide")
 						{
+							$classe_avis="valide";
 							$icone_avis="fa-check-circle";
 							$tooltip_avis="Vous avez validé l'avis donné sur cette pression";
 						}
 						elseif($objAvis->impact_estime!="")
 						{
+							$classe_avis="edition";
 							$icone_avis="fa-edit";
 							$tooltip_avis="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé";
 						}
@@ -1669,7 +1673,7 @@ class sdage_metier
 								"avis_valide"=>$objAvis->avis_valide,
 								"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"En cours d'édition",
 								"lien_avis_valide"=>$objAvis->avis_valide=="avis_valide"?("pdf.php?id_avis=".$objAvis->id_avis):"#",
-								"class_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"valide":"",
+								"class_avis_valide"=>$classe_avis, //$objAvis->avis_valide=="avis_valide"?"valide":"",
 								"date_modification"=>date("d/m/Y",strtotime($objAvis->date_modification)),
 								"date_validation"=>$objAvis->date_validation!="0000-00-00 00:00:00"?date("d/m/Y",strtotime($objAvis->date_validation)):"",
 								"impact_estime"=>$objAvis->impact_estime,

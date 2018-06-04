@@ -10,7 +10,7 @@
 						<th align='center' class='avis'>Avis</th>
 					</tr>
 					<!-- BEGIN pressions -->
-					<tr>
+					<tr class='ligneavis {pressions.class_avis_valide}'>
 						<td>{pressions.libelle_pression}</td>
 						<td align='center'>{pressions.impact_2016}</td>
 						<td align='center' class='valeur_forcee'>{pressions.impact_valeur_forcee}</td>

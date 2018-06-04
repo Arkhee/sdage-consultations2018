@@ -7,7 +7,6 @@ var frontCtl = {
 			$( "#tabs" ).tabs();
 		}
 		$(document).on("valideravis",frontCtl.validerAvis);
-		$(document).on("sauvegardeok",frontCtl.sauvegardeOk);
 		$(".blocfiltre").each(function(){
 			var selectel=$(this).find("select");
 			var ph=$(this).find("label").attr("placeholder");
@@ -130,14 +129,22 @@ var frontCtl = {
 	},
 	triggerEventsValidation:function(avisId)
 	{
-		$(document).trigger("sauvegardeok",avisId);
+		///$(document).trigger("sauvegardeok",avisId);
 		$(document).trigger("valideravis",avisId);
 	},
-	sauvegardeOk:function(event,avisId)
+	triggerEventsSauvegarde:function(avisId)
 	{
+		///$(document).trigger("sauvegardeok",avisId);
 		console.log("Trigger : sauvegardeOk avec avis "+avisId);
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
+		//$(document).trigger("sauvegardeok",avisId);
+	},
+	triggerEventsSauvegardeErreur:function(formAvisId)
+	{
+		//$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();
+		///$(document).trigger("sauvegardeok",avisId);
+		$(formAvisId+" label.sauvegardeerreur").show();
 	},
 	validerAvis:function(event,formAvisId)
 	{
