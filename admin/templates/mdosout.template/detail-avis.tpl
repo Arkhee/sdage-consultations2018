@@ -14,7 +14,6 @@
 			<td valign="top" style="width:50%;">
 				<table class="detailGroupe" style="border:1px solid #666; margin-bottom:5px;width:100%;">
 					<tr><td style="font-weight:bold">Classe d'impact 2016</td><td>{impact_2016}</td></tr>
-					<tr class='valeur_forcee' style="font-weight:bold"><td>Valeur forcée impact SDAGE 2016</td><td>{impact_valeur_forcee}</td></tr>
 					<tr><td style="font-weight:bold">RNABE 2021</td><td>{rnaoe_2021}</td></tr>
 					<tr><td style="font-weight:bold">Pression à l'origine du risque 2021</td><td>{pression_origine_2021}</td></tr>
 				</table>
