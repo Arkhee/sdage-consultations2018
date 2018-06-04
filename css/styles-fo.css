@@ -265,3 +265,4 @@ tr.ligneavis.valide .avisvalide { display:block; }
 tr.ligneavis.valide .avisedition { display:none; }
 tr.ligneavis.edition .avisedition { display:block; }
 tr.ligneavis.edition .avisvalide { display:none; }
+tr.ligneavis.valide .avisacreer, tr.ligneavis.edition .avisacreer {display:none;}

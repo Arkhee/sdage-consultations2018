@@ -29,11 +29,6 @@
 									<i class="fas fa-check-circle"></i>
 								</a>
 							</span>
-							<span class="icone_avis">
-								<a title="{pressions.tooltip_avis}" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
-									<i class="fas {pressions.icone_avis}"></i>
-								</a>
-							</span>
 							<div style='display:none;'>
 								<div class='formAvis' id='avis_pression_{pressions.id_pression}_{pressions.id_massedeau}'>
 									<table class="detailPression">
