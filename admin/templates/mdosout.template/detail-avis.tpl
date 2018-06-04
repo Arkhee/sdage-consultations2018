@@ -29,8 +29,8 @@
 	</table>
 	<div class="formulaire_avis {avis_valide}" style="width:1000px;">
 		<div class='avis_lecture'>
-			<h3>Avis n°{id_avis}</h3>
 			<h3>Votre avis validé sur le risque estimé</h3>
+			<h4>Avis n°{id_avis}</h4>
 			<label for="date_de_validation" style="font-weight:bold">Date de validation</label>
 			<p>{date_validation}</p>
 			<label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label>
