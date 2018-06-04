@@ -52,7 +52,7 @@
 											</td>
 										</tr>
 									</table>
-									<div class="formulaire_avis {pressions.avis_valide}">
+									<div class="formulaire_avis {pressions.class_avis_valide}">
 										<div class='avis_lecture'>
 											<h3>Donnez votre avis sur le niveau d'impact estimé - Validé</h3>
 											<label for="pression_cause_du_risque">Pression cause du risque</label>
