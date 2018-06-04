@@ -1293,6 +1293,10 @@ class Tools
 							$curarray[$keyval]=intval($curarray[$keyval]);
 							$curarray[$keyval]=$curarray[$keyval]?"1":"0";
 							break;
+						case "ouinon":
+							$curarray[$keyval]=intval($curarray[$keyval]);
+							$curarray[$keyval]=$curarray[$keyval]?"Oui":"Non";
+							break;
 					}
 					
 					$myArrayTable[$keyarray][$keyval]=$curarray[$keyval]; //str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval]));

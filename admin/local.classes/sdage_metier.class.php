@@ -58,7 +58,7 @@ class sdage_metier
 					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
 					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
 					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
-					"pression_cause_du_risque"=> array("libelle"=>"Pression cause du risque","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CAUSE_RISQUE"),
+					"pression_cause_du_risque"=> array("libelle"=>"Pression cause du risque","format"=>"ouinon","formatavance"=>"1/0","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CAUSE_RISQUE"),
 					"impact_estime"=> array("libelle"=>"Impact estimé","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_IMPACT_ESTIME"),
 					"NomStructure"=> array("libelle"=>"Structure","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_STRUCTURE"),
 					"NomCreateur"=> array("libelle"=>"Nom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_NOM"),
