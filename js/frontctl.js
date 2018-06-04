@@ -138,6 +138,7 @@ var frontCtl = {
 		console.log("Trigger : sauvegardeOk avec avis "+avisId);
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
+		$(avisId+" label.sauvegardeok").show();
 		//$(document).trigger("sauvegardeok",avisId);
 	},
 	triggerEventsSauvegardeErreur:function(formAvisId)
@@ -145,10 +146,13 @@ var frontCtl = {
 		//$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();
 		///$(document).trigger("sauvegardeok",avisId);
 		$(formAvisId+" label.sauvegardeerreur").show();
+		var avisId=$(formAvisId).closest("div.formAvis").attr("id");
+		$("a[href='#"+avisId+"']").closest("tr.ligneavis").addClass("edition");
 	},
 	validerAvis:function(event,formAvisId)
 	{
 		console.log("Trigger : validerAvis avec avis "+avisId);
+		$(formAvisId+" label.sauvegarde").hide();
 		$(formAvisId+" label.validationok").show();
 		$(formAvisId+" input.boutonaction").remove();
 		$(formAvisId+" input").prop('disabled', true);
