@@ -70,7 +70,7 @@ $myBaseGestion=new stdClass();
 		</div>
 	</nav>
 	
-	<div id="content" class="container pageSetup">
+	<div id="content" class="container pageSetup <?php echo $myClasseMetierMDOSout->section; ?>">
 		<div id="contentHeader" class="row">
 			<div id="accueilBandeChemin" class="col-md-8"><!-- InstanceBeginEditable name="chemin" --><a href="index.php">Impact des pressions sur les masses d'eau</a><!-- InstanceEndEditable --></div>
 			<div class="col-md-4">
@@ -88,6 +88,7 @@ $myBaseGestion=new stdClass();
 		}
 		else
 		{
+			require_once("menu_lateral_complementaire.php");
 			?>
 			<div id="leftMenu" class="col-md-3 col-sm-1 col-xs-1" role="complementary" style='display: none;'>
 			</div>
