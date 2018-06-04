@@ -133,13 +133,13 @@ var frontCtl = {
 		$(document).trigger("sauvegardeok",avisId);
 		$(document).trigger("validerAvis",avisId);
 	},
-	sauvegardeOk:function(avisId)
+	sauvegardeOk:function(event,avisId)
 	{
 		console.log("Trigger : sauvegardeOk avec avis "+avisId);
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
 	},
-	validerAvis:function(avisId)
+	validerAvis:function(event,avisId)
 	{
 		console.log("Trigger : validerAvis avec avis "+avisId);
 		$(avisId+" label.validationok").show();
