@@ -1220,7 +1220,7 @@ class Tools
 	}
 	
 	
-	public static function SendCSV($theFileName,$theData,$theHasHeader=true,$theSeparateur=";")
+	public static function SendCSV($theFileName,$theData,$theHasHeader=true,$theSeparateur=";",$formats,$isUtf8=false)
 	{
 		$mySeparateurCSV=$theSeparateur;
 		if(!isset($mySeparateurCSV) || is_null($mySeparateurCSV) || $mySeparateurCSV===false){
@@ -1231,6 +1231,7 @@ class Tools
 		$headers=array();
 		$headerLine="";
 		$myArrayTable=$theData;
+		$headerFormats=array();
 		/*
 		 * Formatage des donnees
 		 */
@@ -1253,10 +1254,37 @@ class Tools
 				{
 					if($first)
 					{
-						$headers[]=$keyval;
+						$lblHeader=$keyval;
+						if(is_array($formats) && count($formats) && isset($formats[$keyval]))
+						{
+							$headerFormats[$keyval]["libelle"]=isset($formats[$keyval]["libelle"])?utf8_decode($formats[$keyval]["libelle"]):$keyval;
+							$headerFormats[$keyval]["format"]=isset($formats[$keyval]["format"])?$formats[$keyval]["format"]:"default";
+							$lblHeader=$headerFormats[$keyval]["libelle"];
+						}
+						$headers[]=$lblHeader;
 					}
-					if(!isset($curarray[$keyval])) $curarray[$keyval]="";							
-					$myArrayTable[$keyarray][$keyval]=str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval]));
+					if(!isset($curarray[$keyval])) $curarray[$keyval]="";
+					if(!$first)
+					{
+						switch($headerFormats[$keyval]["format"])
+						{
+							case "default":
+							default:
+								if(is_string($curarray[$keyval])) $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+								break;
+							case "text":
+								$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+								break;
+							case "int":
+								$curarray[$keyval]=intval($curarray[$keyval]);
+								break;
+							case "bool":
+								$curarray[$keyval]=intval($curarray[$keyval]);
+								$curarray[$keyval]=$curarray[$keyval]?"1":"0";
+								break;
+						}
+					}
+					$myArrayTable[$keyarray][$keyval]=$curarray[$keyval]; //str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval]));
 				}
 				$first=false;
 			}
@@ -1269,11 +1297,13 @@ class Tools
 		 * Sortie fichier
 		 */
 		$tmpFileForDownload = tmpfile();
+		if($isUtf8) $headerLine=utf8_encode($headerLine);
 		fwrite($tmpFileForDownload, $headerLine);
 		$myFileSize=strlen($headerLine);
 		foreach($myArrayTable as $keyarray=>$curarray)
 		{
-			$myLine= utf8_decode("\"".Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\"\r\n");
+			if($isUtf8) $myLine= (Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\r\n");
+			else $myLine= utf8_decode(Tools::arrayImplode("\"".$mySeparateurCSV."\"",$myArrayTable[$keyarray])."\r\n");
 			//die("Ligne : ".$myLine);
 			$myFileSize+=strlen($myLine);
 			fwrite($tmpFileForDownload, $myLine);

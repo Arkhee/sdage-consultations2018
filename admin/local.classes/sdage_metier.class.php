@@ -19,6 +19,75 @@ class sdage_metier
 	public $sections_avec_menu=array("index","accueil","connexion","inscription","inscription_interdit","inscription_retour");
 	public static $pagination=20;
 	public static $extensions_autorisees=array("pdf","zip"); //jpg","jpeg","gif","png","pdf","doc","docx","zip","xls","xlsx");
+	public static $formats_export=array(
+		"default"=>array(
+					"code_masse_eau"=> array("libelle"=>"Code masse eau","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_sous_bassin"=> array("libelle"=>"Code sous-bassin","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_sous_unite"=> array("libelle"=>"Code sous-unite","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
+					"nom_pression"=> array("libelle"=>"Nom pression","format"=>"text","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
+					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
+					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
+					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
+					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
+					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
+					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
+					"pression_cause_du_risque"=> array("libelle"=>"Pression cause du risque","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CAUSE_RISQUE"),
+					"impact_estime"=> array("libelle"=>"Impact estimé","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_IMPACT_ESTIME"),
+					"NomStructure"=> array("libelle"=>"Structure","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_STRUCTURE"),
+					"NomCreateur"=> array("libelle"=>"Nom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_NOM"),
+					"PrenomCreateur"=> array("libelle"=>"Prénom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_PRENOM"),
+					"validation"=> array("libelle"=>"Date","format"=>"datefr","formatavance"=>"JJ/MM/AAAA","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_DATE"),
+					"commentaires"=> array("libelle"=>"Commentaire","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE"),
+					"documents" => array("libelle"=>"Documents","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE"),
+					"url_document" => array("libelle"=>"URL Documents","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE")
+					),
+		"crea"=>array(
+					"code_masse_eau"=> array("libelle"=>"Code masse eau","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_sous_bassin"=> array("libelle"=>"Code sous-bassin","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_sous_unite"=> array("libelle"=>"Code sous-unite","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
+					"nom_pression"=> array("libelle"=>"Nom pression","format"=>"text","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
+					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
+					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
+					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
+					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
+					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
+					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
+					"pression_cause_du_risque"=> array("libelle"=>"Pression cause du risque","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CAUSE_RISQUE"),
+					"impact_estime"=> array("libelle"=>"Impact estimé","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_IMPACT_ESTIME"),
+					"NomStructure"=> array("libelle"=>"Structure","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_STRUCTURE"),
+					"NomCreateur"=> array("libelle"=>"Nom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_NOM"),
+					"PrenomCreateur"=> array("libelle"=>"Prénom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_PRENOM"),
+					"validation"=> array("libelle"=>"Date","format"=>"datefr","formatavance"=>"JJ/MM/AAAA","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_DATE"),
+					"commentaires"=> array("libelle"=>"Commentaire","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE"),
+					"documents" => array("libelle"=>"Documents","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE"),
+					"url_document" => array("libelle"=>"URL Documents","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE")
+					),
+		"coll" => array(
+					"code_masse_eau"=> array("libelle"=>"Code masse eau","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
+					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
+					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
+					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
+					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
+					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
+					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
+					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
+					"pression_cause_du_risque"=> array("libelle"=>"Pression cause du risque","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CAUSE_RISQUE"),
+					"impact_estime"=> array("libelle"=>"Impact estimé","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_IMPACT_ESTIME"),
+					"NomStructure"=> array("libelle"=>"Structure","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_STRUCTURE"),
+					"NomCreateur"=> array("libelle"=>"Nom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_NOM"),
+					"PrenomCreateur"=> array("libelle"=>"Prénom","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_PERSONNE_PRENOM"),
+					"validation"=> array("libelle"=>"Date","format"=>"datefr","formatavance"=>"JJ/MM/AAAA","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_DATE"),
+					"commentaires"=> array("libelle"=>"Commentaire","format"=>"text","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_COMMENTAIRE")
+					)
+	);
 	var $TypesStructures=array(
 				array("id"=>"","value" => "(choisir un type de structure)"),
 				array("id"=>"Conseils départementaux","value" => "Conseils départementaux"),
@@ -1203,7 +1272,8 @@ class sdage_metier
 		}
 		$liste=$this->db->loadObjectList();
 		//die("Requete : ".$requete." => ".print_r($liste,true));
-		Tools::SendCSV($nomFichier, $liste,true);
+		$format=isset(self::$formats_export[$this->auth->user_Rank])?self::$formats_export[$this->auth->user_Rank]:self::$formats_export["default"];
+		Tools::SendCSV($nomFichier, $liste,true,";",$format,true);
 		die();
 	}
 	public function handle_PDF($save=false)
