@@ -230,10 +230,10 @@ Styles spécifiques pour gérer un sous-menu horizontalisé en page de recherche
 }
 
 
-.search  #leftMenu ul.dropdown-menu li ul {
+.search  #leftMenu ul li ul {
     border:1px solid #3C679E;
 }
-.search  #leftMenu > ul.dropdown-menu  {
+.search  #leftMenu > ul  {
     border:none;
 }
 
