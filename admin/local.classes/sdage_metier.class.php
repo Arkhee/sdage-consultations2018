@@ -653,6 +653,8 @@ class sdage_metier
 			$obj->impact_estime=$this->params["impact_estime"];
 			$obj->pression_cause_du_risque=$this->params["pression_cause_du_risque"];
 			$obj->commentaires=$this->params["justification"];
+			$obj->commentaires=str_replace("’","'",$obj->commentaires);
+			$obj->commentaires=str_replace("œ","oe",$obj->commentaires);
 			if(!isset($obj->documents)) $obj->documents="";
 			$fichierTelecharge="";
 			$nomDeBaseFichierTelecharge="";
