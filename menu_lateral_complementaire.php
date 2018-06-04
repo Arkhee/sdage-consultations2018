@@ -11,4 +11,5 @@
 			</li>
 		</ul>
 	</nav>
+	<?php echo ($auth->isLoaded())?"<div class=\"identification\">Bonjour, ".$auth->user_FirstName." ".$auth->user_Name."</div>":""; ?>
 </div>

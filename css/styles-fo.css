@@ -244,3 +244,8 @@ Styles spécifiques pour gérer un sous-menu horizontalisé en page de recherche
 .search div#leftMenu {
     top: -7px;
 }
+
+.search div#leftMenu .identification
+{
+	float:left;
+}

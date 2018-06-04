@@ -1,12 +1,10 @@
 				<table class='listepressions'>
 					<tr>
 						<th>Pression</th>
-						<th align='center'>Impact 2016</th>
+						<th align='center'>Impact SDAGE 2016</th>
 						<th align='center' class='valeur_forcee'>Valeur forcée impact SDAGE 2016</th>
-						<th align='center'>RNABE 2021</th>
 						<th align='center'>Pression origine du risque 2021</th>
-						<th class="enteteimportant" align='center'>Impact 2019</th>
-						<th class="enteteimportant" align='center'>RNABE 2027</th>
+						<th class="enteteimportant" align='center'>Impact EDL 2019</th>
 						<th class="enteteimportant" align='center'>Pression origine du risque 2027</th>
 						<th align='center'>&nbsp;</th>
 						<th align='center' class='avis'>Avis</th>
@@ -16,10 +14,8 @@
 						<td>{pressions.libelle_pression}</td>
 						<td align='center'>{pressions.impact_2016}</td>
 						<td align='center' class='valeur_forcee'>{pressions.impact_valeur_forcee}</td>
-						<td align='center'>{pressions.rnaoe_2021}</td>
 						<td align='center'>{pressions.pression_origine_2021}</td>
 						<td align='center'>{pressions.impact_2019}</td>
-						<td align='center'>{pressions.rnaoe_2027}</td>
 						<td align='center'>{pressions.pression_origine_2027}</td>
 						<td align='center'><span class="icone_avis"><a title="{pressions.tooltip_avis}" href='#avis_pression_{pressions.id_pression}_{pressions.id_massedeau}' class='fancybox'>
 								<i class="fas {pressions.icone_avis}"></i>

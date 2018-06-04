@@ -26,11 +26,11 @@ class sdage_metier
 					"code_sous_unite"=> array("libelle"=>"Code sous-unite","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
 					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
 					"nom_pression"=> array("libelle"=>"Nom pression","format"=>"text","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
-					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"impact_2016"=> array("libelle"=>"Impact SDAGE 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
 					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
 					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
 					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
-					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"impact_2019"=> array("libelle"=>"Impact EDL 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
 					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
 					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
 					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
@@ -50,11 +50,11 @@ class sdage_metier
 					"code_sous_unite"=> array("libelle"=>"Code sous-unite","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
 					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
 					"nom_pression"=> array("libelle"=>"Nom pression","format"=>"text","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
-					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"impact_2016"=> array("libelle"=>"Impact SDAGE 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
 					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
 					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
 					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
-					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"impact_2019"=> array("libelle"=>"Impact EDL 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
 					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
 					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
 					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
@@ -71,11 +71,11 @@ class sdage_metier
 		"coll" => array(
 					"code_masse_eau"=> array("libelle"=>"Code masse eau","format"=>"text","formatavance"=>"","table"=>"SDG_MASSE_EAU","codechamp" => "ME_CODE"),
 					"code_pression"=> array("libelle"=>"Code pression","format"=>"int","formatavance"=>"","table"=>"SDG_PRESSION","codechamp" => "PRE_CODE"),
-					"impact_2016"=> array("libelle"=>"Impact 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
+					"impact_2016"=> array("libelle"=>"Impact SDAGE 2016","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2016"),
 					"valeur_forcee_2016"=> array("libelle"=>"Valeur forcée 2016","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_FORCE_2016"),
 					"rnabe_2021"=> array("libelle"=>"RNABE 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2021"),
 					"pression_origine_risque_2021"=> array("libelle"=>"Pression origine risque 2021","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2021"),
-					"impact_2019"=> array("libelle"=>"Impact 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
+					"impact_2019"=> array("libelle"=>"Impact EDL 2019","format"=>"int","formatavance"=>"","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_IMPACT_2019"),
 					"rnabe_2027"=> array("libelle"=>"RNABE 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_MASSE_EAU","codechamp" => "ME_RNABE_2027"),
 					"pression_origine_risque_2027"=> array("libelle"=>"Pression origine risque 2027","format"=>"bool","formatavance"=>"1/0","table"=>"SDG_PROPOSITION_BASSIN","codechamp" => "PB_ORIGINE_RISQUE_2027"),
 					"code_avis"=> array("libelle"=>"Code avis","format"=>"int","formatavance"=>"","table"=>"SDG_AVIS_CONSULTATION","codechamp" => "AVS_CODE"),
@@ -1330,7 +1330,7 @@ class sdage_metier
 				}
 				else
 				{
-					$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"O":"N";
+					$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"Oui":"Non";
 				}
 
 				$objAvis=$mdtbAvis->getAvisPourPressionMdo($edl->id_pression,$edl->id_massedeau);
@@ -1374,7 +1374,7 @@ class sdage_metier
 						'id_pression' => $edl->id_pression,
 						'libelle_pression' => $arrPressions[$edl->id_pression],
 						'impact_2016' => $edl->impact_2016,
-						'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"O":"N",
+						'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"Oui":"Non",
 						'impact_2019' => $edl->impact_2019,
 						'rnaoe_2021' => $edl->rnaoe_2021?"Oui":"Non",
 						'pression_origine_2021' => $edl->pression_origine_2021?"Oui":"Non",
@@ -1433,7 +1433,16 @@ class sdage_metier
 				return $this->template->pparse("accueil",true);
 			}
 			else
-				return "Aucun résultat";
+			{
+				if($this->section=="panneau")
+				{
+					return "Vous n'avez pas encore saisi d'avis"; //Aucun résultat";
+				}
+				else
+				{
+					return "Aucun résultat";
+				}
+			}
     	}
     	else
     	{
@@ -1501,7 +1510,7 @@ class sdage_metier
 						}
 						else
 						{
-							$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"O":"N";
+							$edl->impact_valeur_forcee=$edl->impact_valeur_forcee?"Oui":"Non";
 						}
 						
 						$objAvis=$mdtbAvis->getAvisPourPressionMdo($edl->id_pression,$edl->id_massedeau);
@@ -1542,12 +1551,12 @@ class sdage_metier
 								'id_pression' => $edl->recGetValue("id_pression"),
 								'libelle_pression' => $arrPressions[$edl->recGetValue("id_pression")],
 								'impact_2016' => $edl->recGetValue("impact_2016"),
-								'impact_valeur_forcee' => $edl->recGetValue("impact_valeur_forcee")?"O":"N",
+								'impact_valeur_forcee' => $edl->recGetValue("impact_valeur_forcee")?"Oui":"Non",
 								'impact_2019' => $edl->recGetValue("impact_2019"),
-								'rnaoe_2021' => $edl->recGetValue("rnaoe_2021")?"O":"N",
-								'pression_origine_2021' => $edl->recGetValue("pression_origine_2021")?"O":"N",
-								'rnaoe_2027' => $edl->recGetValue("rnaoe_2021")?"O":"N",
-								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"O":"N",
+								'rnaoe_2021' => $edl->recGetValue("rnaoe_2021")?"Oui":"Non",
+								'pression_origine_2021' => $edl->recGetValue("pression_origine_2021")?"Oui":"Non",
+								'rnaoe_2027' => $edl->recGetValue("rnaoe_2021")?"Oui":"Non",
+								'pression_origine_2027'=> $edl->recGetValue("pression_origine_2027")?"Oui":"Non",
 								*/
 								'id_avis' =>  $objAvis->id_avis,
 								'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
@@ -1559,12 +1568,12 @@ class sdage_metier
 								'id_pression' => $edl->id_pression,
 								'libelle_pression' => $arrPressions[$edl->id_pression],
 								'impact_2016' => $edl->impact_2016,
-								'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"O":"N",
+								'impact_valeur_forcee' => $edl->impact_valeur_forcee, //?"Oui":"Non",
 								'impact_2019' => $edl->impact_2019,
-								'rnaoe_2021' => $edl->rnaoe_2021?"O":"N",
-								'pression_origine_2021' => $edl->pression_origine_2021?"O":"N",
-								'rnaoe_2027' => $edl->rnaoe_2021?"O":"N",
-								'pression_origine_2027'=> $edl->pression_origine_2027?"O":"N",
+								'rnaoe_2021' => $edl->rnaoe_2021?"Oui":"Non",
+								'pression_origine_2021' => $edl->pression_origine_2021?"Oui":"Non",
+								'rnaoe_2027' => $edl->rnaoe_2021?"Oui":"Non",
+								'pression_origine_2027'=> $edl->pression_origine_2027?"Oui":"Non",
 								"nbavis" => $edl->nbavis,
 								"avis_valide"=>$objAvis->avis_valide,
 								"lbl_avis_valide"=>$objAvis->avis_valide=="avis_valide"?"Validé&nbsp;<i class=\"far fa-file-pdf\"></i>":"En cours d'édition",
@@ -1854,7 +1863,7 @@ class sdage_metier
 		$nameFrom=$ThePrefs->FromName; //="Webmaster SIE";
 		$subject="Consultations 2018 : un nouveau créateur vient de s'inscrire";
 		
-		$subjectPourCreateur="Consultations 2018 : Confirmation de création de votre compte";
+		$subjectPourCreateur="Création de compte pour la consultation 2018 : confirmation de votre création de compte";
 		
 		$messagePourCommun="<ul><li><b>Nom : </b>".$user->user_Name."</li>\r\n".
 		"<li><b>Prénom :</b>".$user->user_FirstName."</li>\r\n".
