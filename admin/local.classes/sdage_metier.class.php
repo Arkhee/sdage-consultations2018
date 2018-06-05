@@ -604,6 +604,33 @@ class sdage_metier
 					$this->msg_info.="<script>alert(\"Erreur : avis déjà validé, il ne peut être modifié\");</script>";
 					return false;
 				}
+				if($this->params["supprimerPJ"])
+				{
+					if($obj->documents!="")
+					{
+						$erreurSuppression=true;
+						$fichierDocument=$ThePrefs->DocumentsFolder.$obj->documents;
+						if(file_exists($fichierDocument))
+						{
+							if(is_writable($fichierDocument))
+							{
+								$obj->documents="";
+								if($avis->recStore($obj))
+								{
+									if(unlink($fichierDocument))
+									{
+										$action="window.parent.frontCtl.triggerEventsPJSupprimee('#".$this->params["id_form_avis"]."');";
+										$erreurSuppression=false;
+									}
+								}
+							}
+						}
+						if($erreurSuppression)
+						{
+							$action="window.parent.frontCtl.triggerEventsErreurSuppressionPJ('#".$this->params["id_form_avis"]."');";
+						}
+					}
+				}
 			}
 			else
 			{
@@ -643,6 +670,7 @@ class sdage_metier
 				}
 			}
 			$obj->date_modification=date('Y-m-d H:i:s');
+			
 			
 			
 			if($this->params["sauverAvis"])

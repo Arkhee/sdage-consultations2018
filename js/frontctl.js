@@ -150,6 +150,14 @@ var frontCtl = {
 		$(avisId+" label.sauvegarde").hide();
 		$(formAvisId+" label.sauvegardeerreur").show();
 	},
+	triggerEventsErreurSuppressionPJ:function()
+	{
+		alert("Erreur lors de la suppression de la pièce jointe");
+	},
+	triggerEventsPJSupprimee:function(formAvisId)
+	{
+		$(formAvisId+" span.document").remove();
+	},
 	validerAvis:function(event,formAvisId)
 	{
 		console.log("Trigger : validerAvis avec avis "+avisId);
