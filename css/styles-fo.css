@@ -270,4 +270,9 @@ tr.ligneavis.valide.edition .avisedition { display:none; }
 tr.ligneavis.valide.edition .avisvalide { display:block; }
 tr.ligneavis.valide .avisacreer, tr.ligneavis.edition .avisacreer {display:none;}
 button.boutonSupprimerPJ { display:none;}
-span.document button.boutonSupprimerPJ { display:block;}
+span.document button.boutonSupprimerPJ {
+    display: inline;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
