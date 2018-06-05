@@ -686,7 +686,7 @@ class sdage_metier
 				if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","Retour : \r\n".print_r($obj,true));
 				if($retour)
 				{
-					if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","fichier : $fichierTelecharge, nom de base : $nomDeBaseFichierTelecharge\r\n",FILE_APPEND);
+					if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","docs : ".print_r($this->params["documents"],true).", fichier : $fichierTelecharge, nom de base : $nomDeBaseFichierTelecharge\r\n",FILE_APPEND);
 					if($fichierTelecharge!="" && $nomDeBaseFichierTelecharge!="")
 					{
 						$newobj=$avis->recGetRecord();
