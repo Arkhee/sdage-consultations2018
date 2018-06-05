@@ -629,6 +629,12 @@ class sdage_metier
 						{
 							$action="window.parent.frontCtl.triggerEventsErreurSuppressionPJ('#".$this->params["id_form_avis"]."');";
 						}
+						
+						$this->msg_info.="<script>
+							window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
+							".$action."	
+						 </script>";
+						die($this->msg_info);
 					}
 				}
 			}

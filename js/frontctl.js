@@ -147,7 +147,7 @@ var frontCtl = {
 	{
 		//$('#".$this->params["id_form_avis"]." label.sauvegardeerreur', window.parent.document).show();
 		///$(document).trigger("sauvegardeok",avisId);
-		$(avisId+" label.sauvegarde").hide();
+		$(formAvisId+" label.sauvegarde").hide();
 		$(formAvisId+" label.sauvegardeerreur").show();
 	},
 	triggerEventsErreurSuppressionPJ:function()
@@ -309,6 +309,7 @@ var frontCtl = {
 		var message="";
 		var justification="";
 		$(el).find("label").removeClass("erreur");
+		$(el).find("label.sauvegarde").hide();
 		if(!$(el).find("#justification").length) message+=("Champ 'Justification' manquant ...");
 		if(!$(el).find("#impact_estime").length) message+=("Champ 'Impact' manquant  ...");
 		if(!$(el).find("#pression_cause_du_risque").length) message=("Champ 'Pression' manquant  ...");
