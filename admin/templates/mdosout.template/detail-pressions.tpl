@@ -93,7 +93,9 @@
 												<div class="compteurschars"><span class="longueur_max">Longueur maximale atteinte</span>&nbsp;<span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
 												<span class='{pressions.class_documents}'>
-													{pressions.lien_documents}
+													<span class='liendocument'>
+														{pressions.lien_documents}
+													</span>
 													<button type='submit' name='supprimerPJ' class='boutonSupprimerPJ' value='Supprimer le document'>
 														<i class="fa fa-trash" aria-hidden="true"></i>
 													</button>
