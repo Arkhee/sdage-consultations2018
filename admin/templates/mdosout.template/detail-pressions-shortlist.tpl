@@ -95,8 +95,8 @@
 														<i class="fa fa-trash" aria-hidden="true"></i>
 													</button>
 												</span>
-												<input type="file" name="documents" id="documents">
-
+												<input type="file" name="documents" id="documents"> (taille max. 2Mo)
+												<input type="hidden" name="MAX_FILE_SIZE" value="2097152" />  
 												<div class="blocValidationFormulaire">
 													<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
 													<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
