@@ -161,6 +161,7 @@ var frontCtl = {
 	},
 	triggerEventsPJSupprimee:function(formAvisId)
 	{
+		alert("Pièce jointe supprimée");
 		$(formAvisId+" span.document").remove();
 	},
 	validerAvis:function(event,formAvisId)
