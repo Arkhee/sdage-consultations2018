@@ -1031,6 +1031,11 @@ class sdage_metier
 		$sortOrder="ASC";
 		if(isset($this->params["ssfield"]) && $this->params["ssfield"]!=="") $sortField=addslashes($this->params["ssfield"]);
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
+		
+		if(isset($this->param["field_sort"])) $sortField=$this->param["field_sort"];
+		if(isset($this->param["field_order"])) $sortOrder=$this->param["field_order"];
+		
+		
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
 		/*file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage().
