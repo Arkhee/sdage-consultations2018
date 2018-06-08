@@ -18,7 +18,7 @@
 				echo "<table cellspacing='2' border='1'>";
 				while($ligne=fgetcsv($fh,0,";"))
 				{
-					echo "<tr><td>".str_replace("\r\n","<br />\r\n",utf8_decode(implode("</td><td>",$ligne)))."</td></tr>";
+					echo "<tr><td>".str_replace("\n","<br />\n",utf8_decode(implode("</td><td>",$ligne)))."</td></tr>";
 				}
 				echo "</table>";
 			}
