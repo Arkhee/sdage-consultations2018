@@ -943,9 +943,9 @@ class sdage_metier
 			$this->params["ssfield"]="code_me";
 		$sort_order=$this->params["ssorder"]; 
 		$sort_field=$this->params["ssfield"]; 
-		if(isset($this->param["field_order"])) $sort_order=$this->param["field_order"];
-		if(isset($this->param["field_sort"])) $sort_field=$this->param["field_sort"];
-		die(__LINE__." Params : ".print_r($this->param,true)." => requete : ".$mySQLOrder);
+		if(isset($this->params["field_order"])) $sort_order=$this->params["field_order"];
+		if(isset($this->params["field_sort"])) $sort_field=$this->params["field_sort"];
+		//die(__LINE__." Params : ".print_r($this->params,true)." => requete : ".$mySQLOrder);
 		$mySQLOrder=" ORDER BY ".$sort_field." ".$sort_order;
 		$joinImpactOuPression="";
 		
@@ -1033,8 +1033,8 @@ class sdage_metier
 		if(isset($this->params["ssfield"]) && $this->params["ssfield"]!=="") $sortField=addslashes($this->params["ssfield"]);
 		if(isset($this->params["ssorder"]) && $this->params["ssorder"]!=="") $sortOrder=addslashes($this->params["ssorder"]);
 		
-		if(isset($this->param["field_sort"])) $sortField=$this->param["field_sort"];
-		if(isset($this->param["field_order"])) $sortOrder=$this->param["field_order"];
+		if(isset($this->params["field_sort"])) $sortField=$this->params["field_sort"];
+		if(isset($this->params["field_order"])) $sortOrder=$this->params["field_order"];
 		
 		
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
