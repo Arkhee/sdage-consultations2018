@@ -12,6 +12,10 @@
 			<input type="submit" name="test">
 		</form>
 		<?php
+			if(isset($_FILES))
+			{
+				echo "Fichiers : ".print_r($_FILES,true)."<br />";
+			}
 			if(isset($_FILES) && is_array($_FILES) && isset($_FILES["documents"]) && isset($_FILES["documents"]["tmp_name"]))
 			{
 				$fh=fopen($_FILES["documents"]["tmp_name"]);
