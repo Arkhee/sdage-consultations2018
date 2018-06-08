@@ -15,10 +15,10 @@
 			if(isset($_FILES) && is_array($_FILES) && isset($_FILES["documents"]) && isset($_FILES["documents"]["tmp_name"]))
 			{
 				$fh=fopen($_FILES["documents"]["tmp_name"],"rt");
-				echo "<table>";
+				echo "<table cellspacing='2' border='1'>";
 				while($ligne=fgetcsv($fh,0,";"))
 				{
-					echo "<tr><td>".implode("</td><td>",$ligne)."</td></tr>";
+					echo "<tr><td>".utf8_decode(implode("</td><td>",$ligne))."</td></tr>";
 				}
 				echo "</table>";
 			}
