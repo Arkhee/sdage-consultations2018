@@ -945,6 +945,7 @@ class sdage_metier
 		$sort_field=$this->params["ssfield"]; 
 		if(isset($this->param["field_order"])) $sort_order=$this->param["field_order"];
 		if(isset($this->param["field_sort"])) $sort_field=$this->param["field_sort"];
+		die(__LINE__." Params : ".print_r($this->param,true)." => requete : ".$mySQLOrder);
 		$mySQLOrder=" ORDER BY ".$sort_field." ".$sort_order;
 		$joinImpactOuPression="";
 		
@@ -1038,6 +1039,7 @@ class sdage_metier
 		
 		$requeteME.=" GROUP BY mdo.id_massedeau ";
 		$requeteME.=" ORDER BY ". $sortField . " ".$sortOrder." ";
+		die(__LINE__." Params : ".print_r($this->param,true)." => requete : ".$requeteME);
 		/*file_put_contents(__DIR__."/derniere-recherche.log","Mémoire : ". memory_get_usage().
 			"\r\nRequête count : \r\n".$requeteMEChampsCount.$requeteME."\r\n"
 		);*/
