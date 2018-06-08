@@ -84,7 +84,7 @@
 												{pressions.CMB_IMPACT_ESTIME}<br />
 
 												<label for="justification">Justification</label>
-												<textarea name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
+												<textarea onchange="frontCtl.checkLengthOnChange(this);" onkeyup="frontCtl.checkLengthOnChange(this);" onkeydown="frontCtl.checkLengthOnKeyPress(this);"  name="justification" id="justification" style="width:100%; height:250px">{pressions.justification}</textarea><br />
 												<div class="compteurschars"><span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
 												<span class='{pressions.class_documents}'>
