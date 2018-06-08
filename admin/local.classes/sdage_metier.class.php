@@ -753,7 +753,8 @@ class sdage_metier
 			$jsHasPJ=($hasPJ?"window.parent.frontCtl.triggerHasPJ('#".$this->params["id_form_avis"]."')":"");
 			$this->msg_info.="<script>
 				window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
-				".$action."	
+				".$action."
+				".$jsHasPJ."
 			 </script>";
 			die($this->msg_info);
 			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
