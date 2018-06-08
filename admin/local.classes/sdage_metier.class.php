@@ -941,7 +941,11 @@ class sdage_metier
 			$this->params["ssorder"]="ASC";
 		if(!in_array($this->params["ssfield"],array("categorie_me","code_ssbv","libelle_me","code_me","code_ss_ut","code_ss_ut_sort")))
 			$this->params["ssfield"]="code_me";
-		$mySQLOrder=" ORDER BY ".$this->params["ssfield"]." ".$this->params["ssorder"];
+		$sort_order=$this->params["ssorder"]; 
+		$sort_field=$this->params["ssfield"]; 
+		if(isset($this->param["field_order"])) $sort_order=$this->param["field_order"];
+		if(isset($this->param["field_sort"])) $sort_field=$this->param["field_sort"];
+		$mySQLOrder=" ORDER BY ".$sort_field." ".$sort_order;
 		$joinImpactOuPression="";
 		
 		if($this->liste_pressions!="" || ($currentuser && $this->auth->isLoaded()))
