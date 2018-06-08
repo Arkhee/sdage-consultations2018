@@ -11,8 +11,8 @@
 		</th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
 			Code Masse d'eau
-            <a href="{FORM_PAGE}?section=search&ssfield=code_me&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
-			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=code_me&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="code_me" data-order="ASC"><img border="0" src="images/asc.gif" /></button>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="code_me" data-order="DESC"><img border="0" src="images/desc.gif" /></button>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
 			Libellé

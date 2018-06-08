@@ -1815,6 +1815,10 @@ class sdage_metier
 		);
 		$this->template->assign_vars(array("QUERY_PARAMS"=>$queryParams));
 		$this->template->assign_vars(array("texte_recherche"=>$this->params["txtRecherche"]));
+		if(!isset($this->params["field_order"])) $this->params["field_order"]="ASC";
+		$this->template->assign_vars(array("field_order"=>$this->params["field_order"]));
+		if(!isset($this->params["field_sort"])) $this->params["field_sort"]="code_me";
+		$this->template->assign_vars(array("field_sort"=>$this->params["field_sort"]));
 		//echo "<pre>".print_r($this->params,true)."</pre>";
 		$formulaireRecherche=$this->template->pparse("formulaire-recherche",true);
 		$this->template->assign_var("FORMULAIRE_RECHERCHE",$formulaireRecherche);		

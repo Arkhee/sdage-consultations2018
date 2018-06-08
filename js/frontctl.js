@@ -127,6 +127,12 @@ var frontCtl = {
 		*/
 		
 	},
+	sortAndSearch:function(el)
+	{
+		$("#field_sort").val($(el).attr("data-sort"));
+		$("#field_order").val($(el).attr("data-order"));
+		$("#formRecherche").submit();
+	},
 	triggerHasPJ:function(avisId)
 	{
 		if($(avisId+" button.boutonSupprimerPJ").length) $(avisId+" button.boutonSupprimerPJ").show();

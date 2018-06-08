@@ -16,5 +16,7 @@
 	</div>
 	<div class="conteneurBoutonAffiner"><input type="submit" name="cmdOk" value="Recherche" /></div>
 	<input type="hidden" name="section" id="section" value="search" />
+	<input type="hidden" name="field_sort" id="field_sort" value="{field_sort}" />
+	<input type="hidden" name="field_order" id="field_order" value="{field_order}" />
 	{CMB_PAGINATION}
 </form>
