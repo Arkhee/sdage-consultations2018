@@ -16,23 +16,23 @@
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
 			Libellé
-            <a href="{FORM_PAGE}?section=search&ssfield=libelle_me&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
-			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=libelle_me&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="libelle_me" data-order="ASC"><img border="0" src="images/asc.gif" /></button>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="libelle_me" data-order="DESC"><img border="0" src="images/desc.gif" /></button>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
 			Catégorie de masse d'eau
-            <a href="{FORM_PAGE}?section=search&ssfield=categorie_me&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
-			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=categorie_me&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="categorie_me" data-order="ASC"><img border="0" src="images/asc.gif" /></button>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="categorie_me" data-order="DESC"><img border="0" src="images/desc.gif" /></button>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
             Sous-bassin
-            <a href="{FORM_PAGE}?section=search&ssfield=ssbv.code_ssbv&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
-			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=ssbv.code_ssbv&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="ssbv.code_ssbv" data-order="ASC"><img border="0" src="images/asc.gif" /></button>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="ssbv.code_ssbv" data-order="DESC"><img border="0" src="images/desc.gif" /></button>
         </th>
         <th nowrap="nowrap" style="padding:2px" valign="middle">
             Sous-unité Territoriale
-            <a href="{FORM_PAGE}?section=search&ssfield=code_ss_ut_sort&ssorder=ASC&{QUERY_PARAMS}"><img border="0" src="images/asc.gif" /></a>&nbsp;
-			&nbsp;<a href="{FORM_PAGE}?section=search&ssfield=code_ss_ut_sort&ssorder=DESC&{QUERY_PARAMS}"><img border="0" src="images/desc.gif" /></a>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="code_ss_ut_sort" data-order="ASC"><img border="0" src="images/asc.gif" /></button>
+			<button onclick="frontCtl.sortAndSearch(this);" data-sort="code_ss_ut_sort" data-order="DESC"><img border="0" src="images/desc.gif" /></button>
         </th>
     </tr>
 </thead>
