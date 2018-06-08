@@ -127,6 +127,11 @@ var frontCtl = {
 		*/
 		
 	},
+	triggerHasPJ:function(avisId)
+	{
+		if($(avisId+" button.boutonSupprimerPJ").length) $(avisId+" button.boutonSupprimerPJ").show();
+		///$(document).trigger("sauvegardeok",avisId);
+	},
 	triggerEventsValidation:function(avisId)
 	{
 		///$(document).trigger("sauvegardeok",avisId);

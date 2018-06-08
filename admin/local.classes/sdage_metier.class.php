@@ -656,6 +656,7 @@ class sdage_metier
 			if(!isset($obj->documents)) $obj->documents="";
 			$fichierTelecharge="";
 			$nomDeBaseFichierTelecharge="";
+			$hasPJ=false;
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
 				$path_parts=pathinfo($this->params["documents"]["name"]);
@@ -668,6 +669,7 @@ class sdage_metier
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 					$fichierTelecharge=$ThePrefs->DocumentsFolder.$newFileName;
 					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder.$newFileName);
+					$hasPJ=true;
 					$obj->documents=$newFileName;
 				}
 				else
@@ -748,6 +750,7 @@ class sdage_metier
 					//$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
 				}
 			}
+			$jsHasPJ=($hasPJ?"window.parent.frontCtl.triggerHasPJ('#".$this->params["id_form_avis"]."')":"");
 			$this->msg_info.="<script>
 				window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
 				".$action."	
