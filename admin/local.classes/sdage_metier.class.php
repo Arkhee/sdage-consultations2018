@@ -663,7 +663,7 @@ class sdage_metier
 				$extension= strtolower($path_parts["extension"]);
 				if(in_array($extension,self::$extensions_autorisees))
 				{
-					//file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
+					file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 					// Traitement du fichier téléchargé
 					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
