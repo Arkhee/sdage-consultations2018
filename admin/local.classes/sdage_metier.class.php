@@ -597,6 +597,7 @@ class sdage_metier
 			$avis->recSQLSearch("ae_avis.id_pression=".$this->params["id_pression"]." AND ae_avis.id_massedeau=".$this->params["id_massedeau"]." AND ae_avis.id_user=".$this->auth->user_ID);
 			if($avis->recFirst())
 			{
+				file_put_contents(__DIR__."/creation-avis.log","Avis trouvé !\r\n",FILE_APPEND);
 				$obj=$avis->recGetRecord();
 				//file_put_contents(__DIR__."/creation-avis.log","Avis existant : ".print_r($obj,true),FILE_APPEND);
 				if($obj->date_validation!=="0000-00-00 00:00:00")
@@ -640,6 +641,7 @@ class sdage_metier
 			}
 			else
 			{
+				file_put_contents(__DIR__."/creation-avis.log","Nouvel avis !\r\n",FILE_APPEND);
 				//file_put_contents(__DIR__."/creation-avis.log","Nouvel Avis",FILE_APPEND);
 				$avis->recNewRecord();
 			}
@@ -657,13 +659,15 @@ class sdage_metier
 			$fichierTelecharge="";
 			$nomDeBaseFichierTelecharge="";
 			$hasPJ=false;
+			file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
+				file_put_contents(__DIR__."/creation-avis.log","Document transmis test initial ok",FILE_APPEND);
 				$path_parts=pathinfo($this->params["documents"]["name"]);
 				$extension= strtolower($path_parts["extension"]);
 				if(in_array($extension,self::$extensions_autorisees))
 				{
-					file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
+					file_put_contents(__DIR__."/creation-avis.log","Document transmis test extension ok",FILE_APPEND);
 					// Traitement du fichier téléchargé
 					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
