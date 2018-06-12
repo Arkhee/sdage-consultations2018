@@ -647,7 +647,7 @@ class sdage_metier
 				$avis->recNewRecord();
 			}
 			
-			
+			$erreurPJ="";
 			$obj->id_massedeau=$this->params["id_massedeau"];
 			$obj->id_pression=$this->params["id_pression"]; //$arrPressions[$curData["Pression"]];
 			$obj->id_user=$this->auth->user_ID; //$arrPressions[$curData["Pression"]];
@@ -674,12 +674,14 @@ class sdage_metier
 					$nomDeBaseFichierTelecharge=$this->params["documents"]["name"];
 					$newFileName=$obj->id_massedeau."_".$obj->id_pression."_".$obj->id_user."-".$this->params["documents"]["name"];
 					$fichierTelecharge=$ThePrefs->DocumentsFolder.$newFileName;
-					move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder.$newFileName);
+					$retourMove=move_uploaded_file($this->params["documents"]["tmp_name"], $ThePrefs->DocumentsFolder.$newFileName);
+					if(!$retourMove) $erreurPJ="ERREUR lors de la sauvegarde du fichier ! Contactez un administrateur";
 					$hasPJ=true;
 					$obj->documents=$newFileName;
 				}
 				else
 				{
+					$erreurPJ="ERREUR pour import de la pièce jointe : extension interdite";
 					//file_put_contents(__DIR__."/creation-avis.log","Extension interdite : ".$this->params["documents"]["name"]."\r\n",FILE_APPEND);
 				}
 			}
@@ -756,11 +758,14 @@ class sdage_metier
 					//$action.="$('#".$this->params["id_form_avis"]." input,#".$this->params["id_form_avis"]." textarea,#".$this->params["id_form_avis"]." select,', window.parent.document).disable();";
 				}
 			}
+			$actionErreurPJ="";
+			if($erreurPJ!=="") $actionErreurPJ="alert('".$erreurPJ."');";
 			$jsHasPJ=($hasPJ?"window.parent.frontCtl.triggerHasPJ('#".$this->params["id_form_avis"]."')":"");
 			$this->msg_info.="<script>
 				window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
 				".$action."
 				".$jsHasPJ."
+				".$actionErreurPJ."
 			 </script>";
 			die($this->msg_info);
 			//die("<script>alert('".$this->params["id_form_avis"]."');</script>");
