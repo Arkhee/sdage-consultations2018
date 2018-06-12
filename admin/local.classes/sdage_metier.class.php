@@ -660,6 +660,7 @@ class sdage_metier
 			$nomDeBaseFichierTelecharge="";
 			$hasPJ=false;
 			file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
+			file_put_contents(__DIR__."/creation-avis.log","Fichiers transmis : ".print_r($_FILES,true),FILE_APPEND);
 			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
 			{
 				file_put_contents(__DIR__."/creation-avis.log","Document transmis test initial ok",FILE_APPEND);
