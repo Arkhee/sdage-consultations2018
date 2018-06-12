@@ -1561,7 +1561,7 @@ class sdage_metier
 							"justification"=>$objAvis->commentaires,
 							"justification_length"=>strlen($objAvis->commentaires),
 							"lien_documents"=>$objAvis->lien_documents,
-							"class_documents"=>$objAvis->lien_documents==""?"":"document",
+							"class_documents"=>trim($objAvis->documents)==""?"":"document",
 							"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
 							"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
 						)
@@ -1743,7 +1743,7 @@ class sdage_metier
 								"justification"=>$objAvis->commentaires,
 								"justification_length"=>strlen($objAvis->commentaires),
 								"lien_documents"=>$objAvis->lien_documents,
-								"class_documents"=>$objAvis->lien_documents==""?"":"document",
+								"class_documents"=>trim($objAvis->documents)==""?"":"document",
 								"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
 								"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
 							)
