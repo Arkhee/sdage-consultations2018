@@ -31,6 +31,7 @@
 		<div class='avis_lecture'>
 			<h3>Votre avis validé sur le risque estimé</h3>
 			<h4>Avis n°{id_avis}</h4>
+			{nom_et_structure}
 			<label for="date_de_validation" style="font-weight:bold">Date de validation</label>
 			<p>{date_validation}</p>
 			<label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label>

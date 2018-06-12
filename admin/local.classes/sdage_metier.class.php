@@ -1378,11 +1378,14 @@ class sdage_metier
 					$icone_avis="fa-edit";
 					$tooltip_avis="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé";
 				}
+				
+				$nom_et_structure="<h5>".$this->auth->user_Name." - ".$this->auth->user_Structure."</h5>";
 				//die("Boucle sur edl : ".print_r($listeEdl,true));
 				$this->template->assign_vars
 				(
 					array
 					(
+						'nom_et_structure' => $nom_et_structure,
 						'user_rank' => $this->auth->user_Rank,
 						'id_avis' =>  $objAvis->id_avis,
 						'code_me' =>  $arrMassesDeau[$edl->id_massedeau]->code_me,
