@@ -662,7 +662,7 @@ class sdage_metier
 			$hasPJ=false;
 			if($this->params["debug"]) file_put_contents(__DIR__."/creation-avis.log","Document transmis : ".print_r($this->params["documents"],true),FILE_APPEND);
 			if($this->params["debug"]) file_put_contents(__DIR__."/creation-avis.log","Fichiers transmis : ".print_r($_FILES,true),FILE_APPEND);
-			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]))
+			if(isset($this->params["documents"]) && is_array($this->params["documents"]) && isset($this->params["documents"]["tmp_name"]) && file_exists($this->params["documents"]["tmp_name"]) && is_readable($this->params["documents"]["tmp_name"]))
 			{
 				if($this->params["debug"]) file_put_contents(__DIR__."/creation-avis.log","Document transmis test initial ok",FILE_APPEND);
 				$path_parts=pathinfo($this->params["documents"]["name"]);
