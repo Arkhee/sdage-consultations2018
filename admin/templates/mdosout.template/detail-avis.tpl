@@ -39,12 +39,20 @@
 			<h3>Votre avis validé sur le risque estimé</h3>
 			<h4>Avis n°{id_avis}</h4>
 			{nom_et_structure}
-			<label for="date_de_validation" style="font-weight:bold">Date de validation</label>
-			<p>{date_validation}</p>
-			<label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label>
-			<p>{pression_cause_du_risque}</p>
-			<label for="impact_estime" style="font-weight:bold">Impact estimé</label>
-			<p>{impact_estime}</p>
+			<table>
+				<tr>
+					<td><label for="date_de_validation" style="font-weight:bold">Date de validation</label></td>
+					<td><p>{date_validation}</p></td>
+				</tr>
+				<tr>
+					<td><label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label></td>
+					<td><p>{pression_cause_du_risque}</p></td>
+				</tr>
+				<tr>
+					<td><label for="impact_estime" style="font-weight:bold">Impact estimé</label></td>
+					<td><p>{impact_estime}</p></td>
+				</tr>
+			</table>
 		</div>
 
 	</div>
