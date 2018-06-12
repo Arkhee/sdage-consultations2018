@@ -1379,7 +1379,7 @@ class sdage_metier
 					$tooltip_avis="Vous avez rédigé un avis sur cette pression mais il n'est pas encore validé";
 				}
 				
-				$nom_et_structure="<h5>".$this->auth->user_Name." - ".$this->auth->user_Structure."</h5>";
+				$nom_et_structure="<h4 style='margin-top:0px;'>".$this->auth->user_Name." - ".$this->auth->user_Structure."</h4>";
 				//die("Boucle sur edl : ".print_r($listeEdl,true));
 				$this->template->assign_vars
 				(
