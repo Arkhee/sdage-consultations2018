@@ -169,7 +169,7 @@ var frontCtl = {
 	{
 		alert("Pièce jointe supprimée");
 		$(formAvisId+" span.document .liendocument").remove();
-		$(formAvisId+" span.document .boutonSupprimerPJ").hide();
+		$(formAvisId+" .boutonSupprimerPJ").hide();
 	},
 	validerAvis:function(event,formAvisId)
 	{
