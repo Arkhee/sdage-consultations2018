@@ -38,7 +38,7 @@
 			<h3>Votre avis validé sur le risque estimé</h3>
 			<h4>Avis n°{id_avis}</h4>
 			{nom_et_structure}
-			<table cellpadding="2">
+			<table cellpadding="5" cellspacing="2">
 				<tr>
 					<td style="width:210px;"><label for="date_de_validation" style="font-weight:bold">Date de validation</label></td>
 					<td>{date_validation}</td>
