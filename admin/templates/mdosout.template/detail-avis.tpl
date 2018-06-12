@@ -30,7 +30,6 @@
 	<style>
 	.formulaire_avis label {
 		display: inline;
-		float: left;
 		width: 210px;
 	}
 	</style>
@@ -39,18 +38,18 @@
 			<h3>Votre avis validé sur le risque estimé</h3>
 			<h4>Avis n°{id_avis}</h4>
 			{nom_et_structure}
-			<table>
+			<table cellpadding="2">
 				<tr>
-					<td><label for="date_de_validation" style="font-weight:bold">Date de validation</label></td>
-					<td><p>{date_validation}</p></td>
+					<td style="width:210px;"><label for="date_de_validation" style="font-weight:bold">Date de validation</label></td>
+					<td>{date_validation}</td>
 				</tr>
 				<tr>
 					<td><label for="pression_cause_du_risque" style="font-weight:bold">Pression cause du risque</label></td>
-					<td><p>{pression_cause_du_risque}</p></td>
+					<td>{pression_cause_du_risque}</td>
 				</tr>
 				<tr>
 					<td><label for="impact_estime" style="font-weight:bold">Impact estimé</label></td>
-					<td><p>{impact_estime}</p></td>
+					<td>{impact_estime}</td>
 				</tr>
 			</table>
 		</div>
