@@ -1422,7 +1422,7 @@ class sdage_metier
 						"pression_cause_du_risque"=>$objAvis->pression_cause_du_risque==1?"Oui":"Non",
 						"justification"=>str_replace("\r\n","<br />\r\n",wordwrap($objAvis->commentaires,128,"<br />")),
 						"lien_documents"=>$objAvis->lien_documents,
-						"class_documents"=>$objAvis->lien_documents==""?"":"document",
+						"class_documents"=>trim($objAvis->documents)==""?"":"document",
 						"CMB_PRESSION_CAUSE_DU_RISQUE" => $CMB_PRESSION_CAUSE_DU_RISQUE,
 						"CMB_IMPACT_ESTIME" => $CMB_IMPACT_ESTIME
 					)
