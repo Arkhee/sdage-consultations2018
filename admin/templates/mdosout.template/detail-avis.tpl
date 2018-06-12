@@ -27,6 +27,13 @@
 			</td>
 		</tr>
 	</table>
+	<style>
+	.formulaire_avis label {
+		display: inline;
+		float: left;
+		width: 210px;
+	}
+	</style>
 	<div class="formulaire_avis {avis_valide}" style="width:1000px;">
 		<div class='avis_lecture'>
 			<h3>Votre avis validé sur le risque estimé</h3>
