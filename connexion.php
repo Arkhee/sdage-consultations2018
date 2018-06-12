@@ -19,6 +19,7 @@ require_once($path_pre."config.inc.php");
 $myClasseMetierMDOSout=new sdage_metier($database,$path_pre,__FILE__);
 $myClasseMetierMDOSout->setAuth($auth);
 $myClasseMetierMDOSout->initSection();
+$myClasseMetierMDOSout->bind($_FILES);
 $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
