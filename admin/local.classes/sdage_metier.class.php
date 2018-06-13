@@ -782,6 +782,8 @@ class sdage_metier
 		{
 			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-d-His").".sql";
 			return shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
+			return shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
+			return shell_exec("rm ".$fichierDump);
 		}
 		return false;
 			
