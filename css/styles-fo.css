@@ -281,3 +281,10 @@ span.liendocument
 {
 	    display: inline-block;
 }
+
+span.document
+{
+	    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+}
