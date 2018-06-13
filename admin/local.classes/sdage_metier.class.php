@@ -787,6 +787,7 @@ class sdage_metier
 			shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
 			if(!file_exists($fichierDump.".tgz") || !is_readable($fichierDump.".tgz") || filesize($fichierDump.".tgz")===0) return false;
 			shell_exec("rm ".$fichierDump);
+			shell_exec("echo 'Voir PJ' | mutt -s 'Sauvegarde Base Consultations 2018' -a ".$fichierDump.".tgz -- yannick@alternetic.com");
 		}
 		return $retour;
 			
