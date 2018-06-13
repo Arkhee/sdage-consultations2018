@@ -701,6 +701,7 @@ class sdage_metier
 					{
 						$newobj=$avis->recGetRecord();
 						$newobj->documents=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
+						$newFileName=$newobj->documents; // Sauvegarde du nouveau nom de la PJ dans la variable utilisée pour renvoi au JS
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->documents."\r\n",FILE_APPEND);
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->documents."\r\n",FILE_APPEND);
 						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->documents))
