@@ -778,14 +778,15 @@ class sdage_metier
 	{
 		global $ThePrefs;
 		global $db_user,$db_pass,$db_name,$db_host;
+		$retour=false;
 		if(file_exists($ThePrefs->DumpsFolder) && is_dir($ThePrefs->DumpsFolder) && is_writable($ThePrefs->DumpsFolder))
 		{
 			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-d-His").".sql";
-			return shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
-			return shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
-			return shell_exec("rm ".$fichierDump);
+			$retour = shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
+			if($retour) $retour = shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
+			if($retour) $retour = shell_exec("rm ".$fichierDump);
 		}
-		return false;
+		return $retour;
 			
 	}
 	
