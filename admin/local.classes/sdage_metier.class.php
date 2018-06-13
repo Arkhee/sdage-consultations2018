@@ -782,9 +782,11 @@ class sdage_metier
 		if(file_exists($ThePrefs->DumpsFolder) && is_dir($ThePrefs->DumpsFolder) && is_writable($ThePrefs->DumpsFolder))
 		{
 			$fichierDump=$ThePrefs->DumpsFolder.$db_name."-".date("Y-m-d-His").".sql";
-			$retour = shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
-			if($retour) $retour = shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
-			if($retour) $retour = shell_exec("rm ".$fichierDump);
+			shell_exec("mysqldump -u ".$db_user." -p".$db_pass." ".$db_name." > ".$fichierDump);
+			if(!file_exists($fichierDump) || !is_readable($fichierDump)) return false;
+			shell_exec("tar cvzf ".$fichierDump.".tgz ".$fichierDump);
+			if(!file_exists($fichierDump.".tgz") || !is_readable($fichierDump.".tgz") || filesize($fichierDump.".tgz")===0) return false;
+			shell_exec("rm ".$fichierDump);
 		}
 		return $retour;
 			
