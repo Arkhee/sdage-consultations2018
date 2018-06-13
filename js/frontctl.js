@@ -136,12 +136,12 @@ var frontCtl = {
 	triggerHasPJ:function(avisId,nomPJ)
 	{
 		if($(avisId+" button.boutonSupprimerPJ").length) $(avisId+" button.boutonSupprimerPJ").show();
-		if($(avisId+" span.document .liendocument").length) $(avisId+" span.document .liendocument").show();
-		if($(avisId+" span.document .liendocument a").length)
+		if($(avisId+" span.liendocument").length) $(avisId+" span.liendocument").show();
+		if($(avisId+" span.liendocument a").length)
 		{
-			$(avisId+" span.document .liendocument a").text(nomPJ);
-			var lien=$(avisId+" span.document .liendocument a").attr("href");
-			$(avisId+" span.document .liendocument a").attr("href",lien+nomPJ);
+			$(avisId+" span.liendocument a").text(nomPJ);
+			var lien=$(avisId+" span.liendocument a").attr("href");
+			$(avisId+" span.liendocument a").attr("href",lien+nomPJ);
 		}
 		///$(document).trigger("sauvegardeok",avisId);
 	},

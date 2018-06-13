@@ -276,3 +276,8 @@ span.document button.boutonSupprimerPJ {
     border: none;
     cursor: pointer;
 }
+
+span.liendocument
+{
+	    display: inline-block;
+}
