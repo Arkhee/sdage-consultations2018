@@ -87,7 +87,7 @@ class mdtb_ae_avis extends mdtb_table
 		else
 		{
 			$obj = $liste[0];
-			$obj->lien_documents="<a target='_blank' href='documents/".$obj->documents."'>".str_replace($id_mdo."_".$id_pression."_".$this->_auth->user_ID."-","",$obj->documents)."</a>";
+			$obj->lien_documents="<a target='_blank' data-basehref='documents/' href='documents/".$obj->documents."'>".str_replace($id_mdo."_".$id_pression."_".$this->_auth->user_ID."-","",$obj->documents)."</a>";
 		}
 		
 		return $obj;

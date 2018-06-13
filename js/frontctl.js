@@ -140,7 +140,7 @@ var frontCtl = {
 		if($(avisId+" span.liendocument a").length)
 		{
 			$(avisId+" span.liendocument a").text(nomPJ);
-			var lien=$(avisId+" span.liendocument a").attr("href");
+			var lien=$(avisId+" span.liendocument a").attr("data-basehref");
 			$(avisId+" span.liendocument a").attr("href",lien+nomPJ);
 		}
 		///$(document).trigger("sauvegardeok",avisId);
