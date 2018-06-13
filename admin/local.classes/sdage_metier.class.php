@@ -760,7 +760,7 @@ class sdage_metier
 			}
 			$actionErreurPJ="";
 			if($erreurPJ!=="") $actionErreurPJ="alert('".$erreurPJ."');";
-			$jsHasPJ=($hasPJ?"window.parent.frontCtl.triggerHasPJ('#".$this->params["id_form_avis"]."')":"");
+			$jsHasPJ=($hasPJ?"window.parent.frontCtl.triggerHasPJ('#".$this->params["id_form_avis"]."','".str_replace("'","",$newFileName)."')":"");
 			$this->msg_info.="<script>
 				window.parent.frontCtl.triggerEventsSauvegarde('#".$this->params["id_form_avis"]."');
 				".$action."

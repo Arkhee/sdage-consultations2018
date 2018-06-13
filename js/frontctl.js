@@ -133,9 +133,16 @@ var frontCtl = {
 		$("#field_order").val($(el).attr("data-order"));
 		$("#formRecherche").submit();
 	},
-	triggerHasPJ:function(avisId)
+	triggerHasPJ:function(avisId,nomPJ)
 	{
 		if($(avisId+" button.boutonSupprimerPJ").length) $(avisId+" button.boutonSupprimerPJ").show();
+		if($(avisId+" span.document .liendocument").length) $(avisId+" span.document .liendocument").show();
+		if($(avisId+" span.document .liendocument a").length)
+		{
+			$(avisId+" span.document .liendocument a").text(nomPJ);
+			var lien=$(avisId+" span.document .liendocument a").attr("href");
+			$(avisId+" span.document .liendocument a").attr("href",lien+nomPJ);
+		}
 		///$(document).trigger("sauvegardeok",avisId);
 	},
 	triggerEventsValidation:function(avisId)
@@ -168,7 +175,7 @@ var frontCtl = {
 	triggerEventsPJSupprimee:function(formAvisId)
 	{
 		alert("Pièce jointe supprimée");
-		$(formAvisId+" span.document .liendocument").remove();
+		$(formAvisId+" span.document .liendocument").hide();
 		$(formAvisId+" .boutonSupprimerPJ").hide();
 	},
 	validerAvis:function(event,formAvisId)
