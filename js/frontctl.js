@@ -184,6 +184,7 @@ var frontCtl = {
 		$(formAvisId+" label.sauvegarde").hide();
 		$(formAvisId+" label.validationok").show();
 		$(formAvisId+" input.boutonaction").remove();
+		$(formAvisId+" .boutonSupprimerPJ").remove();
 		$(formAvisId+" input").prop('disabled', true);
 		$(formAvisId+" select").prop('disabled', true);
 		$(formAvisId+" textarea").prop('disabled', true);
