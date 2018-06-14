@@ -700,12 +700,27 @@ class sdage_metier
 					if($fichierTelecharge!="" && $nomDeBaseFichierTelecharge!="")
 					{
 						$newobj=$avis->recGetRecord();
+						if($newobj->documents!="")
+						{
+							$fichierDejaPresent=$ThePrefs->DocumentsFolder.$newobj->documents;
+						}
+						
 						$newobj->documents=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
 						$newFileName=$newobj->documents; // Sauvegarde du nouveau nom de la PJ dans la variable utilisée pour renvoi au JS
+						$fichierDestination=$ThePrefs->DocumentsFolder.$newobj->documents;
+						if(file_exists($ThePrefs->DocumentsFolder.$newobj->documents) 
+								&& is_file($ThePrefs->DocumentsFolder.$newobj->documents) 
+								&& is_writable($ThePrefs->DocumentsFolder.$newobj->documents))
+							{
+								if($fichierDejaPresent!=$fichierDestination)
+								{
+									unlink($fichierDejaPresent);
+								}
+							}
 						
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","nouveau nom : ".$newobj->documents."\r\n",FILE_APPEND);
 						if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename : ".$fichierTelecharge.",".$ThePrefs->DocumentsFolder.$newobj->documents."\r\n",FILE_APPEND);
-						if(rename($fichierTelecharge,$ThePrefs->DocumentsFolder.$newobj->documents))
+						if(rename($fichierTelecharge,$fichierDestination))
 						{
 							if($debug) file_put_contents(__DIR__."/debug-fichier-dl.log","rename OK\r\n",FILE_APPEND);
 							$retourMAJDocument=$avis->recStore($newobj);
