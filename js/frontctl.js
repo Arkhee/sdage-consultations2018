@@ -180,7 +180,7 @@ var frontCtl = {
 	triggerEventsPJSupprimee:function(formAvisId)
 	{
 		alert("Pièce jointe supprimée");
-		$(formAvisId+" span.document .liendocument").hide();
+		$(formAvisId+" span.liendocument").hide();
 		$(formAvisId+" .boutonSupprimerPJ").hide();
 	},
 	validerAvis:function(event,formAvisId)
