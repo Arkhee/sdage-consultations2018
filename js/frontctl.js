@@ -136,7 +136,12 @@ var frontCtl = {
 	triggerHasPJ:function(avisId,nomPJ)
 	{
 		if($(avisId+" button.boutonSupprimerPJ").length) $(avisId+" button.boutonSupprimerPJ").show();
-		if($(avisId+" span.liendocument").length) $(avisId+" span.liendocument").show();
+		if($(avisId+" span.liendocument").length)
+		{
+			$(avisId+" span.liendocument").show();
+			$(avisId+" span.liendocument a").show();
+			
+		}
 		if($(avisId+" span.liendocument a").length)
 		{
 			$(avisId+" span.liendocument a").text(nomPJ);
