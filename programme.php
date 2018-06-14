@@ -37,7 +37,7 @@ $myBaseGestion=new stdClass();
 <link href="/includes/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="/site.css" rel="stylesheet" type="text/css" />
 <script defer src="js/fontawesome-all.min.js"></script>
-<script defer src="js/frontctl.js"></script>
+<script defer src="js/frontctl.js<?php Tools::displayDateTagForFile(__DIR__."/js/frontctl.js"); ?>"></script>
 <link href="/misesenforme.css" rel="stylesheet" type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
 <link href="css/styles-fo.css" rel="stylesheet" type="text/css" />

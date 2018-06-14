@@ -24,7 +24,6 @@ $myClasseMetierMDOSout->bind($_GET);
 $myClasseMetierMDOSout->bind($_POST);
 $myClasseMetierMDOSout->handle();
 //die("Ligne ... ".__LINE__." auth : ".($auth->isLoaded()?"connecte":"deconnecte")."<br />\r\n".print_r($auth,true));
-
 $myBaseGestion=new stdClass();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,7 +39,7 @@ $myBaseGestion=new stdClass();
 <link href="/includes/js/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
 <link href="/site.css" rel="stylesheet" type="text/css" />
 <script defer src="js/fontawesome-all.min.js"></script>
-<script defer src="js/frontctl.js"></script>
+<script defer src="js/frontctl.js<?php Tools::displayDateTagForFile(__DIR__."/js/frontctl.js"); ?>"></script>
 <link href="/misesenforme.css" rel="stylesheet" type="text/css" />
 <!-- InstanceBeginEditable name="head" -->
 <link href="css/styles-fo.css" rel="stylesheet" type="text/css" />

@@ -65,6 +65,18 @@ class Tools
 		}
 	}
 	
+	static public function displayDateTagForFile($file)
+	{
+		echo self::getDateTagForFile($file);
+	}
+	
+	static public function getDateTagForFile($file)
+	{
+		if(!file_exists($file)) return "";
+		return "?r=".md5(filemtime($file));
+		
+	}
+	
 	static public function arrayShift(&$array)
 	{
 		if(!Tools::isArray($array)) return false;
