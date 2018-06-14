@@ -708,11 +708,11 @@ class sdage_metier
 						$newobj->documents=$newobj->id_avis."-".$nomDeBaseFichierTelecharge;
 						$newFileName=$newobj->documents; // Sauvegarde du nouveau nom de la PJ dans la variable utilisée pour renvoi au JS
 						$fichierDestination=$ThePrefs->DocumentsFolder.$newobj->documents;
-						if(file_exists($ThePrefs->DocumentsFolder.$newobj->documents) 
-								&& is_file($ThePrefs->DocumentsFolder.$newobj->documents) 
-								&& is_writable($ThePrefs->DocumentsFolder.$newobj->documents))
+						if(file_exists($fichierDejaPresent) 
+								&& is_file($fichierDejaPresent) 
+								&& is_writable($fichierDejaPresent))
 							{
-								if($fichierDejaPresent!=$fichierDestination)
+								if($fichierDejaPresent!=$fichierTelecharge)
 								{
 									unlink($fichierDejaPresent);
 								}
