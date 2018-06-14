@@ -1232,6 +1232,7 @@ class sdage_metier
 
 	public function handle_CSV()
 	{
+		$isUtf8=false;
 		$nomFichier="liste-avis-valides.csv";
 		$isColl=false;
 		if(!$this->auth->isLoaded()) die("Non authentifié");
@@ -1245,6 +1246,7 @@ class sdage_metier
 			$filtreUser="WHERE a.date_validation!='0000-00-00 00:00:00' AND a.id_avis IS NOT NULL AND edl.id_pression=a.id_pression ";
 			if(isset($this->params["mdo"]) && $this->params["mdo"]=="1")
 			{
+				$isUtf8=true;
 				$nomFichier="liste-masses-deau-et-avis.csv";
 				$filtreUser="";
 			}
@@ -1311,7 +1313,7 @@ class sdage_metier
 		$liste=$this->db->loadObjectList();
 		if(isset($this->params["dbgsql"])  && $this->params["dbgsql"]==1) die("Requete : ".$requete." => ".print_r($liste,true));
 		$format=isset(self::$formats_export[$this->auth->user_Rank])?self::$formats_export[$this->auth->user_Rank]:self::$formats_export["default"];
-		Tools::SendCSV($nomFichier, $liste,true,";",$format,true);
+		Tools::SendCSV($nomFichier, $liste,true,";",$format,$isUtf8);
 		die();
 	}
 	public function handle_PDF($save=false)

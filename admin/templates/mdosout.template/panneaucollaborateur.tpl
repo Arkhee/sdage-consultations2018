@@ -11,8 +11,8 @@
     <li><a href="#tabs-avis">Avis déposés</a></li>
   </ul>
   <div id="tabs-avis">
-	  <p><a href="csv.php">Télécharger tous les avis déposés au format CSV</a></p>
-	  <p><a href="csv.php?mdo=1">Télécharger toutes les masses d'eau ainsi que les avis</a></p>
+	  <p><a href="csv.php">Télécharger tous les avis déposés au format CSV (encodage latin1)</a></p>
+	  <p><a href="csv.php?mdo=1">Télécharger toutes les masses d'eau ainsi que les avis (encodage utf8)</a></p>
   </div>
 </div><br />
 <a href="index.php"><button>Accéder aux données</button></a>
