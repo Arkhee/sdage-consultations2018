@@ -90,6 +90,10 @@ class mdtb_ae_avis extends mdtb_table
 			$obj->lien_documents="<a target='_blank' data-basehref='documents/' href='documents/".$obj->documents."'>".str_replace($id_mdo."_".$id_pression."_".$this->_auth->user_ID."-","",$obj->documents)."</a>";
 		}
 		
+		if($obj->lien_documents==="")
+		{
+			$obj->lien_documents="<a target='_blank' style='display:none' data-basehref='documents/' href='documents/".$obj->documents."'>".$obj->documents."</a>";
+		}
 		return $obj;
 	}
 }
