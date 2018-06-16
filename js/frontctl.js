@@ -162,6 +162,7 @@ var frontCtl = {
 		$(avisId).addClass("sauvegardeok");
 		$(avisId+" label.sauvegarde").hide();
 		$(avisId+" label.sauvegardeok").show();
+		$(avisId+" #documents").val("");
 		var divAvisId=$(avisId).closest("div.formAvis").attr("id");
 		$("a[href='#"+divAvisId+"']").closest("tr.ligneavis").addClass("edition");
 		//$(document).trigger("sauvegardeok",avisId);
@@ -182,6 +183,7 @@ var frontCtl = {
 		alert("Pièce jointe supprimée");
 		$(formAvisId+" span.liendocument").hide();
 		$(formAvisId+" .boutonSupprimerPJ").hide();
+		$(formAvisId+" #documents").val("");
 	},
 	validerAvis:function(event,formAvisId)
 	{
@@ -193,6 +195,7 @@ var frontCtl = {
 		$(formAvisId+" input").prop('disabled', true);
 		$(formAvisId+" select").prop('disabled', true);
 		$(formAvisId+" textarea").prop('disabled', true);
+		$(formAvisId+" #documents").val("");
 		var avisId=$(formAvisId).closest("div.formAvis").attr("id");
 		$("a[href='#"+avisId+"']").closest("tr.ligneavis").addClass("valide");
 		setTimeout(function(){ $.fancybox.close(); },400);
