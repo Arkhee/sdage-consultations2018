@@ -97,3 +97,4 @@ if($ThePrefs->UseAuth)
 }
 
 define("LIB_EXCLUDE_SELECT2",true);
+define("_CLEF_INSCRIPTION_","ergunezricyhighsrdoeih"); // Clef pour inscription

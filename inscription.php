@@ -1,6 +1,6 @@
 <?php
 define("NO_PCB_NEWS",true);
-define("_CLEF_INSCRIPTION_","ergunezricyhighsrdoeih");
+
 require_once(_APP_ROOT_DIR_."includes/init.inc.php"); 
 /*
  * diren_mdosout
