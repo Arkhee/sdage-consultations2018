@@ -1880,6 +1880,7 @@ class sdage_metier
 		$this->prepareForm();
 		$this->template->assign_vars(array("FORM_CONNEXION_PAGE"=>$this->path_pre));
 		$this->template->assign_vars(array("FORM_RETURN_URL"=>"referer"));
+		$this->template->assign_vars(array("LIEN_INSCRIPTION"=>"inscription.php?clef="._CLEF_INSCRIPTION_));
 		//$this->template->assign_vars(array("MESSAGE_MEMO_CONNEXION"=>self::MESSAGE_MEMO_CONNEXION));
 		
 		
