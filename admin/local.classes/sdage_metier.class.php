@@ -2061,7 +2061,7 @@ class sdage_metier
 		$messagePourCommun="<ul><li><b>Nom : </b>".$user->user_Name."</li>\r\n".
 		"<li><b>Prénom :</b>".$user->user_FirstName."</li>\r\n".
 		"<li><b>Email :</b>".$user->user_Mail."</li>\r\n".
-		"<li><b>Type de structure :</b>".$user->user_Structure."<</li>\r\n".
+		"<li><b>Type de structure :</b>".$user->user_Structure."</li>\r\n".
 		"<li><b>Nom de la structure :</b>".$user->user_NomStructure."</li>\r\n".
 		"<li><b>Date inscription :</b>".date("d/m/Y")."</li></ul>";
 		
