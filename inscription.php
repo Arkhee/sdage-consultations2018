@@ -97,7 +97,7 @@ $myBaseGestion=new stdClass();
 		}
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
-        <h1 align="center">Impact des pressions sur les masses d'eau</h1>
+        <h1 align="center">Consultation 2018 - Création de compte</h1>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>

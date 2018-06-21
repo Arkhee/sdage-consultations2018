@@ -96,7 +96,13 @@ $myBaseGestion=new stdClass();
 		}
 		?>
         <!-- InstanceBeginEditable name="contenu" -->
-        <h1 align="center">Liste de vos avis et compte</h1>
+        <h1 align="center">
+			<?php if(!$auth->isLoaded()) { ?>
+			Consultation 2018 - Connexion
+			<?php } else { ?>
+			Liste de vos avis et compte
+			<?php } ?>
+		</h1>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>

@@ -8,6 +8,7 @@
 	<label for='type_structure'>Votre type de structure :</label>{CMB_TYPE_STRUCTURE}<br />
 	<label for='user_nomstructure'>Nom de votre structure :</label><input type='text' name='user_nomstructure' id="user_nomstructure" value="{user_nomstructure}" /><br />
 	<label for='user_email'>Votre EMail :</label><input type='text' name='user_email' id="user_email" value="{user_email}" /><br />
+	<em class="mentionemail">L'email sera utilisé comme identifiant</em><br />
 	<label for='password1'>Mot de passe :</label><input type='password' name='user_password' id="password1" value="" /><br/>
 	<label for='password2'>Répétez le Mot de passe :</label><input type='password' name='user_password2' id="password2" value="" /><br/>
 	<input type="submit" name="inscription" value="Inscription" />
