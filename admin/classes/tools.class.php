@@ -1293,10 +1293,16 @@ class Tools
 					{
 						case "default":
 						default:
-							if(is_string($curarray[$keyval]) && trim($curarray[$keyval])!="") $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							if(is_string($curarray[$keyval]) && trim($curarray[$keyval])!=="")
+							{
+								$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							}
 							break;
 						case "text":
-							$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							if(trim($curarray[$keyval])!=="")
+							{
+								$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							}
 							break;
 						case "date":
 						case "datefr":
@@ -1309,12 +1315,18 @@ class Tools
 							$curarray[$keyval]=intval($curarray[$keyval]);
 							break;
 						case "bool":
-							$curarray[$keyval]=intval($curarray[$keyval]);
-							$curarray[$keyval]=$curarray[$keyval]?"1":"0";
+							if(trim($curarray[$keyval])!=="") // Case vide si pas d'info
+							{
+								$curarray[$keyval]=intval($curarray[$keyval]);
+								$curarray[$keyval]=$curarray[$keyval]?"1":"0";
+							}
 							break;
 						case "ouinon":
-							$curarray[$keyval]=intval($curarray[$keyval]);
-							$curarray[$keyval]=$curarray[$keyval]?"Oui":"Non";
+							if(trim($curarray[$keyval])!=="")
+							{
+								$curarray[$keyval]=intval($curarray[$keyval]);
+								$curarray[$keyval]=$curarray[$keyval]?"Oui":"Non";
+							}
 							break;
 					}
 					
