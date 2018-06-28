@@ -1312,7 +1312,10 @@ class Tools
 							}
 							break;
 						case "int":
-							$curarray[$keyval]=intval($curarray[$keyval]);
+							if(trim($curarray[$keyval])!=="")
+							{
+								$curarray[$keyval]=intval($curarray[$keyval]);
+							}
 							break;
 						case "bool":
 							if(trim($curarray[$keyval])!=="") // Case vide si pas d'info
