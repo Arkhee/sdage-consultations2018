@@ -1301,7 +1301,7 @@ class Tools
 						case "text":
 							if(trim($curarray[$keyval])!=="")
 							{
-								$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+								$curarray[$keyval]='"'.str_replace("\"","\"\"",str_replace("\r\n","\n",$curarray[$keyval])).'"';
 							}
 							break;
 						case "date":
