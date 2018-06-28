@@ -84,8 +84,8 @@
 												<div class="compteurschars"><span class="nbchars">{pressions.justification_length}</span> / 3000</div>
 												<label for="documents">Documents complémentaires (un seul fichier autorisé, formats : pdf ou zip)</label>
 												{pressions.lien_documents}
-												<input type="file" name="documents"> (taille max. 2Mo)
-												<input type="hidden" name="MAX_FILE_SIZE" value="2097152" /> 
+												<input type="file" name="documents"> (taille max. 5Mo)
+												<input type="hidden" name="MAX_FILE_SIZE" value="5097152" /> 
 												<div class="blocValidationFormulaire">
 													<label class="sauvegarde sauvegardeok">Votre avis a bien été sauvegardé</label>
 													<label class="sauvegarde sauvegardeerreur">Une erreur s'est produite à l'enregistrement de votre avis</label>
