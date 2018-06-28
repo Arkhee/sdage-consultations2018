@@ -1293,10 +1293,17 @@ class Tools
 					{
 						case "default":
 						default:
-							if(is_string($curarray[$keyval])) $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							if(is_string($curarray[$keyval]) && trim($curarray[$keyval])!="") $curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
 							break;
 						case "text":
 							$curarray[$keyval]='"'.str_replace("\"","''",str_replace("\r\n","\n",$curarray[$keyval])).'"';
+							break;
+						case "date":
+						case "datefr":
+							if(is_string($curarray[$keyval]) && trim($curarray[$keyval])!="") 
+							{
+								
+							}
 							break;
 						case "int":
 							$curarray[$keyval]=intval($curarray[$keyval]);
