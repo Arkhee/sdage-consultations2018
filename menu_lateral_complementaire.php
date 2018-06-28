@@ -7,7 +7,7 @@
 					  <li class="recherche"><a href="index.php">Recherche de masses d'eau</a></li>
 					  <?php if ($auth->isLoaded()) { ?><li><a href="programme.php">Précisions et consignes</a></li><?php }?>
 					  <li><a href="connexion.php"><?php echo ($auth->isLoaded()?"Votre espace":"Déposer un avis"); ?></a></li>
-					  <li class="recherche"><a href="index.php">Accès cartographique aux données</a></li>
+					  <li class="recherche"><a href="https://eaurmc.lizmap.com/map/index.php/view/map/?repository=eaurmc&project=RNAOE_Actualisation_Etat_des_lieux" target="_blank">Accès cartographique aux données</a></li>
 				</ul>
 			</li>
 		</ul>
