@@ -1299,7 +1299,7 @@ class sdage_metier
 				".($isColl?"edl.impact_valeur_forcee AS valeur_forcee_2016,":"")."
 				edl.rnaoe_2021 AS rnabe_2021,
 				edl.pression_origine_2021 AS pression_origine_risque_2021,
-				edl.impact_2016 AS impact_2019,
+				edl.impact_2019 AS impact_2019,
 				edl.rnaoe_2027 AS rnabe_2027,
 				edl.pression_origine_2027 AS pression_origine_risque_2027,
 				IF(a.id_avis IS NULL,'',a.id_avis) AS code_avis,
