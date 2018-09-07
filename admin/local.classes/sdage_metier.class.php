@@ -1265,6 +1265,11 @@ class sdage_metier
 				$isUtf8=true;
 				$nomFichier="liste-masses-deau-et-avis.csv";
 				$filtreUser="";
+				$joinAvisValides="";
+				if(isset($this->params["valides"]) && $this->params["valides"]=="1")
+				{
+					$joinAvisValides=" AND a.date_validation!='0000-00-00 00:00:00' ";
+				}
 			}
 		}
 		/*
@@ -1317,7 +1322,7 @@ class sdage_metier
 			LEFT JOIN ae_ssbv AS s ON s.code_ssbv=e.code_ssbv
 			LEFT JOIN ae_edl_massesdeau AS edl ON edl.id_massedeau=e.id_massedeau
 			LEFT JOIN ae_pressions AS p ON edl.id_pression=p.id_pression
-			LEFT JOIN ae_avis AS a ON (a.id_massedeau=e.id_massedeau AND a.id_pression=p.id_pression)
+			LEFT JOIN ae_avis AS a ON (a.id_massedeau=e.id_massedeau AND a.id_pression=p.id_pression ".$joinAvisValides.")
 			LEFT JOIN mdtb_users AS u ON a.id_user=u.user_ID
 			".$filtreUser."
 		";
