@@ -103,6 +103,9 @@ $myBaseGestion=new stdClass();
 			Liste de vos avis et compte
 			<?php } ?>
 		</h1>
+		<?php if(sdage_metier::isConsultationTerminee()) { 
+			echo "<h3 style='text-align:center;font-weight:bold; color:red; border:1px dotted #BBB; background-color:#EEE;padding:4px;'>La consultation est terminée<span style='display:none;'>".time()." vs ".strtotime(sdage_metier::DATE_FIN_CONSULTATION)."</span></h3>";
+		} ?>
         <?php if($myClasseMetierMDOSout->msg_error!="") { ?>
 							<div id="error_msg" style="border:1px solid #AA0000;padding:10px; font-size:16px;"><?php echo $myClasseMetierMDOSout->msg_error;?></div><br />
 					<?php } ?>

@@ -100,7 +100,14 @@ class users extends mosDBTable
     	$cr_pass=$pass;
     	if($enc)
     		$cr_pass=md5($pass);
-    	$this->_db->setQuery("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."';");
+		if(class_exists("sdage_metier") && method_exists("sdage_metier","isConsultationTerminee") && sdage_metier::isConsultationTerminee())
+		{
+			$this->_db->setQuery("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."' AND user_Rank!='crea';");
+		}
+		else
+		{
+			$this->_db->setQuery("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."';");
+		}
     	$myReturn=$this->_db->loadObject($this);
 		//die("Connexion avec ".$user." : ".print_r("SELECT * FROM ".$this->_tablename." WHERE user_Login='".addslashes($user)."' AND user_Password='".addslashes($cr_pass)."';",true)." : ".$myReturn->user_Login);
     	return $myReturn;
