@@ -9,6 +9,7 @@ class sdage_metier
 	var $code_me="";
 	var $caracteristriques_me="";
 	var $template=null;
+	const DATE_FIN_CONSULTATION="2018-10-31 10:52:00";
 	const LISTMODE_NORMAL="";
 	const LISTMODE_LIST="list";
 	const LISTMODE_SHORTLIST="shortlist";
@@ -151,6 +152,7 @@ class sdage_metier
 	);
 
 	
+	
     public function __construct(&$database,&$path_pre,$thePage="index.php")
     {
 		if(defined("RECHERCHE_PAGINATION")) self::$pagination=(int)RECHERCHE_PAGINATION;
@@ -165,6 +167,19 @@ class sdage_metier
 		//echo "Objet template : ".Tools::Display($this->template);
     }
 
+	public static function isConsultationTerminee()
+	{
+		$dateFinConsultation=strtotime(date(self::DATE_FIN_CONSULTATION));
+		if(time()>=$dateFinConsultation)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	public function authIsCreateur()
 	{
 		if(!$this->auth->isLoaded()) return false;
