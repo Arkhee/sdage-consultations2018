@@ -9,7 +9,7 @@ class sdage_metier
 	var $code_me="";
 	var $caracteristriques_me="";
 	var $template=null;
-	const DATE_FIN_CONSULTATION="2018-10-31 11:03:00";
+	const DATE_FIN_CONSULTATION="2018-10-31 23:59:59";
 	const LISTMODE_NORMAL="";
 	const LISTMODE_LIST="list";
 	const LISTMODE_SHORTLIST="shortlist";
